@@ -61,7 +61,7 @@
               ("DONE" :foreground "forest green" :weight bold)
               ("WAIT" :foreground "Darkorange1" :weight bold)
 	      ("HOLD" :foreground "Pink2" :weight bold)
-	      ("CANCELLED" :foreground "forest green" :weight bold))))
+	      ("CANCELLED" :foreground "Olivedrab4" :weight bold))))
 
   (setq org-agenda-custom-commands
 	'(("n" todo "NEXT")))
