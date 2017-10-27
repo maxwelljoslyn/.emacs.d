@@ -176,10 +176,11 @@
 (use-package haskell-mode
   :ensure t)
 
-;; this PIECE OF SHIT overwrites C-c C-w which does refile for org
-;; and for some reason it gets loaded into everything, not just text-mode
-;; into the trash it goes ... for now. maybe I need a better binding for refile anyway.
-;; I need better bindings in general especially if I'm stuck on this piece of shit regular keyboard
+;; by default this overwrites C-c C-w which does refile for org and which is crucial
+;; I thought I added to the hook correctly but wc-goal still turns on for every mode, not just text-mode
+;; I could fix wc-goal's use of C-c C-w defaults but I don't know how other than by using a local copy of the code which I don't care to do
+;; there might be another way but I don't know it
+;; into the trash it goes ... for now
 ;; (use-package wc-goal-mode
 ;;   :ensure t
 ;;   :config
