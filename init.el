@@ -278,9 +278,6 @@
 (global-set-key (kbd "C-x C-z") nil)
 ;; start initial frame maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-;;to undo next line:
-;; (setq-default header-line-format nil)
-
 (global-set-key (kbd "M-SPC") 'delete-horizontal-space)
 
 
@@ -325,30 +322,6 @@
                    name (file-name-nondirectory new-name)))))))
 
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
-
-
-;; these bindings are gotten from Sriram Kswamy's emacs config
-;;  expand-region
-;;   :ensure t
-;;   :bind* (("M-m a o" . er/mark-org-code-block)
-;;           ("M-m a f" . er/mark-defun)
-;;           ("M-m a t" . er/mark-LaTeX-math)
-;;           ("M-m a m" . er/mark-python-block)
-;;           ("M-m a j" . er/mark-ruby-block-up)
-;;           ("M-m a q" . er/mark-outside-quotes)
-;;           ("M-m a b" . er/mark-outside-pairs)
-;;           ("M-m a u" . er/mark-url)
-;;           ("M-m a c" . er/mark-comment)
-;;           ("M-m i p" . er/mark-text-paragraph)
-;;           ("M-m i f" . er/mark-defun)
-;;           ("M-m i w" . er/mark-word)
-;;           ("M-m i e" . er/mark-LaTeX-inside-environment)
-;;           ("M-m i u" . er/mark-url)
-;;           ("M-m i c" . er/mark-comment)
-;;           ("M-m i b" . er/mark-inside-pairs)
-;;           ("M-m i q" . er/mark-inside-quotes)
-;;           ("M-m i v" . er/mark-symbol)))
-
 
 (defun mj/latex-macron ()
     (interactive)
