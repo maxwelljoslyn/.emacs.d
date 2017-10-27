@@ -187,11 +187,6 @@
 ;;   (local-set-key)
 ;;   (setq wc-goal-modeline-format "[%tw]"))
 
-;; (defun expand-region-with-neg-prefix-arg ()
-;;   (interactive)
-;;   (let ((current-prefix-arg '(-1)))
-;;     (call-interactively 'er/expand-region)))
-
 (use-package expand-region
   :ensure t
   :bind
