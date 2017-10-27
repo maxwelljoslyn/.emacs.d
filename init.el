@@ -63,6 +63,9 @@
 	      ("HOLD" :foreground "Pink2" :weight bold)
 	      ("CANCELLED" :foreground "forest green" :weight bold))))
 
+  (setq org-agenda-custom-commands
+	'(("n" todo "NEXT")))
+
   (setq org-treat-S-cursor-todo-selection-as-state-change nil))
 
 (use-package color-theme-sanityinc-tomorrow
