@@ -75,6 +75,13 @@
 		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?")
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab")
 		 "* NEXT Add to Anki: %^{Word/phrase} :chinese:"))))
+
+  (setq org-refile-use-outline-path t)
+
+  (setq org-outline-path-complete-in-steps nil)
+
+  (setq org-refile-allow-creating-parent-nodes (quote confirm))
+
   (setq org-treat-S-cursor-todo-selection-as-state-change nil))
 
 (use-package color-theme-sanityinc-tomorrow
