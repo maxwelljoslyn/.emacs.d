@@ -70,6 +70,11 @@
 	    (todo "WAIT")
 	    (todo "NEXT")))))
 
+  (setq org-capture-templates
+	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?")
+		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?")
+		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab")
+		 "* NEXT Add to Anki: %^{Word/phrase} :chinese:"))))
   (setq org-treat-S-cursor-todo-selection-as-state-change nil))
 
 (use-package color-theme-sanityinc-tomorrow
