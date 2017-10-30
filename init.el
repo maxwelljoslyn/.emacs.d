@@ -65,7 +65,10 @@
 	      ("CANCELLED" :foreground "Olivedrab4" :weight bold))))
 
   (setq org-agenda-custom-commands
-	'(("n" todo "NEXT")))
+	'(("d" "daily driver agenda command"
+	   ((agenda "")
+	    (todo "WAIT")
+	    (todo "NEXT")))))
 
   (setq org-treat-S-cursor-todo-selection-as-state-change nil))
 
