@@ -433,11 +433,6 @@
       nil))))
  '(org-agenda-files (quote ("~/Desktop/todo.org")))
  '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
- '(org-capture-templates
-   (quote
-    (("v" "vocabulary item" entry
-      (file "~/Desktop/todo.org")
-      "* TODO Enter Chinese vocab %^{Word/phrase} :chinese:"))))
  '(org-default-notes-file "~/Desktop/todo.org")
  '(org-modules
    (quote
