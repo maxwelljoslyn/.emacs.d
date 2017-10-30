@@ -71,10 +71,10 @@
 	    (todo "NEXT")))))
 
   (setq org-capture-templates
-	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?")
-		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?")
+	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n%U")
+		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n%U")
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab")
-		 "* NEXT Add to Anki: %^{Word/phrase} :chinese:"))))
+		 "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U"))))
 
   (setq org-refile-use-outline-path t)
 
