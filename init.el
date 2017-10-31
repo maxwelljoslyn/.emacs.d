@@ -83,14 +83,16 @@
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab")
 		 "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U"))))
 
+  
+
+  ;; targets include any file which goes into the agenda, up to 3 levels deep
+  (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
   (setq org-refile-use-outline-path t)
-
   (setq org-outline-path-complete-in-steps nil)
-
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
-
   (setq org-treat-S-cursor-todo-selection-as-state-change nil))
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
+
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t)
