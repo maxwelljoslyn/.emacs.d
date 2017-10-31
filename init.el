@@ -41,6 +41,12 @@
   (interactive)
   (find-file "~/Desktop/todo.org"))
 
+;; Exclude DONE state tasks from refile targets
+;; from doc.norang.ca
+(defun bh/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
 (use-package org
   :ensure t
   :config
@@ -83,6 +89,7 @@
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
   (setq org-treat-S-cursor-todo-selection-as-state-change nil))
+  (setq org-refile-target-verify-function 'bh/verify-refile-target)
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t)
