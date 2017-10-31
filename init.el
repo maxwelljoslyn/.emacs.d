@@ -61,6 +61,7 @@
   (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
   (setq org-log-done 'time)
   (setq org-default-notes-file "~/Desktop/todo.org")
+  (setq org-log-into-drawer t)
 
   (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
