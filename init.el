@@ -65,7 +65,7 @@
 
   (setq org-todo-keywords
 	'((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c)")
-	  (sequence "WAIT(w)" "HOLD(h)" "|" "DONE(d)" "CANCELLED(c)")))
+	  (sequence "WAIT(w!)" "HOLD(h)" "|" "DONE(d)" "CANCELLED(c)")))
 
   (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
