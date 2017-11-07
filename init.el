@@ -84,6 +84,8 @@
   (setq org-capture-templates
 	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n%U")
 		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n%U")
+		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n%U")
+		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n%U")
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab")
 		 "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U"))))
 
