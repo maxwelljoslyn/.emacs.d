@@ -56,7 +56,7 @@
 
   (define-key org-mode-map (kbd "C-M-RET") 'org-insert-subheading)
   (define-key org-mode-map (kbd "C-'") nil)
-  (define-key org-mode-map "\M-q" 'toggle-truncate-lines)
+  (define-key org-mode-map (kbd "\M-q") 'toggle-truncate-lines)
   
   (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
   (setq org-log-done 'time)
