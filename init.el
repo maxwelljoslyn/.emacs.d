@@ -99,6 +99,12 @@
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
   (setq org-treat-S-cursor-todo-selection-as-state-change nil))
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
+(use-package swoop
+  :ensure t)
+
+(use-package helm-swoop
+  :ensure t)
+
 
 
 (use-package color-theme-sanityinc-tomorrow
@@ -201,7 +207,7 @@
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-c h o") 'helm-occur)
-(global-set-key (kbd "C-c h s") 'swiper-helm)
+(global-set-key (kbd "C-o") 'helm-swoop)
 (global-set-key (kbd "C-c g") 'helm-do-grep-ag)
 ;; eval an elisp sexp with live results -- improvement on default M-:
 (global-set-key (kbd "M-:") 'helm-eval-expression-with-eldoc)
@@ -273,9 +279,6 @@
 
 
 
-
-(use-package swiper-helm
-  :ensure t)
 
 ;; stuff to try
 ;; http://orgmode.org/worg/org-contrib/org-drill.html
