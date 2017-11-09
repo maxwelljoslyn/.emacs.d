@@ -50,7 +50,7 @@
 (use-package org
   :ensure t
   :config
-  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "<f8>") 'org-agenda)
   (global-set-key (kbd "C-c b") 'find-org-file)
   (global-set-key (kbd "C-c c") 'org-capture)
 
