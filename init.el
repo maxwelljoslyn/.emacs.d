@@ -185,7 +185,7 @@
   (("C-x g" . magit-status)))
 
 ;; Can't get helm to work thru use-package, so I'll just install it the ordinary way
-(unless (package-installed-p 'helm-config)
+(unless (package-installed-p 'helm)
   (package-refresh-contents)
   (package-install 'helm))
 (require 'helm)
