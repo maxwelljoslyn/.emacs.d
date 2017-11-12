@@ -47,6 +47,8 @@
   "Exclude todo keywords with a done state from refile targets"
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
+(global-set-key (kbd "M-q") 'toggle-truncate-lines)
+
 (use-package org
   :ensure t
   :config
@@ -56,7 +58,6 @@
 
   (define-key org-mode-map (kbd "C-M-RET") 'org-insert-subheading)
   (define-key org-mode-map (kbd "C-'") nil)
-  (define-key org-mode-map (kbd "M-q") 'toggle-truncate-lines)
   (define-key org-mode-map (kbd "C-c t") 'org-todo)
   
   (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
