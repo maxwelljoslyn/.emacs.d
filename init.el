@@ -29,8 +29,7 @@
 	     (which-key-mode))
 
 (use-package ess
-  :ensure t
-  )
+  :ensure t)
 
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
