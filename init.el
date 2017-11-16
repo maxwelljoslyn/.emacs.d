@@ -212,6 +212,8 @@
 ;; eval an elisp sexp with live results -- improvement on default M-:
 (global-set-key (kbd "M-:") 'helm-eval-expression-with-eldoc)
 (global-set-key (kbd "C-h a") 'helm-apropos)
+(setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
+(setq helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
 
 (setq delete-by-moving-to-trash t)
 
