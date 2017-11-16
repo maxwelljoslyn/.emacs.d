@@ -97,8 +97,9 @@
   (setq org-refile-use-outline-path t)
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
-  (setq org-treat-S-cursor-todo-selection-as-state-change nil))
-  (setq org-refile-target-verify-function 'bh/verify-refile-target)
+  (setq org-treat-S-cursor-todo-selection-as-state-change nil)
+  (setq org-refile-target-verify-function 'bh/verify-refile-target))
+
 (use-package swoop
   :ensure t)
 
