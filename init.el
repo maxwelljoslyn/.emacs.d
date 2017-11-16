@@ -45,7 +45,7 @@
 ;; from doc.norang.ca
 (defun bh/verify-refile-target ()
   "Exclude todo keywords with a done state from refile targets"
-  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+  (not (member (nth 2 (org-heading-components)) 'org-done-keywords)))
 
 (global-set-key (kbd "M-q") 'toggle-truncate-lines)
 
@@ -59,23 +59,24 @@
   (define-key org-mode-map (kbd "C-M-RET") 'org-insert-subheading)
   (define-key org-mode-map (kbd "C-'") nil)
   (define-key org-mode-map (kbd "C-c t") 'org-todo)
-  
+
   (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
   (setq org-log-done 'time)
   (setq org-default-notes-file "~/Desktop/todo.org")
   (setq org-log-into-drawer t)
+
 
   (setq org-todo-keywords
 	'((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c)")
 	  (sequence "WAIT(w!)" "HOLD(h)" "|" "DONE(d)" "CANCELLED(c)")))
 
   (setq org-todo-keyword-faces
-      (quote (("TODO" :foreground "red" :weight bold)
-              ("NEXT" :foreground "deep sky blue" :weight bold)
-              ("DONE" :foreground "forest green" :weight bold)
-              ("WAIT" :foreground "Darkorange1" :weight bold)
-	      ("HOLD" :foreground "Pink2" :weight bold)
-	      ("CANCELLED" :foreground "Olivedrab4" :weight bold))))
+	(quote (("TODO" :foreground "red" :weight bold)
+		("NEXT" :foreground "deep sky blue" :weight bold)
+		("DONE" :foreground "forest green" :weight bold)
+		("WAIT" :foreground "Darkorange1" :weight bold)
+		("HOLD" :foreground "Pink2" :weight bold)
+		("CANCELLED" :foreground "Olivedrab4" :weight bold))))
 
   (setq org-agenda-custom-commands
 	'(("d" "daily driver agenda command"
@@ -91,7 +92,6 @@
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab")
 		 "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U"))))
 
-  
 
   ;; targets include any file which goes into the agenda, up to 3 levels deep
   (setq org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
