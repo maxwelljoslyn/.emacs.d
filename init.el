@@ -89,6 +89,10 @@
 		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n%U")
 		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n%U")
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U")
+		("m" "Media prefix")
+		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?\n%U")
+		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?\n%U")
+		("mr" "read" entry (file+headline "~/Desktop/todo.org" "media") "* READ %?\n%U"))))
 
 
   ;; targets include any file which goes into the agenda, up to 3 levels deep
@@ -438,7 +442,7 @@
 ;; set default font size to 16
 (set-face-attribute 'default nil :font "Menlo:pixelsize=16:weight=normal:slant=normal:width=normal:spacing=100:scalable=true" )
 
-(setq favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el"))
+(setq favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/habits/transactions.csv" "/Users/maxwelljoslyn/Desktop/projects/habits/finance.r"))
 ;; find favorites unless they're already visited
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
 (let (value) ;make sure list starts empty
