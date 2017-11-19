@@ -218,6 +218,22 @@
 (use-package haskell-mode
   :ensure t)
 
+
+;; original bindings:
+;; tab to tab stop
+;; downcase word
+;; kill-sentence
+(global-set-key (kbd "M-j") 'backward-char)
+(global-set-key (kbd "M-l") 'forward-char)
+(global-set-key (kbd "M-i") 'previous-line)
+(global-set-key (kbd "M-k") 'forward-line)
+
+
+
+
+
+(use-package yasnippet
+  :ensure t)
 ;; by default this overwrites C-c C-w which does refile for org and which is crucial
 ;; I thought I added to the hook correctly but wc-goal still turns on for every mode, not just text-mode
 ;; I could fix wc-goal's use of C-c C-w defaults but I don't know how other than by using a local copy of the code which I don't care to do
@@ -337,10 +353,10 @@
           (kill-buffer))))))
 
 
-(global-set-key (kbd "M-j")
-		(lambda ()
-		  (interactive)
-		  (join-line -1)))
+;; (global-set-key (kbd "M-j")
+;; 		(lambda ()
+;; 		  (interactive)
+;; 		  (join-line -1)))
 		
 
 (defun rename-current-buffer-file ()
