@@ -89,6 +89,7 @@
 		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n%U")
 		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n%U")
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U")
+		("r" "notes" entry (file "~/Desktop/todo.org") "* %?")
 		("m" "Media prefix")
 		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?\n%U")
 		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?\n%U")
