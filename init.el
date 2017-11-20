@@ -89,7 +89,7 @@
 		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n%U")
 		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n%U")
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U")
-		("r" "notes" entry (file "~/Desktop/todo.org") "* %?")
+		("b" "notes" entry (file "~/Desktop/todo.org") "* %?")
 		("m" "Media prefix")
 		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?\n%U")
 		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?\n%U")
@@ -199,7 +199,7 @@
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "M-o") 'helm-mini)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-c h m") 'helm-mark-ring)
+(global-set-key (kbd "C-c h m") 'helm-all-mark-rings)
 (global-set-key (kbd "C-c h w") 'helm-man-woman)
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
