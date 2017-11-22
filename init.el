@@ -229,8 +229,8 @@
 ;; tab to tab stop
 ;; downcase word
 ;; kill-sentence
-(global-set-key (kbd "M-j") 'backward-char)
-(global-set-key (kbd "M-l") 'forward-char)
+(global-set-key (kbd "M-j") 'backward-word)
+(global-set-key (kbd "M-l") 'forward-word)
 (global-set-key (kbd "M-i") 'previous-line)
 (global-set-key (kbd "M-k") 'forward-line)
 
