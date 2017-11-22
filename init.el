@@ -92,6 +92,7 @@
 		("m" "Media prefix")
 		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?")
 		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?")
+		("ml" "listen" entry (file+headline "~/Desktop/todo.org" "media") "* LISTEN %?")
 		("mr" "read" entry (file+headline "~/Desktop/todo.org" "media") "* READ %?"))))
 
 
