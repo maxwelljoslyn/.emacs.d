@@ -90,9 +90,9 @@
 		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n%U")
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U")
 		("m" "Media prefix")
-		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?\n%U")
-		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?\n%U")
-		("mr" "read" entry (file+headline "~/Desktop/todo.org" "media") "* READ %?\n%U"))))
+		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?")
+		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?")
+		("mr" "read" entry (file+headline "~/Desktop/todo.org" "media") "* READ %?"))))
 
 
   ;; targets include any file which goes into the agenda, up to 3 levels deep
