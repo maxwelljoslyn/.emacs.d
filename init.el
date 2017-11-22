@@ -89,6 +89,7 @@
 		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n%U")
 		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n%U")
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U")
+		("b" "notes" entry (file "~/Desktop/todo.org") "* %?")
 		("m" "Media prefix")
 		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?")
 		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?")
@@ -199,7 +200,7 @@
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "M-o") 'helm-mini)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-c h m") 'helm-mark-ring)
+(global-set-key (kbd "C-c h m") 'helm-all-mark-rings)
 (global-set-key (kbd "C-c h w") 'helm-man-woman)
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
@@ -219,6 +220,7 @@
 (global-set-key (kbd "C-h a") 'helm-apropos)
 (setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
 (setq helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
+(setq dirtrack-mode 1)
 
 (setq delete-by-moving-to-trash t)
 
