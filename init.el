@@ -84,10 +84,10 @@
 	    (todo "NEXT")))))
 
   (setq org-capture-templates
-	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n%U")
-		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n%U")
-		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n%U")
-		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n%U")
+	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n")
+		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n")
+		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n")
+		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n")
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U")
 		("b" "notes" entry (file "~/Desktop/todo.org") "* %?")
 		("m" "Media prefix")
