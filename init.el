@@ -84,16 +84,18 @@
 	    (todo "NEXT")))))
 
   (setq org-capture-templates
-	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n%U")
-		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n%U")
-		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n%U")
-		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n%U")
+	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n")
+		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n")
+		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n")
+		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n")
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U")
 		("b" "notes" entry (file "~/Desktop/todo.org") "* %?")
 		("m" "Media prefix")
-		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?\n%U")
-		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?\n%U")
-		("mr" "read" entry (file+headline "~/Desktop/todo.org" "media") "* READ %?\n%U"))))
+		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?")
+		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?")
+		("ml" "listen" entry (file+headline "~/Desktop/todo.org" "media") "* LISTEN %?")
+		("mr" "read" entry (file+headline "~/Desktop/todo.org" "media") "* READ %?")
+		("ma" "already watched/read/etc." entry (file+olp "~/Desktop/todo.org" "media" "already done") "* DONE %?\n%U"))))
 
 
   ;; targets include any file which goes into the agenda, up to 3 levels deep
@@ -236,11 +238,12 @@
 ;; tab to tab stop
 ;; downcase word
 ;; kill-sentence
-(global-set-key (kbd "M-j") 'backward-char)
-(global-set-key (kbd "M-l") 'forward-char)
+(global-set-key (kbd "M-j") 'backward-word)
+(global-set-key (kbd "M-l") 'forward-word)
 (global-set-key (kbd "M-i") 'previous-line)
 (global-set-key (kbd "M-k") 'forward-line)
-
+(define-key helm-map (kbd "M-i") 'helm-previous-line)
+(define-key helm-map (kbd "M-k") 'helm-next-line)
 
 
 
