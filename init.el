@@ -219,6 +219,11 @@
 (global-set-key (kbd "C-h a") 'helm-apropos)
 (setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
 (setq helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
+(setq helm-M-x-fuzzy-match t
+      helm-buffers-fuzzy-matching t
+      helm-mode-fuzzy-match t
+      helm-apropos-fuzzy-match t
+      helm-completion-in-region-fuzzy-match t)
 (setq dirtrack-mode 1)
 
 (setq delete-by-moving-to-trash t)
