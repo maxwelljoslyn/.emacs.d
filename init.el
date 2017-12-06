@@ -120,8 +120,6 @@
   :ensure t)
 (load-theme 'sanityinc-tomorrow-night t)
 
-(setq tramp-default-method 'scp)
-
 (use-package avy
   :ensure t
   :config
