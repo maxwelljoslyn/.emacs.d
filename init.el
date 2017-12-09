@@ -58,6 +58,7 @@
   (define-key org-mode-map (kbd "C-M-RET") 'org-insert-subheading)
   (define-key org-mode-map (kbd "C-'") nil)
   (define-key org-mode-map (kbd "C-c t") 'org-todo)
+  (define-key org-mode-map (kbd "C-c C-.") 'org-time-stamp-inactive)
 
   (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
   (setq org-log-done 'time)
@@ -104,7 +105,8 @@
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
   (setq org-treat-S-cursor-todo-selection-as-state-change nil)
-  (setq org-refile-target-verify-function 'bh/verify-refile-target))
+  (setq org-refile-target-verify-function 'bh/verify-refile-target)
+  (setq org-export-initial-scope 'subtree))
 
 (use-package swoop
   :ensure t)
@@ -221,6 +223,11 @@
 (global-set-key (kbd "C-h a") 'helm-apropos)
 (setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
 (setq helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
+(setq helm-M-x-fuzzy-match t
+      helm-buffers-fuzzy-matching t
+      helm-mode-fuzzy-match t
+      helm-apropos-fuzzy-match t
+      helm-completion-in-region-fuzzy-match t)
 (setq dirtrack-mode 1)
 
 (setq delete-by-moving-to-trash t)
@@ -236,7 +243,7 @@
 (global-set-key (kbd "M-j") 'backward-word)
 (global-set-key (kbd "M-l") 'forward-word)
 (global-set-key (kbd "M-i") 'previous-line)
-(global-set-key (kbd "M-k") 'forward-line)
+(global-set-key (kbd "M-k") 'next-line)
 (define-key helm-map (kbd "M-i") 'helm-previous-line)
 (define-key helm-map (kbd "M-k") 'helm-next-line)
 
