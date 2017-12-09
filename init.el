@@ -95,7 +95,7 @@
 		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?")
 		("ml" "listen" entry (file+headline "~/Desktop/todo.org" "media") "* LISTEN %?")
 		("mr" "read" entry (file+headline "~/Desktop/todo.org" "media") "* READ %?")
-		("ma" "already watched/read/etc." entry (file+olp "~/Desktop/todo.org" "media" "already done") "* DONE %?\n%U"))))
+		("ma" "already watched/read/etc." entry (file+olp "~/Desktop/todo.org" "media" "already done") "* DONE %?\n"))))
 
 
   ;; targets include any file which goes into the agenda, up to 3 levels deep
