@@ -114,7 +114,27 @@
 (use-package helm-swoop
   :ensure t)
 
-
+(defun mj/digitization-tasks (arg)
+  "Create 'org-mode' digitization tasks for video ARG."
+  (interactive "sVideotape ID code:")
+  (save-excursion
+    (end-of-buffer)
+    (org-insert-heading)
+    (insert (concat "begin digitizing " arg))
+    (org-todo "NEXT")
+    (org-set-tags-to ":avala:")
+    (org-insert-heading)
+    (insert (concat "clean up digitization of " arg))
+    (org-todo "NEXT")
+    (org-set-tags-to ":avala:")
+    (org-insert-heading)
+    (insert (concat "begin exporting " arg))
+    (org-todo "NEXT")
+    (org-set-tags-to ":avala:")
+    (org-insert-heading)
+    (insert (concat "upload " arg " to server"))
+    (org-todo "NEXT")
+    (org-set-tags-to ":avala:")))
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t)
