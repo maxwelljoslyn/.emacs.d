@@ -118,6 +118,7 @@
   "Create 'org-mode' digitization tasks for video ARG."
   (interactive "sVideotape ID code:")
   (save-excursion
+    (set-buffer "todo.org")
     (end-of-buffer)
     (org-insert-heading)
     (insert (concat "begin digitizing " arg))
