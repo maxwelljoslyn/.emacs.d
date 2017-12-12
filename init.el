@@ -115,7 +115,27 @@
 (use-package helm-swoop
   :ensure t)
 
-
+(defun mj/digitization-tasks (arg)
+  "Create 'org-mode' digitization tasks for video ARG."
+  (interactive "sVideotape ID code:")
+  (save-excursion
+    (end-of-buffer)
+    (org-insert-heading)
+    (insert (concat "begin digitizing " arg))
+    (org-todo "NEXT")
+    (org-set-tags-to ":avala:")
+    (org-insert-heading)
+    (insert (concat "clean up digitization of " arg))
+    (org-todo "NEXT")
+    (org-set-tags-to ":avala:")
+    (org-insert-heading)
+    (insert (concat "begin exporting " arg))
+    (org-todo "NEXT")
+    (org-set-tags-to ":avala:")
+    (org-insert-heading)
+    (insert (concat "upload " arg " to server"))
+    (org-todo "NEXT")
+    (org-set-tags-to ":avala:")))
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t)
@@ -457,10 +477,11 @@
 ;; set default font size to 16
 (set-face-attribute 'default nil :font "Menlo:pixelsize=16:weight=normal:slant=normal:width=normal:spacing=100:scalable=true" )
 
-(setq favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/habits/transactions.csv" "/Users/maxwelljoslyn/Desktop/projects/habits/finance.r"))
+
 ;; find favorites unless they're already visited
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
-(let (value) ;make sure list starts empty
+(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/habits/transactions.csv" "/Users/maxwelljoslyn/Desktop/projects/habits/finance.r"))
+      value)		;make sure list starts empty
   (dolist (element favorite-files value)
     (unless (get-file-buffer element)
       (find-file element))))
