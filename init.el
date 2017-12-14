@@ -119,6 +119,7 @@
   "Create 'org-mode' digitization tasks for video ARG."
   (interactive "sVideotape ID code:")
   (save-excursion
+    (set-buffer "todo.org")
     (end-of-buffer)
     (org-insert-heading)
     (insert (concat "begin digitizing " arg))
@@ -500,6 +501,7 @@
    (quote
     ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(font-latex-fontify-sectioning 1.0)
+ '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
  '(org-agenda-custom-commands
    (quote
     (("n" "Agenda and all TODOs"
