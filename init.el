@@ -377,8 +377,7 @@
 (global-set-key (kbd "M-SPC") 'delete-horizontal-space)
 
 
-
-
+(global-set-key (kbd "C-x C-c") nil)
 
 (defun delete-file-and-buffer ()
   "Kill the current buffer and deletes the file it is visiting."
