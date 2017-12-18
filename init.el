@@ -107,7 +107,10 @@
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
   (setq org-treat-S-cursor-todo-selection-as-state-change nil)
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
-  (setq org-export-initial-scope 'subtree))
+  (setq org-export-initial-scope 'subtree)
+  (setq org-catch-invisible-edits 'show-and-error))
+
+
 
 (use-package swoop
   :ensure t)
