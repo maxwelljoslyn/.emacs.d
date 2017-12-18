@@ -202,7 +202,10 @@
   :config
   (global-undo-tree-mode)
   (global-set-key (kbd "C-/") nil)
-  (global-set-key (kbd "C-?") nil))
+  (global-set-key (kbd "C-?") nil)
+  (setq undo-tree-auto-save-history t)
+  (let ((undo-tree-dir (expand-file-name "~/.emacs.d/undo-tree/")))
+    (setq undo-tree-history-directory-alist (list (cons "." undo-tree-dir)))))
 
 (use-package markdown-mode
   :ensure t
