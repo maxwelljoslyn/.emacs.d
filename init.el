@@ -107,7 +107,10 @@
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
   (setq org-treat-S-cursor-todo-selection-as-state-change nil)
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
-  (setq org-export-initial-scope 'subtree))
+  (setq org-export-initial-scope 'subtree)
+  (setq org-catch-invisible-edits 'show-and-error))
+
+
 
 (use-package swoop
   :ensure t)
@@ -202,7 +205,10 @@
   :config
   (global-undo-tree-mode)
   (global-set-key (kbd "C-/") nil)
-  (global-set-key (kbd "C-?") nil))
+  (global-set-key (kbd "C-?") nil)
+  (setq undo-tree-auto-save-history t)
+  (let ((undo-tree-dir (expand-file-name "~/.emacs.d/undo-tree/")))
+    (setq undo-tree-history-directory-alist (list (cons "." undo-tree-dir)))))
 
 (use-package markdown-mode
   :ensure t
@@ -377,8 +383,7 @@
 (global-set-key (kbd "M-SPC") 'delete-horizontal-space)
 
 
-
-
+(global-set-key (kbd "C-x C-c") nil)
 
 (defun delete-file-and-buffer ()
   "Kill the current buffer and deletes the file it is visiting."
