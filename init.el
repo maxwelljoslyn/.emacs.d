@@ -156,6 +156,14 @@
     (org-todo "NEXT")
     (org-set-tags-to ":avala:")))
 
+
+(defun mj/replace-Xs (arg)
+  "Replace Xs with ARG."
+  (interactive "sReplace Xs with:")
+  (mark-paragraph)
+  (vr/replace "X" arg (point) (mark))
+  (next-line 2))
+
 (use-package color-theme-sanityinc-tomorrow
   :ensure t)
 (load-theme 'sanityinc-tomorrow-night t)
