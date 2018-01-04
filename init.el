@@ -206,11 +206,11 @@
 
 (use-package corral
   :ensure t
-  :bind
-  (("M-9" . 'corral-parentheses-backward)
-   ("M-0" . 'corral-parentheses-forward)
-   ("M-[" . 'corral-brackets-backward)
-   ("M-]" . 'corral-brackets-forward)))
+  :config
+  (global-set-key (kbd "M-9") 'corral-parentheses-backward)
+  (global-set-key (kbd "M-0") 'corral-parentheses-forward)
+  (global-set-key (kbd "M-[") 'corral-brackets-backward)
+  (global-set-key (kbd "M-]") 'corral-brackets-forward))
 
 (use-package undo-tree
   :ensure t
