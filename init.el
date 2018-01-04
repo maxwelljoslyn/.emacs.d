@@ -31,6 +31,19 @@
 (use-package ess
   :ensure t)
 
+(defun mj/org-save-and-commit ()
+  (interactive)
+  (progn
+    (save-buffer)
+    (shell-command (expand-file-name "~/Desktop/commit_todo.sh"))))
+
+(setq mj/todo-org-local-buffer-mode-map (make-sparse-keymap))
+
+(define-minor-mode mj/todo-org-local-buffer-mode
+    "Minor mode to simulate buffer local keybindings."
+    :init-value nil)
+(define-key mj/todo-org-local-buffer-mode-map (kbd "C-x C-s") 'mj/org-save-and-commit)
+
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)   ; turn off logging
