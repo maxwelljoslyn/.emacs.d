@@ -317,9 +317,9 @@
   (("C-c r" . vr/replace)
    ("C-c M-r" . vr/query-replace)))
 
-(use-package flycheck
-  :ensure t)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;; (use-package flycheck
+;;   :ensure t)
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;;mode-specific-map is the global keymap for the prefix key C-c
 ;;alternatively, use (define-prefix-command 'my-lmao-map), then (global-set-key (kbd "M-o") my-lmao-map)
