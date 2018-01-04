@@ -143,7 +143,8 @@
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t)
-(load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'sanityinc-tomorrow-blue t)
+
 
 (use-package avy
   :ensure t
