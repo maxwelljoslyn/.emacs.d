@@ -116,7 +116,9 @@
   :ensure t)
 
 (use-package helm-swoop
-  :ensure t)
+  :ensure t
+  :config
+  (setq helm-swoop-pre-input-function '(lambda () nil)))
 
 (defun mj/digitization-tasks (arg)
   "Create 'org-mode' digitization tasks for video ARG."
@@ -331,6 +333,7 @@
   :ensure t)
 (define-key mj-mc-map (kbd "e") 'mc/edit-lines)
 (define-key mj-mc-map (kbd "r") 'mc/mark-all-in-region-regexp)
+(define-key mj-mc-map (kbd "n") 'mc/mark-next-like-this)
 
 (use-package define-word
   :ensure t)
