@@ -546,6 +546,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-state ((t (:foreground "royal blue"))))
+ '(custom-variable-tag ((t (:foreground "light green"))))
  '(font-latex-sedate-face ((t (:inherit font-lock-keyword-face))))
  '(font-lock-keyword-face ((t (:foreground "SpringGreen3"))))
  '(highlight ((t (:background "gray25" :inverse-video nil))))
