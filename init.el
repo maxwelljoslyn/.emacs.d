@@ -111,6 +111,7 @@
   (setq org-catch-invisible-edits 'show-and-error))
 
 
+(setq dabbrev-case-fold-search nil)
 
 (use-package swoop
   :ensure t)
