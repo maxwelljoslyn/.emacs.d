@@ -117,9 +117,7 @@
   :ensure t)
 
 (use-package helm-swoop
-  :ensure t
-  :config
-  (setq helm-swoop-pre-input-function '(lambda () nil)))
+  :ensure t)
 
 (defun mj/digitization-tasks (arg)
   "Create 'org-mode' digitization tasks for video ARG."
