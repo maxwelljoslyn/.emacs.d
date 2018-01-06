@@ -146,6 +146,7 @@
   :ensure t)
 (load-theme 'sanityinc-tomorrow-blue t)
 
+(global-set-key (kbd "C-M-o") 'other-window)
 
 (use-package avy
   :ensure t
