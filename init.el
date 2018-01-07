@@ -571,7 +571,7 @@
  '(org-level-6 ((t (:inherit outline-6 :foreground "cyan3"))))
  '(org-scheduled-today ((t (:foreground "plum2"))))
  '(org-warning ((t (:foreground "turquoise3"))))
- '(region ((t (:background "light pink" :inverse-video nil))))
+ '(region ((t (:background "chocolate4" :inverse-video nil))))
  '(variable-pitch ((t nil)))
  '(widget-field ((t (:background "gray100" :foreground "black" :box (:line-width 1 :color "#c5c8c6"))))))
 (put 'upcase-region 'disabled nil)
