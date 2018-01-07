@@ -516,11 +516,24 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
+ '(custom-enabled-themes (quote (##)))
  '(custom-safe-themes
    (quote
     ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(font-latex-fontify-sectioning 1.0)
+ '(helm-M-x-fuzzy-match t)
+ '(helm-apropos-fuzzy-match t)
+ '(helm-buffers-fuzzy-matching t)
+ '(helm-completion-in-region-fuzzy-match t)
+ '(helm-mode-fuzzy-match t)
+ '(ledger-reports
+   (quote
+    (("balance with zeroed accounts" "ledger -f finance.ledger bal --empty")
+     ("bal with empty" "ledger -f finance.ledger bal --empty")
+     ("bal" "%(binary) -f %(ledger-file) bal")
+     ("reg" "%(binary) -f %(ledger-file) reg")
+     ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+     ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
  '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
  '(org-agenda-custom-commands
    (quote
