@@ -145,8 +145,9 @@
     (org-set-tags-to ":avala:")))
 
 (use-package color-theme-sanityinc-tomorrow
-  :ensure t)
-(load-theme 'sanityinc-tomorrow-blue t)
+  :ensure t
+  :config
+  (load-theme 'sanityinc-tomorrow-blue t))
 
 (global-set-key (kbd "C-M-o") 'other-window)
 
