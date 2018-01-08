@@ -112,7 +112,6 @@
   (setq org-agenda-files (cons "~/Desktop/todo.org" ())))
 
 
-
 (use-package swoop
   :ensure t)
 
@@ -514,46 +513,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
- '(custom-safe-themes
-   (quote
-    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
- '(font-latex-fontify-sectioning 1.0)
- '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
- '(org-agenda-custom-commands
-   (quote
-    (("n" "Agenda and all TODOs"
-      ((agenda "" nil)
-       (alltodo "" nil))
-      nil))))
- '(org-agenda-files (quote ("~/Desktop/todo.org")))
- '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
- '(org-default-notes-file "~/Desktop/todo.org")
- '(org-modules
-   (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m)))
- '(org-refile-allow-creating-parent-nodes (quote confirm))
- '(org-src-ask-before-returning-to-edit-buffer nil)
- '(package-selected-packages
-   (quote
-    (dired-subtree wc-goal-mode rainbow-delimiters flycheck visual-regexp-steroids company slime ess magit keyfreq racket-mode racket ox-reveal org-plus-contrib swiper-helm swiper ivy undo-tree epresent paredit cider clojure-mode multiple-cursors visual-regexp expand-region helm-mode markdown-mode ace-pinyin exec-path-from-shell web-mode iedit avy helm-config helm color-theme-sanityinc-tomorrow which-key try)))
- '(python-shell-interpreter "python3")
- '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
- '(wc-goal-modeline-format "[%tw]")
- '(which-function-mode t))
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-latex-sedate-face ((t (:inherit font-lock-keyword-face))))
- '(font-lock-keyword-face ((t (:foreground "SpringGreen3"))))
- '(highlight ((t (:background "gray25" :inverse-video nil))))
- '(magit-diff-hunk-region ((t (:inherit bold :weight bold))))
- '(org-level-6 ((t (:inherit outline-6 :foreground "cyan3"))))
- '(org-scheduled-today ((t (:foreground "plum2"))))
- '(org-warning ((t (:foreground "turquoise3"))))
- '(variable-pitch ((t nil))))
+ )
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
