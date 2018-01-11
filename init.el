@@ -53,7 +53,7 @@
   :config
   (global-set-key (kbd "<f8>") 'org-agenda)
   (global-set-key (kbd "C-c b") 'find-org-file)
-  (global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-8") 'org-capture)
 
   (define-key org-mode-map (kbd "C-M-RET") 'org-insert-subheading)
   (define-key org-mode-map (kbd "C-'") nil)
