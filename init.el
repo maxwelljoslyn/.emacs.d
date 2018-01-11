@@ -109,13 +109,7 @@
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
   (setq org-export-initial-scope 'subtree)
   (setq org-catch-invisible-edits 'show-and-error)
-  (setq org-html-extension ""))
-
-
-
-(load "~/.emacs.d/lisp/mj-abbrev.el")
-(setq dabbrev-case-fold-search nil)
-
+  (setq org-agenda-files (cons "~/Desktop/todo.org" ())))
 
 
 (use-package swoop
@@ -150,11 +144,9 @@
     (org-set-tags-to ":avala:")))
 
 (use-package color-theme-sanityinc-tomorrow
-  :ensure t
-  :config
-  (load-theme 'sanityinc-tomorrow-blue t))
+  :ensure t)
+(load-theme 'sanityinc-tomorrow-blue t)
 
-(global-set-key (kbd "C-M-o") 'other-window)
 
 (use-package avy
   :ensure t
@@ -507,11 +499,9 @@
 
 ;; find favorites unless they're already visited
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
-(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/habits/transactions.csv" "/Users/maxwelljoslyn/Desktop/projects/finance.ledger" "~/Desktop/projects/D&D/master_file.org"))
-      value)		;make sure list starts empty
-  (dolist (element favorite-files value)
-    (unless (get-file-buffer element)
-      (find-file element))))
+
+(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/finance.ledger" "~/Desktop/projects/D&D/master_file.org"))
+
 
 
 (defun mj/insert-date ()
@@ -586,63 +576,12 @@ version 2016-12-18"
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
- '(custom-enabled-themes (quote (##)))
- '(custom-safe-themes
-   (quote
-    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
- '(font-latex-fontify-sectioning 1.0)
- '(helm-M-x-fuzzy-match t)
- '(helm-apropos-fuzzy-match t)
- '(helm-buffers-fuzzy-matching t)
- '(helm-completion-in-region-fuzzy-match t)
- '(helm-mode-fuzzy-match t)
- '(ledger-reports
-   (quote
-    (("balance with zeroed accounts" "ledger -f finance.ledger bal --empty")
-     ("bal with empty" "ledger -f finance.ledger bal --empty")
-     ("bal" "%(binary) -f %(ledger-file) bal")
-     ("reg" "%(binary) -f %(ledger-file) reg")
-     ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
-     ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
- '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
- '(org-agenda-custom-commands
-   (quote
-    (("n" "Agenda and all TODOs"
-      ((agenda "" nil)
-       (alltodo "" nil))
-      nil))))
- '(org-agenda-files (quote ("~/Desktop/todo.org")))
- '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
- '(org-default-notes-file "~/Desktop/todo.org")
- '(org-modules
-   (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m)))
- '(org-refile-allow-creating-parent-nodes (quote confirm))
- '(org-src-ask-before-returning-to-edit-buffer nil)
- '(package-selected-packages
-   (quote
-    (dired-subtree wc-goal-mode rainbow-delimiters flycheck visual-regexp-steroids company slime ess magit keyfreq racket-mode racket ox-reveal org-plus-contrib swiper-helm swiper ivy undo-tree epresent paredit cider clojure-mode multiple-cursors visual-regexp expand-region helm-mode markdown-mode ace-pinyin exec-path-from-shell web-mode iedit avy helm-config helm color-theme-sanityinc-tomorrow which-key try)))
- '(python-shell-interpreter "python3")
- '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
- '(wc-goal-modeline-format "[%tw]")
- '(which-function-mode t))
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-state ((t (:foreground "royal blue"))))
- '(custom-variable-tag ((t (:foreground "light green"))))
- '(font-latex-sedate-face ((t (:inherit font-lock-keyword-face))))
- '(font-lock-keyword-face ((t (:foreground "SpringGreen3"))))
- '(highlight ((t (:background "gray25" :inverse-video nil))))
- '(magit-diff-hunk-region ((t (:inherit bold :weight bold))))
- '(org-level-6 ((t (:inherit outline-6 :foreground "cyan3"))))
- '(org-scheduled-today ((t (:foreground "plum2"))))
- '(org-warning ((t (:foreground "turquoise3"))))
- '(region ((t (:background "chocolate4" :inverse-video nil))))
- '(variable-pitch ((t nil)))
- '(widget-field ((t (:background "gray100" :foreground "black" :box (:line-width 1 :color "#c5c8c6"))))))
+ )
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
