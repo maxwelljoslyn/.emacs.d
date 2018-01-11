@@ -111,7 +111,12 @@
   (setq org-catch-invisible-edits 'show-and-error)
   (setq org-html-extension ""))
 
+
+
+(load "~/.emacs.d/lisp/mj-abbrev.el")
 (setq dabbrev-case-fold-search nil)
+
+
 
 (use-package swoop
   :ensure t)
@@ -509,7 +514,72 @@
       (find-file element))))
 
 
+(defun mj/insert-date ()
+  "Insert the current date and/or time, in this format: yyyy_mm_dd.
+When called with `universal-argument', prompt for a format to use.
+If there's a text selection, delete it before inserting.
 
+Do not use this function in lisp code. Call `format-time-string' directly.
+
+Slightly modified from Xah Lee's original at `http://ergoemacs.org/emacs/elisp_insert-date-time.html'
+version 2016-12-18"
+  (interactive)
+  (when (use-region-p) (delete-region (region-beginning) (region-end)))
+  (let (($style
+         (if current-prefix-arg
+             (string-to-number
+              (substring
+               (completing-read
+                "Style:"
+                '(
+                  "1 → 2016-10-10 Monday"
+                  "2 → 2016-10-10T19:39:47-07:00"
+                  "3 → 2016-10-10 19:39:58-07:00"
+                  "4 → Monday, October 10, 2016"
+                  "5 → Mon, Oct 10, 2016"
+                  "6 → October 10, 2016"
+                  "7 → Oct 10, 2016"
+                  )) 0 1))
+           0
+           )))
+    (insert
+     (cond
+      ((= $style 0)
+       (format-time-string "%Y_%m_%d") ; "2016-10-10"
+       )
+      ((= $style 1)
+       (format-time-string "%Y-%m-%d %A") ; "2016-10-10 Monday"
+       )
+      ((= $style 2)
+       (concat
+        (format-time-string "%Y-%m-%dT%T")
+        (funcall (lambda ($x) (format "%s:%s" (substring $x 0 3) (substring $x 3 5))) (format-time-string "%z")))
+       ;; eg "2016-10-10T19:02:23-07:00"
+       )
+      ((= $style 3)
+       (concat
+        (format-time-string "%Y-%m-%d %T")
+        (funcall (lambda ($x) (format "%s:%s" (substring $x 0 3) (substring $x 3 5))) (format-time-string "%z")))
+       ;; eg "2016-10-10 19:10:09-07:00"
+       )
+      ((= $style 4)
+       (format-time-string "%A, %B %d, %Y")
+       ;; eg "Monday, October 10, 2016"
+       )
+      ((= $style 5)
+       (format-time-string "%a, %b %d, %Y")
+       ;; eg "Mon, Oct 10, 2016"
+       )
+      ((= $style 6)
+       (format-time-string "%B %d, %Y")
+       ;; eg "October 10, 2016"
+       )
+      ((= $style 7)
+       (format-time-string "%b %d, %Y")
+       ;; eg "Oct 10, 2016"
+       )
+      (t
+       (format-time-string "%Y-%m-%d"))))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
