@@ -489,8 +489,7 @@
     (local-set-key (kbd "C-c l") 'haskell-process-load-file))
   )
 
-
-
+(ledger-reports-add "bal, real" "%(binary) -f %(ledger-file) bal --real")
 
 
 ;; set default font size to 16
