@@ -189,7 +189,7 @@ Derived from Norang setup."
   :config
   (global-set-key (kbd "<f8>") 'org-agenda)
   (global-set-key (kbd "C-c b") 'find-org-file)
-  (global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-8") 'org-capture)
 
   (define-key org-mode-map (kbd "C-M-RET") 'org-insert-subheading)
   (define-key org-mode-map (kbd "C-'") nil)
@@ -244,8 +244,8 @@ Derived from Norang setup."
   (setq org-treat-S-cursor-todo-selection-as-state-change nil)
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
   (setq org-export-initial-scope 'subtree)
-  (setq org-catch-invisible-edits 'show-and-error))
-
+  (setq org-catch-invisible-edits 'show-and-error)
+  (setq org-agenda-files (cons "~/Desktop/todo.org" ())))
 
 
 (use-package swoop
@@ -289,12 +289,13 @@ Derived from Norang setup."
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t)
-(load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'sanityinc-tomorrow-blue t)
+
 
 (use-package avy
   :ensure t
   :config
-  (global-set-key (kbd "C-c C-a") 'avy-goto-char-2)
+  ;; (global-set-key (kbd "C-c C-a") 'avy-goto-char-2)
   (global-set-key (kbd "C-c C-s") 'swiper-avy))
 
 (use-package dired-subtree
@@ -345,6 +346,15 @@ Derived from Norang setup."
   (setq inferior-lisp-program "/usr/local/bin/sbcl")
   (setq slime-contribs '(slime-fancy))
   )
+
+
+(use-package corral
+  :ensure t
+  :config
+  (global-set-key (kbd "M-9") 'corral-parentheses-backward)
+  (global-set-key (kbd "M-0") 'corral-parentheses-forward)
+  (global-set-key (kbd "M-[") 'corral-brackets-backward)
+  (global-set-key (kbd "M-]") 'corral-brackets-forward))
 
 (use-package undo-tree
   :ensure t
@@ -421,7 +431,7 @@ Derived from Norang setup."
 (define-key helm-map (kbd "M-i") 'helm-previous-line)
 (define-key helm-map (kbd "M-k") 'helm-next-line)
 
-
+(setq doc-view-continuous t)
 
 
 (use-package yasnippet
@@ -453,9 +463,9 @@ Derived from Norang setup."
   (("C-c r" . vr/replace)
    ("C-c M-r" . vr/query-replace)))
 
-(use-package flycheck
-  :ensure t)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;; (use-package flycheck
+;;   :ensure t)
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;;mode-specific-map is the global keymap for the prefix key C-c
 ;;alternatively, use (define-prefix-command 'my-lmao-map), then (global-set-key (kbd "M-o") my-lmao-map)
@@ -623,8 +633,7 @@ Derived from Norang setup."
     (local-set-key (kbd "C-c l") 'haskell-process-load-file))
   )
 
-
-
+(ledger-reports-add "bal, real" "%(binary) -f %(ledger-file) bal --real")
 
 
 ;; set default font size to 16
@@ -633,60 +642,93 @@ Derived from Norang setup."
 
 ;; find favorites unless they're already visited
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
-(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/habits/transactions.csv" "/Users/maxwelljoslyn/Desktop/projects/habits/finance.r"))
-      value)		;make sure list starts empty
+
+(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/finance.ledger" "~/Desktop/projects/D&D/master_file.org"))
+            value)		;make sure list starts empty
   (dolist (element favorite-files value)
     (unless (get-file-buffer element)
       (find-file element))))
 
 
 
+(defun mj/insert-date ()
+  "Insert the current date and/or time, in this format: yyyy_mm_dd.
+When called with `universal-argument', prompt for a format to use.
+If there's a text selection, delete it before inserting.
+
+Do not use this function in lisp code. Call `format-time-string' directly.
+
+Slightly modified from Xah Lee's original at `http://ergoemacs.org/emacs/elisp_insert-date-time.html'
+version 2016-12-18"
+  (interactive)
+  (when (use-region-p) (delete-region (region-beginning) (region-end)))
+  (let (($style
+         (if current-prefix-arg
+             (string-to-number
+              (substring
+               (completing-read
+                "Style:"
+                '(
+                  "1 → 2016-10-10 Monday"
+                  "2 → 2016-10-10T19:39:47-07:00"
+                  "3 → 2016-10-10 19:39:58-07:00"
+                  "4 → Monday, October 10, 2016"
+                  "5 → Mon, Oct 10, 2016"
+                  "6 → October 10, 2016"
+                  "7 → Oct 10, 2016"
+                  )) 0 1))
+           0
+           )))
+    (insert
+     (cond
+      ((= $style 0)
+       (format-time-string "%Y_%m_%d") ; "2016-10-10"
+       )
+      ((= $style 1)
+       (format-time-string "%Y-%m-%d %A") ; "2016-10-10 Monday"
+       )
+      ((= $style 2)
+       (concat
+        (format-time-string "%Y-%m-%dT%T")
+        (funcall (lambda ($x) (format "%s:%s" (substring $x 0 3) (substring $x 3 5))) (format-time-string "%z")))
+       ;; eg "2016-10-10T19:02:23-07:00"
+       )
+      ((= $style 3)
+       (concat
+        (format-time-string "%Y-%m-%d %T")
+        (funcall (lambda ($x) (format "%s:%s" (substring $x 0 3) (substring $x 3 5))) (format-time-string "%z")))
+       ;; eg "2016-10-10 19:10:09-07:00"
+       )
+      ((= $style 4)
+       (format-time-string "%A, %B %d, %Y")
+       ;; eg "Monday, October 10, 2016"
+       )
+      ((= $style 5)
+       (format-time-string "%a, %b %d, %Y")
+       ;; eg "Mon, Oct 10, 2016"
+       )
+      ((= $style 6)
+       (format-time-string "%B %d, %Y")
+       ;; eg "October 10, 2016"
+       )
+      ((= $style 7)
+       (format-time-string "%b %d, %Y")
+       ;; eg "Oct 10, 2016"
+       )
+      (t
+       (format-time-string "%Y-%m-%d"))))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
- '(custom-safe-themes
-   (quote
-    ("06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
- '(font-latex-fontify-sectioning 1.0)
- '(magit-log-arguments (quote ("--graph" "--color" "--decorate" "-n256")))
- '(org-agenda-custom-commands
-   (quote
-    (("n" "Agenda and all TODOs"
-      ((agenda "" nil)
-       (alltodo "" nil))
-      nil))))
- '(org-agenda-files (quote ("~/Desktop/todo.org")))
- '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
- '(org-default-notes-file "~/Desktop/todo.org")
- '(org-modules
-   (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m)))
- '(org-refile-allow-creating-parent-nodes (quote confirm))
- '(org-src-ask-before-returning-to-edit-buffer nil)
- '(package-selected-packages
-   (quote
-    (dired-subtree wc-goal-mode rainbow-delimiters flycheck visual-regexp-steroids company slime ess magit keyfreq racket-mode racket ox-reveal org-plus-contrib swiper-helm swiper ivy undo-tree epresent paredit cider clojure-mode multiple-cursors visual-regexp expand-region helm-mode markdown-mode ace-pinyin exec-path-from-shell web-mode iedit avy helm-config helm color-theme-sanityinc-tomorrow which-key try)))
- '(python-shell-interpreter "python3")
- '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
- '(wc-goal-modeline-format "[%tw]")
- '(which-function-mode t))
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(font-latex-sedate-face ((t (:inherit font-lock-keyword-face))))
- '(font-lock-keyword-face ((t (:foreground "SpringGreen3"))))
- '(highlight ((t (:background "gray25" :inverse-video nil))))
- '(magit-diff-hunk-region ((t (:inherit bold :weight bold))))
- '(org-level-6 ((t (:inherit outline-6 :foreground "cyan3"))))
- '(org-scheduled-today ((t (:foreground "plum2"))))
- '(org-warning ((t (:foreground "turquoise3"))))
- '(variable-pitch ((t nil))))
+ )
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
