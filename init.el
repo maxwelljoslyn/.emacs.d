@@ -11,6 +11,129 @@
 	     '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
+;; Save the running clock and all clock history when exiting Emacs, load it on startup
+(org-clock-persistence-insinuate)
+(setq org-clock-persist 'history)
+;; Show lot of clocking history
+(setq org-clock-history-length 23)
+;; Resume clocking task on clock-in if the clock is open
+(setq org-clock-in-resume t)
+; Continue clocking into another task upon clock-out of one task
+(setq org-clock-continuously t)
+;; Separate drawers for clocking and logs
+(setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+(setq org-clock-out-when-done t)
+
+;; Include current clocking task in clock reports
+(setq org-clock-report-include-clocking-task t)
+
+(defvar mj/organization-task-id "A3ACA243-6D4A-4CC3-8238-B8FD2FDB6C56")
+(setq org-clock-default-task (org-id-find mj/organization-task-id 'marker))
+
+(defvar mj/lunch-task-id "2FCFBF87-3B65-4C66-8CF4-2A94E5D02920")
+(setq mj-lunch-marker (org-id-find mj/lunch-task-id 'marker))
+
+(defvar mj/break-task-id "B926C6A0-A876-4815-BB47-56366D507A21")
+(setq mj-break-marker (org-id-find mj/break-task-id 'marker))
+
+(defun mj/clock-in-default-task ()
+  (interactive)
+  (save-excursion
+    (org-with-point-at org-clock-default-task
+      (org-clock-in))))
+
+(defun mj/clock-in-lunch ()
+  (interactive)
+  (save-excursion
+    (org-with-point-at (org-id-find "2FCFBF87-3B65-4C66-8CF4-2A94E5D02920" 'marker)
+      (org-clock-in))))
+
+(defun mj/clock-in-organization-task-as-default ()
+  (interactive)
+  (org-with-point-at (org-id-find mj/organization-task-id 'marker)
+    (org-clock-in '(16))))
+
+(setq mj/keep-clock-running nil)
+
+(defun mj/punch-in ()
+  "Start \"continuous clocking\" and clock into Organization, setting it as the default task.
+Derived from Norang setup."
+  (interactive)
+  (setq mj/keep-clock-running t)
+  (mj/clock-in-organization-task-as-default))
+
+(defun mj/punch-out ()
+  (interactive)
+  (setq mj/keep-clock-running nil)
+  (when (org-clock-is-active)
+    (org-clock-out)))
+
+(defun mj/find-project-task ()
+  "Move point to the parent (project) task if any"
+  (save-restriction
+    (widen)
+    (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
+      (while (org-up-heading-safe)
+        (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+          (setq parent-task (point))))
+      (goto-char parent-task)
+      parent-task)))
+
+
+(defun mj/clock-in-parent-task ()
+  "Move point to the parent (project) task if any and clock in"
+  (let ((parent-task))
+    (save-excursion
+      (save-restriction
+        (widen)
+        (while (and (not parent-task) (org-up-heading-safe))
+          (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+            (setq parent-task (point))))
+        (if parent-task
+            (org-with-point-at parent-task
+              (org-clock-in))
+          (when mj/keep-clock-running
+            (mj/clock-in-default-task)))))))
+
+(defun mj/clock-out-maybe ()
+  (when (and mj/keep-clock-running
+             (not org-clock-clocking-in)
+             (marker-buffer org-clock-default-task)
+             (not org-clock-resolving-clocks-due-to-idleness))
+    (mj/clock-in-parent-task)))
+
+(add-hook 'org-clock-out-hook 'mj/clock-out-maybe 'append)
+;; Remove empty LOGBOOK drawers on clock out
+(defun bh/remove-empty-drawer-on-clock-out ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line 0)
+    (org-remove-empty-drawer-at "LOGBOOK" (point))))
+
+(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+
+
+;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
+(setq org-clock-out-remove-zero-time-clocks t)
+
+(defun mj/clock-in-with-prefix ()
+  (interactive)
+  (let ((current-prefix-arg '(4)))
+    (call-interactively 'org-clock-in)))
+
+(global-set-key (kbd "C-9") 'mj/clock-in-with-prefix)
+
+(defun mj/org-clocktable-indent-string (level)
+  (if (= level 1)
+      "╰"
+    (let ((str "╰"))
+      (while (> level 2)
+        (setq level (1- level)
+              str (concat str "─")))
+      (concat str "─> "))))
+
+(advice-add 'org-clocktable-indent-string :override #'mj/org-clocktable-indent-string)
+
 ;; bootstrap use-package
 (unless (package-installed-p 'use-package)
 	(package-refresh-contents)
@@ -93,17 +216,17 @@
 
   (setq org-agenda-custom-commands
 	'(("d" "daily driver agenda command"
-	   ((agenda "")
+	   ((agenda "" ((org-agenda-ndays 1)))
 	    (todo "WAIT")
 	    (todo "NEXT")))))
 
   (setq org-capture-templates
-	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n")
-		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n")
-		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n")
-		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n")
+	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n" :clock-in t :clock-resume t)
+		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n" :clock-in t :clock-resume t)
+		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n" :clock-in t :clock-resume t)
+		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n" :clock-in t :clock-resume t)
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U")
-		("b" "notes" entry (file "~/Desktop/todo.org") "* %?")
+		("b" "notes" entry (file "~/Desktop/todo.org") "* %?" :clock-in t :clock-resume t)
 		("p" "purchase" entry (file "~/Desktop/todo.org") "* NEXT Buy %?")
 		("m" "Media prefix")
 		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?")
