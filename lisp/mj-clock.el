@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 (defun mj/org-clock-in (&optional select start-time)
   "Start the clock on the current item.
 If necessary, clock-out of the currently active clock.
