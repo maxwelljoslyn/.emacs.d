@@ -119,8 +119,9 @@ Derived from Norang setup."
 (defun mj/clock-in-with-prefix ()
   (interactive)
   (let ((current-prefix-arg '(4)))
-    (call-interactively 'org-clock-in)))
+    (call-interactively 'mj/org-clock-in)))
 
+(load "~/.emacs.d/lisp/mj-clock.el")
 (global-set-key (kbd "C-9") 'mj/clock-in-with-prefix)
 
 (defun mj/org-clocktable-indent-string (level)
