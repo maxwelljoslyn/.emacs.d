@@ -124,6 +124,7 @@ Derived from Norang setup."
 (load "~/.emacs.d/lisp/mj-clock.el")
 (global-set-key (kbd "C-9") 'mj/clock-in-with-prefix)
 
+
 (defun mj/org-clocktable-indent-string (level)
   (if (= level 1)
       "╰"

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 (defun mj/org-clock-in (&optional select start-time)
   "Start the clock on the current item.
 If necessary, clock-out of the currently active clock.
@@ -191,6 +192,8 @@ make this the default behavior.)"
 	    (run-hooks 'org-clock-in-hook)))))))
 
 
+=======
+>>>>>>> 6c88f64a59b0eb7056a0d6922a31fe74c3f8cc58
 (defun mj/org-clock-select-task (&optional prompt)
   "Select a task that was recently associated with clocking."
   (interactive)
