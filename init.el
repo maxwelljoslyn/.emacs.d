@@ -116,12 +116,8 @@ Derived from Norang setup."
 ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
 (setq org-clock-out-remove-zero-time-clocks t)
 
-(defun mj/clock-in-with-prefix ()
-  (interactive)
-  (let ((current-prefix-arg '(4)))
-    (call-interactively 'org-clock-in)))
-
-(global-set-key (kbd "C-9") 'mj/clock-in-with-prefix)
+(load "~/.emacs.d/lisp/mj-clock.el")
+(global-set-key (kbd "C-9") 'mj/org-clock-select-task)
 
 (defun mj/org-clocktable-indent-string (level)
   (if (= level 1)
