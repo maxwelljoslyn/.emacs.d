@@ -3,13 +3,27 @@
 
 (require 'package)
 (setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-             '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives
-	     '("org" . "http://orgmode.org/elpa/") t)
+(setq package-archives
+      '(("MELPA Stable" . "https://stable.melpa.org/packages/")
+	("melpa" . "https://melpa.org/packages/")
+	("gnu" . "https://elpa.gnu.org/packages/")
+	("org" . "https://orgmode.org/elpa/")))
 (package-initialize)
+
+;; to run certifi, you will need to pip install -m certifi beforehand
+;; gnutls will also need to be installed beforehand; brew and most other package managers have it
+(let ((trustfile
+       (replace-regexp-in-string
+        "\\\\" "/"
+        (replace-regexp-in-string
+         "\n" ""
+         (shell-command-to-string "python3 -m certifi")))))
+  (setq tls-program
+        (list
+         (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+                 (if (eq window-system 'w32) ".exe" "") trustfile)))
+  (setq gnutls-verify-error t)
+  (setq gnutls-trustfiles (list trustfile)))
 
 ;; Save the running clock and all clock history when exiting Emacs, load it on startup
 (org-clock-persistence-insinuate)
