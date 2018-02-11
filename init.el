@@ -155,10 +155,7 @@
 
 
 (use-package avy
-  :ensure t
-  :config
-  ;; (global-set-key (kbd "C-c C-a") 'avy-goto-char-2)
-  (global-set-key (kbd "C-c C-s") 'swiper-avy))
+  :ensure t)
 
 (use-package dired-subtree
   :ensure t
