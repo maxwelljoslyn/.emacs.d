@@ -18,6 +18,8 @@
 
 ;; (add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode))
 
+(setq-default abbrev-mode t)
+
 (require 'em-smart)
 (setq eshell-where-to-jump 'begin)
 (setq eshell-review-quick-commands nil)
