@@ -498,7 +498,12 @@
     (unless (get-file-buffer element)
       (find-file element))))
 
-
+(defun mj/fdate ()
+  "Insert current date in the format yyyy/mm/dd.
+This is the format Ledger requires."
+  (interactive)
+  (insert
+   (format-time-string "%Y/%m/%d")))
 
 (defun mj/insert-date ()
   "Insert the current date and/or time, in this format: yyyy_mm_dd.
