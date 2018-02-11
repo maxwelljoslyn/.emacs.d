@@ -109,7 +109,13 @@
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
   (setq org-export-initial-scope 'subtree)
   (setq org-catch-invisible-edits 'show-and-error)
-  (setq org-agenda-files (cons "~/Desktop/todo.org" ())))
+  (setq org-agenda-files (cons "~/Desktop/todo.org" ()))
+  (setq org-export-with-smart-quotes nil
+	org-export-with-emphasize t
+	org-export-with-sub-superscripts '{}
+	org-export-with-footnotes t
+	org-export-with-toc t
+	org-export-headline-levels 2))
 
 
 (use-package swoop
