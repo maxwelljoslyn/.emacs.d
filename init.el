@@ -295,17 +295,7 @@
 
 (use-package yasnippet
   :ensure t)
-;; by default this overwrites C-c C-w which does refile for org and which is crucial
-;; I thought I added to the hook correctly but wc-goal still turns on for every mode, not just text-mode
-;; I could fix wc-goal's use of C-c C-w defaults but I don't know how other than by using a local copy of the code which I don't care to do
-;; there might be another way but I don't know it
-;; into the trash it goes ... for now
-;; (use-package wc-goal-mode
-;;   :ensure t
-;;   :config
-;;   (add-hook 'text-mode-hook #'wc-goal-mode)
-;;   (local-set-key)
-;;   (setq wc-goal-modeline-format "[%tw]"))
+
 
 (use-package expand-region
   :ensure t
