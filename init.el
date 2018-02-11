@@ -3,13 +3,152 @@
 
 (require 'package)
 (setq package-enable-at-startup nil)
-(add-to-list 'package-archives
-             '("MELPA Stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives
-	     '("org" . "http://orgmode.org/elpa/") t)
+(setq package-archives
+      '(("MELPA Stable" . "https://stable.melpa.org/packages/")
+	("melpa" . "https://melpa.org/packages/")
+	("gnu" . "https://elpa.gnu.org/packages/")
+	("org" . "https://orgmode.org/elpa/")))
 (package-initialize)
+
+;; to run certifi, you will need to pip install -m certifi beforehand
+;; gnutls will also need to be installed beforehand; brew and most other package managers have it
+(let ((trustfile
+       (replace-regexp-in-string
+        "\\\\" "/"
+        (replace-regexp-in-string
+         "\n" ""
+         (shell-command-to-string "python3 -m certifi")))))
+  (setq tls-program
+        (list
+         (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
+                 (if (eq window-system 'w32) ".exe" "") trustfile)))
+  (setq gnutls-verify-error t)
+  (setq gnutls-trustfiles (list trustfile)))
+
+;; Save the running clock and all clock history when exiting Emacs, load it on startup
+(org-clock-persistence-insinuate)
+(setq org-clock-persist 'history)
+;; Show lot of clocking history
+(setq org-clock-history-length 23)
+;; Resume clocking task on clock-in if the clock is open
+(setq org-clock-in-resume t)
+; Continue clocking into another task upon clock-out of one task
+(setq org-clock-continuously t)
+;; Separate drawers for clocking and logs
+(setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+(setq org-clock-out-when-done t)
+
+;; Include current clocking task in clock reports
+(setq org-clock-report-include-clocking-task t)
+
+(defvar mj/organization-task-id "A3ACA243-6D4A-4CC3-8238-B8FD2FDB6C56")
+(setq org-clock-default-task (org-id-find mj/organization-task-id 'marker))
+
+(defvar mj/lunch-task-id "2FCFBF87-3B65-4C66-8CF4-2A94E5D02920")
+(setq mj-lunch-marker (org-id-find mj/lunch-task-id 'marker))
+
+(defvar mj/break-task-id "B926C6A0-A876-4815-BB47-56366D507A21")
+(setq mj-break-marker (org-id-find mj/break-task-id 'marker))
+
+(defun mj/clock-in-default-task ()
+  (interactive)
+  (save-excursion
+    (org-with-point-at org-clock-default-task
+      (org-clock-in))))
+
+(defun mj/clock-in-lunch ()
+  (interactive)
+  (save-excursion
+    (org-with-point-at (org-id-find "2FCFBF87-3B65-4C66-8CF4-2A94E5D02920" 'marker)
+      (org-clock-in))))
+
+(defun mj/clock-in-organization-task-as-default ()
+  (interactive)
+  (org-with-point-at (org-id-find mj/organization-task-id 'marker)
+    (org-clock-in '(16))))
+
+(setq mj/keep-clock-running nil)
+
+(defun mj/punch-in ()
+  "Start \"continuous clocking\" and clock into Organization, setting it as the default task.
+Derived from Norang setup."
+  (interactive)
+  (setq mj/keep-clock-running t)
+  (mj/clock-in-organization-task-as-default))
+
+(defun mj/punch-out ()
+  (interactive)
+  (setq mj/keep-clock-running nil)
+  (when (org-clock-is-active)
+    (org-clock-out)))
+
+(defun mj/find-project-task ()
+  "Move point to the parent (project) task if any"
+  (save-restriction
+    (widen)
+    (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
+      (while (org-up-heading-safe)
+        (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+          (setq parent-task (point))))
+      (goto-char parent-task)
+      parent-task)))
+
+
+(defun mj/clock-in-parent-task ()
+  "Move point to the parent (project) task if any and clock in"
+  (let ((parent-task))
+    (save-excursion
+      (save-restriction
+        (widen)
+        (while (and (not parent-task) (org-up-heading-safe))
+          (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+            (setq parent-task (point))))
+        (if parent-task
+            (org-with-point-at parent-task
+              (org-clock-in))
+          (when mj/keep-clock-running
+            (mj/clock-in-default-task)))))))
+
+(defun mj/clock-out-maybe ()
+  (when (and mj/keep-clock-running
+             (not org-clock-clocking-in)
+             (marker-buffer org-clock-default-task)
+             (not org-clock-resolving-clocks-due-to-idleness))
+    (mj/clock-in-parent-task)))
+
+(add-hook 'org-clock-out-hook 'mj/clock-out-maybe 'append)
+;; Remove empty LOGBOOK drawers on clock out
+(defun bh/remove-empty-drawer-on-clock-out ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line 0)
+    (org-remove-empty-drawer-at "LOGBOOK" (point))))
+
+(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+
+
+;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
+(setq org-clock-out-remove-zero-time-clocks t)
+
+(defun mj/clock-in-with-prefix ()
+  (interactive)
+  (let ((current-prefix-arg '(4)))
+    (call-interactively 'mj/org-clock-in)))
+
+(load "~/.emacs.d/lisp/mj-clock.el")
+(global-set-key (kbd "C-9") 'mj/clock-in-with-prefix)
+
+
+(defun mj/org-clocktable-indent-string (level)
+  (if (= level 1)
+      "╰"
+    (let ((str "╰"))
+      (while (> level 2)
+        (setq level (1- level)
+              str (concat str "─")))
+      (concat str "─> "))))
+
+(advice-add 'org-clocktable-indent-string :override #'mj/org-clocktable-indent-string)
 
 ;; bootstrap use-package
 (unless (package-installed-p 'use-package)
@@ -30,8 +169,41 @@
 	     :config
 	     (which-key-mode))
 
+(defun mj/insert-filename (filename &optional args)
+    "Insert path to file FILENAME into buffer after point.
+  
+  Prefixed with \\[universal-argument], expand the file name to
+  its fully canonicalized path.  See `expand-file-name'.
+  
+  Prefixed with \\[negative-argument], use relative path to file
+  name from current directory, `default-directory'.  See
+  `file-relative-name'.
+  
+  The default with no prefix is to insert the file name exactly as
+  it appears in the minibuffer prompt."
+    (interactive "*fInsert file name: \nP")
+    (cond ((eq '- args)
+           (insert (file-relative-name filename)))
+          ((not (null args))
+           (insert (expand-file-name filename)))
+          (t
+           (insert filename))))
+
 (use-package ess
   :ensure t)
+
+(defun mj/org-save-and-commit ()
+  (interactive)
+  (progn
+    (save-buffer)
+    (shell-command (expand-file-name "~/Desktop/commit_todo.sh"))))
+
+(setq mj/todo-org-local-buffer-mode-map (make-sparse-keymap))
+
+(define-minor-mode mj/todo-org-local-buffer-mode
+    "Minor mode to simulate buffer local keybindings."
+    :init-value nil)
+(define-key mj/todo-org-local-buffer-mode-map (kbd "C-x C-s") 'mj/org-save-and-commit)
 
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -82,17 +254,17 @@
 
   (setq org-agenda-custom-commands
 	'(("d" "daily driver agenda command"
-	   ((agenda "")
+	   ((agenda "" ((org-agenda-ndays 1)))
 	    (todo "WAIT")
 	    (todo "NEXT")))))
 
   (setq org-capture-templates
-	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n")
-		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n")
-		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n")
-		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n")
+	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n" :clock-in t :clock-resume t)
+		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n" :clock-in t :clock-resume t)
+		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n" :clock-in t :clock-resume t)
+		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n" :clock-in t :clock-resume t)
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U")
-		("b" "notes" entry (file "~/Desktop/todo.org") "* %?")
+		("b" "notes" entry (file "~/Desktop/todo.org") "* %?" :clock-in t :clock-resume t)
 		("p" "purchase" entry (file "~/Desktop/todo.org") "* NEXT Buy %?")
 		("m" "Media prefix")
 		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?")
@@ -150,6 +322,14 @@
     (insert (concat "upload " arg " to server"))
     (org-todo "NEXT")
     (org-set-tags-to ":avala:")))
+
+
+(defun mj/replace-Xs (arg)
+  "Replace Xs with ARG."
+  (interactive "sReplace Xs with:")
+  (mark-paragraph)
+  (vr/replace "X" arg (point) (mark))
+  (next-line 2))
 
 (use-package color-theme-sanityinc-tomorrow
   :ensure t)
