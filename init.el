@@ -754,6 +754,8 @@ version 2016-12-18"
       (t
        (format-time-string "%Y-%m-%d"))))))
 
+(setq python-shell-interpreter "python3")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
