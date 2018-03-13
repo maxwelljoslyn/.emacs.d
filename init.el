@@ -167,6 +167,8 @@ Derived from Norang setup."
 
 ;; (add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode))
 
+(setq-default abbrev-mode t)
+
 (require 'em-smart)
 (setq eshell-where-to-jump 'begin)
 (setq eshell-review-quick-commands nil)
@@ -291,7 +293,13 @@ Derived from Norang setup."
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
   (setq org-export-initial-scope 'subtree)
   (setq org-catch-invisible-edits 'show-and-error)
-  (setq org-agenda-files (cons "~/Desktop/todo.org" ())))
+  (setq org-agenda-files (cons "~/Desktop/todo.org" ()))
+  (setq org-export-with-smart-quotes nil
+	org-export-with-emphasize t
+	org-export-with-sub-superscripts '{}
+	org-export-with-footnotes t
+	org-export-with-toc t
+	org-export-headline-levels 2))
 
 
 (use-package swoop
@@ -339,10 +347,7 @@ Derived from Norang setup."
 
 
 (use-package avy
-  :ensure t
-  :config
-  ;; (global-set-key (kbd "C-c C-a") 'avy-goto-char-2)
-  (global-set-key (kbd "C-c C-s") 'swiper-avy))
+  :ensure t)
 
 (use-package dired-subtree
   :ensure t
@@ -485,17 +490,7 @@ Derived from Norang setup."
 
 (use-package yasnippet
   :ensure t)
-;; by default this overwrites C-c C-w which does refile for org and which is crucial
-;; I thought I added to the hook correctly but wc-goal still turns on for every mode, not just text-mode
-;; I could fix wc-goal's use of C-c C-w defaults but I don't know how other than by using a local copy of the code which I don't care to do
-;; there might be another way but I don't know it
-;; into the trash it goes ... for now
-;; (use-package wc-goal-mode
-;;   :ensure t
-;;   :config
-;;   (add-hook 'text-mode-hook #'wc-goal-mode)
-;;   (local-set-key)
-;;   (setq wc-goal-modeline-format "[%tw]"))
+
 
 (use-package expand-region
   :ensure t
@@ -692,13 +687,18 @@ Derived from Norang setup."
 ;; find favorites unless they're already visited
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
 
-(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/finance.ledger" "~/Desktop/projects/D&D/master_file.org"))
+(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/finance.ledger" "~/Desktop/projects/D&D/campaign/masterfile.org" "~/Desktop/projects/site/index.org"))
             value)		;make sure list starts empty
   (dolist (element favorite-files value)
     (unless (get-file-buffer element)
       (find-file element))))
 
-
+(defun mj/fdate ()
+  "Insert current date in the format yyyy/mm/dd.
+This is the format Ledger requires."
+  (interactive)
+  (insert
+   (format-time-string "%Y/%m/%d")))
 
 (defun mj/insert-date ()
   "Insert the current date and/or time, in this format: yyyy_mm_dd.
@@ -774,12 +774,12 @@ version 2016-12-18"
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-agenda-files (quote ("~/Desktop/todo.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(dired-marked ((t (:foreground "tan3")))))
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
