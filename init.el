@@ -339,6 +339,9 @@ Derived from Norang setup."
   (define-key dired-mode-map (kbd "i") 'dired-subtree-insert)
   (define-key dired-mode-map (kbd ";") 'dired-subtree-remove))
 
+(use-package dired-filter
+  :ensure t)
+
 (use-package iedit
   :ensure t
   :commands
