@@ -5,6 +5,8 @@
 
 (define-abbrev-table 'Info-edit-mode-abbrev-table '())
 
+(define-abbrev-table 'Man-mode-abbrev-table '())
+
 (define-abbrev-table 'Rd-mode-abbrev-table
   '(
     ("`ag" "\\arguments" nil 0)
@@ -41,11 +43,25 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
+
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-bmenu-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
+
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
+
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
+
+(define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
@@ -79,11 +95,13 @@
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
 
-(define-abbrev-table 'css-mode-abbrev-table '())
+(define-abbrev-table 'csv-mode-abbrev-table '())
 
 (define-abbrev-table 'custom-new-theme-mode-abbrev-table '())
 
 (define-abbrev-table 'custom-theme-choose-mode-abbrev-table '())
+
+(define-abbrev-table 'data-debug-mode-abbrev-table '())
 
 (define-abbrev-table 'debugger-mode-abbrev-table '())
 
@@ -123,14 +141,10 @@
 
 (define-abbrev-table 'gdb-script-mode-abbrev-table '())
 
-(define-abbrev-table 'gfm-mode-abbrev-table '())
-
-(define-abbrev-table 'gfm-view-mode-abbrev-table '())
-
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("fdate" "" mj/fdate 5)
     ("jdate" "" mj/insert-date 6)
-    ("fdate" "" mj/fdate 3)
    ))
 
 (define-abbrev-table 'go-mode-abbrev-table
@@ -148,17 +162,7 @@ func main() {
 
 (define-abbrev-table 'haskell-cabal-mode-abbrev-table '())
 
-(define-abbrev-table 'haskell-compilation-mode-abbrev-table '())
-
-(define-abbrev-table 'haskell-debug-mode-abbrev-table '())
-
-(define-abbrev-table 'haskell-error-mode-abbrev-table '())
-
-(define-abbrev-table 'haskell-interactive-mode-abbrev-table '())
-
 (define-abbrev-table 'haskell-mode-abbrev-table '())
-
-(define-abbrev-table 'haskell-presentation-mode-abbrev-table '())
 
 (define-abbrev-table 'haskell-yesod-parse-routes-mode-abbrev-table '())
 
@@ -172,11 +176,11 @@ func main() {
 
 (define-abbrev-table 'html-mode-abbrev-table '())
 
+(define-abbrev-table 'idl-mode-abbrev-table '())
+
 (define-abbrev-table 'image-dired-display-image-mode-abbrev-table '())
 
 (define-abbrev-table 'image-dired-thumbnail-mode-abbrev-table '())
-
-(define-abbrev-table 'inferior-haskell-mode-abbrev-table '())
 
 (define-abbrev-table 'inferior-julia-mode-abbrev-table '())
 
@@ -185,6 +189,10 @@ func main() {
 (define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
+
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'julia-mode-abbrev-table '())
 
@@ -232,10 +240,6 @@ func main() {
 
 (define-abbrev-table 'magit-status-mode-abbrev-table '())
 
-(define-abbrev-table 'markdown-mode-abbrev-table '())
-
-(define-abbrev-table 'markdown-view-mode-abbrev-table '())
-
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
@@ -245,6 +249,10 @@ func main() {
 (define-abbrev-table 'nrepl-messages-mode-abbrev-table '())
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
+
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -258,7 +266,15 @@ func main() {
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
+(define-abbrev-table 'perl-mode-abbrev-table '())
+
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
+
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
+
+(define-abbrev-table 'profiler-report-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
 
@@ -275,8 +291,6 @@ func main() {
 (define-abbrev-table 'ruby-mode-abbrev-table '())
 
 (define-abbrev-table 'rxt-help-mode-abbrev-table '())
-
-(define-abbrev-table 'scss-mode-abbrev-table '())
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
@@ -314,6 +328,10 @@ func main() {
 
 (define-abbrev-table 'tar-mode-abbrev-table '())
 
+(define-abbrev-table 'term-mode-abbrev-table '())
+
+(define-abbrev-table 'tetris-mode-abbrev-table '())
+
 (define-abbrev-table 'text-mode-abbrev-table '())
 
 (define-abbrev-table 'url-cookie-mode-abbrev-table '())
@@ -323,8 +341,6 @@ func main() {
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
-
-(define-abbrev-table 'web-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
