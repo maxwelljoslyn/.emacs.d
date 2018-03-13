@@ -115,7 +115,7 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("jdate" "" xah-insert-date 0)
+    ("jdate" "" mj/insert-date 6)
    ))
 
 (define-abbrev-table 'go-mode-abbrev-table
