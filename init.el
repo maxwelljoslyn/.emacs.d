@@ -670,8 +670,13 @@ Derived from Norang setup."
     (local-set-key (kbd "C-c l") 'haskell-process-load-file))
   )
 
-(ledger-reports-add "bal, real" "%(binary) -f %(ledger-file) bal --real")
-
+(setq ledger-reports
+   (quote
+    (("bal, real" "%(binary) -f %(ledger-file) bal --real")
+     ("bal" "%(binary) -f %(ledger-file) bal")
+     ("reg" "%(binary) -f %(ledger-file) reg")
+     ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+     ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
 
 ;; set default font size to 16
 (set-face-attribute 'default nil :font "Menlo:pixelsize=16:weight=normal:slant=normal:width=normal:spacing=100:scalable=true" )
