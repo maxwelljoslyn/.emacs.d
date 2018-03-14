@@ -289,7 +289,8 @@ Derived from Norang setup."
 	org-export-with-sub-superscripts '{}
 	org-export-with-footnotes t
 	org-export-with-toc t
-	org-export-headline-levels 2))
+	org-export-headline-levels 2
+	org-use-fast-tag-selection t))
 
 
 (use-package swoop
