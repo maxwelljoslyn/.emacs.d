@@ -56,12 +56,6 @@
     (org-with-point-at org-clock-default-task
       (org-clock-in))))
 
-(defun mj/clock-in-lunch ()
-  (interactive)
-  (save-excursion
-    (org-with-point-at (org-id-find "2FCFBF87-3B65-4C66-8CF4-2A94E5D02920" 'marker)
-      (org-clock-in))))
-
 (defun mj/clock-in-organization-task-as-default ()
   (interactive)
   (org-with-point-at (org-id-find mj/organization-task-id 'marker)
