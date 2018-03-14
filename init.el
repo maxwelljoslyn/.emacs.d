@@ -288,7 +288,8 @@ Derived from Norang setup."
 	org-export-with-sub-superscripts '{}
 	org-export-with-footnotes t
 	org-export-with-toc t
-	org-export-headline-levels 2))
+	org-export-headline-levels 2
+	org-use-fast-tag-selection t))
 
 
 (use-package swoop
@@ -337,6 +338,12 @@ Derived from Norang setup."
 
 (use-package avy
   :ensure t)
+(use-package ace-window
+  :ensure t
+  :bind
+  ("C-6" . ace-window)
+  :config
+  (setq aw-keys '(?d ?f ?j ?k ?g ?h)))
 
 (use-package dired-subtree
   :ensure t
@@ -666,8 +673,13 @@ Derived from Norang setup."
     (local-set-key (kbd "C-c l") 'haskell-process-load-file))
   )
 
-(ledger-reports-add "bal, real" "%(binary) -f %(ledger-file) bal --real")
-
+(setq ledger-reports
+   (quote
+    (("bal, real" "%(binary) -f %(ledger-file) bal --real")
+     ("bal" "%(binary) -f %(ledger-file) bal")
+     ("reg" "%(binary) -f %(ledger-file) reg")
+     ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+     ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
 
 ;; set default font size to 16
 (set-face-attribute 'default nil :font "Menlo:pixelsize=16:weight=normal:slant=normal:width=normal:spacing=100:scalable=true" )
@@ -676,18 +688,20 @@ Derived from Norang setup."
 ;; find favorites unless they're already visited
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
 
-(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/finance.ledger" "~/Desktop/projects/D&D/campaign/masterfile.org" "~/Desktop/projects/site/index.org"))
+(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/finance.ledger" "~/Desktop/projects/D&D/campaign/world_data.org" "~/Desktop/projects/site/index.org"))
             value)		;make sure list starts empty
   (dolist (element favorite-files value)
     (unless (get-file-buffer element)
       (find-file element))))
 
 (defun mj/fdate ()
-  "Insert current date in the format yyyy/mm/dd.
+  "Returns current date in the format yyyy/mm/dd.
 This is the format Ledger requires."
   (interactive)
-  (insert
-   (format-time-string "%Y/%m/%d")))
+  (format-time-string "%Y/%m/%d"))
+
+(defun mj/insert-fdate ()
+  (insert (mj/fdate)))
 
 (defun mj/insert-date ()
   "Insert the current date and/or time, in this format: yyyy_mm_dd.
