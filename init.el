@@ -50,6 +50,17 @@
 (defvar mj/break-task-id "B926C6A0-A876-4815-BB47-56366D507A21")
 (setq mj-break-marker (org-id-find mj/break-task-id 'marker))
 
+(defun mj/remove-erroneous-clock-line ()
+  "Continuous clocking means that when I punch in, the clock created in Organization starts from when I last left work. This command deletes that clock line and starts a new one."
+  (interactive)
+  (save-excursion
+    (org-clock-goto)
+    (next-line)
+    (org-cycle)
+    (next-line)
+    (org-clock-out)
+    (kill-line 2)))
+
 (defun mj/clock-in-default-task ()
   (interactive)
   (save-excursion
@@ -130,12 +141,11 @@ Derived from Norang setup."
 ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
 (setq org-clock-out-remove-zero-time-clocks t)
 
+(load "~/.emacs.d/lisp/mj-clock.el")
 (defun mj/clock-in-with-prefix ()
   (interactive)
   (let ((current-prefix-arg '(4)))
     (call-interactively 'mj/org-clock-in)))
-
-(load "~/.emacs.d/lisp/mj-clock.el")
 (global-set-key (kbd "C-9") 'mj/clock-in-with-prefix)
 
 
@@ -351,6 +361,9 @@ Derived from Norang setup."
   :config
   (define-key dired-mode-map (kbd "i") 'dired-subtree-insert)
   (define-key dired-mode-map (kbd ";") 'dired-subtree-remove))
+
+(use-package dired-filter
+  :ensure t)
 
 (use-package iedit
   :ensure t
@@ -767,6 +780,8 @@ version 2016-12-18"
        )
       (t
        (format-time-string "%Y-%m-%d"))))))
+
+(setq python-shell-interpreter "python3")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
