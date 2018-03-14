@@ -50,17 +50,6 @@
 (defvar mj/break-task-id "B926C6A0-A876-4815-BB47-56366D507A21")
 (setq mj-break-marker (org-id-find mj/break-task-id 'marker))
 
-(defun mj/remove-erroneous-clock-line ()
-  "Continuous clocking means that when I punch in, the clock created in Organization starts from when I last left work. This command deletes that clock line and starts a new one."
-  (interactive)
-  (save-excursion
-    (org-clock-goto)
-    (next-line)
-    (org-cycle)
-    (next-line)
-    (org-clock-out)
-    (kill-line 2)))
-
 (defun mj/clock-in-default-task ()
   (interactive)
   (save-excursion
