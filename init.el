@@ -337,7 +337,7 @@ Derived from Norang setup."
   :bind
   ("C-6" . ace-window)
   :config
-  (setq aw-keys '(?d ?f ?j ?k ?g ?h)))
+  (setq aw-keys '(?d ?f ?s ?e ?g ?h)))
 
 (use-package dired-subtree
   :ensure t
