@@ -242,15 +242,15 @@ make this the default behavior.)"
 	(erase-buffer)
 	(when (marker-buffer org-clock-default-task)
 	  (insert (org-add-props "Default Task\n" nil 'face 'bold))
-	  (setq s (org-clock-insert-selection-line ?d org-clock-default-task))
+	  (setq s (mj/org-clock-insert-selection-line ?d org-clock-default-task))
 	  (push s sel-list))
 	(when (marker-buffer org-clock-interrupted-task)
 	  (insert (org-add-props "The task interrupted by starting the last one\n" nil 'face 'bold))
-	  (setq s (org-clock-insert-selection-line ?i org-clock-interrupted-task))
+	  (setq s (mj/org-clock-insert-selection-line ?i org-clock-interrupted-task))
 	  (push s sel-list))
 	(when (org-clocking-p)
 	  (insert (org-add-props "Current Clocking Task\n" nil 'face 'bold))
-	  (setq s (org-clock-insert-selection-line ?c org-clock-marker))
+	  (setq s (mj/org-clock-insert-selection-line ?c org-clock-marker))
 	  (push s sel-list))
 	;; what I need to make a dedicated lunch clock-in entry:
 	;; mimic the stuff in the (when) clauses above.
@@ -259,16 +259,16 @@ make this the default behavior.)"
 	;; combine all of the above and that ought to do it!
 	(progn
 	  (insert (org-add-props "Favorite Tasks\n" nil 'face 'bold))
-	  (setq s (org-clock-insert-selection-line ?l mj-lunch-marker))
+	  (setq s (mj/org-clock-insert-selection-line ?l mj-lunch-marker))
 	  (push s sel-list)
-	  (setq s (org-clock-insert-selection-line ?b mj-break-marker))
+	  (setq s (mj/org-clock-insert-selection-line ?b mj-break-marker))
 	  (push s sel-list))
 	(insert (org-add-props "Recent Tasks\n" nil 'face 'bold))
 	(mapc
 	 (lambda (m)
 	   (when (marker-buffer m)
 	     (setq i (1+ i)
-		   s (org-clock-insert-selection-line
+		   s (mj/org-clock-insert-selection-line
 		      (if (< i 10)
 			  (+ i ?0)
 			(+ i (- ?A 10))) m))
