@@ -1,3 +1,38 @@
+(use-package s
+  :ensure t)
+
+(require 's)
+
+(defun mj/org-clock-insert-selection-line (i marker)
+  "Insert a line for the clock selection menu.
+And return a cons cell with the selection character integer and the marker
+pointing to it."
+  (when (marker-buffer marker)
+    (let (file cat task heading prefix)
+      (with-current-buffer (org-base-buffer (marker-buffer marker))
+	(save-excursion
+	  (save-restriction
+	    (widen)
+	    (ignore-errors
+	      (goto-char marker)
+	      (setq file (buffer-file-name (marker-buffer marker))
+		    cat (org-get-category)
+		    heading (org-get-heading 'notags)
+		    prefix (save-excursion
+			     (org-back-to-heading t)
+			     (looking-at org-outline-regexp)
+			     (match-string 0))
+		    task (substring
+			  (org-fontify-like-in-org-mode
+			   (concat prefix heading)
+			   org-odd-levels-only)
+			  (length prefix)))))))
+      (when (and cat task)
+	(insert (format "[%c] %-12s  %s\n" i (s-pad-right 12 "." (format cat)) task))
+	; i just want there to be some periods inserted instead of spaces in teh %-12s formatting call
+	(cons i marker)))))
+
+
 (defun mj/org-clock-in (&optional select start-time)
   "Start the clock on the current item.
 If necessary, clock-out of the currently active clock.
