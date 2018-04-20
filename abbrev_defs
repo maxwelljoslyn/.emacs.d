@@ -145,6 +145,8 @@
   '(
     ("fdate" "" mj/fdate 5)
     ("jdate" "" mj/insert-date 6)
+    ("ni" "in" nil 2)
+    ("qusetion" "question" nil 2)
    ))
 
 (define-abbrev-table 'go-mode-abbrev-table
