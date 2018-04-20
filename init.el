@@ -766,6 +766,9 @@ version 2016-12-18"
 
 (setq python-shell-interpreter "python3")
 (show-paren-mode 1)
+(setq org-babel-python-command "python3")
+(setq org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
+(setq magit-dispatch-arguments nil)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
