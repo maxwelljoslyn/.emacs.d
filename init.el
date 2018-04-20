@@ -276,7 +276,7 @@ Derived from Norang setup."
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
   (setq org-export-initial-scope 'subtree)
   (setq org-catch-invisible-edits 'show-and-error)
-  (setq org-agenda-files (cons "~/Desktop/todo.org" ()))
+  (setq org-agenda-files (quote ("~/Desktop/todo.org")))
   (setq org-export-with-smart-quotes nil
 	org-export-with-emphasize t
 	org-export-with-sub-superscripts '{}
@@ -771,7 +771,6 @@ version 2016-12-18"
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/Desktop/todo.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
