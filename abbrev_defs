@@ -152,10 +152,8 @@
     ("predicrtable" "predictable" nil 1)
     ("qusetion" "question" nil 2)
     ("relatd" "related" nil 1)
-    ("relatd " "related" nil 0)
-    ("sematnic " "semantic" nil 0)
+    ("sematnic" "semantic" nil 0)
     ("semnatic" "semantic" nil 1)
-    ("semnatic " "semantic" nil 0)
     ("stoppiong" "stopping" nil 1)
    ))
 
