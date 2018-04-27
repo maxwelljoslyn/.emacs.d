@@ -29,7 +29,6 @@ pointing to it."
 			  (length prefix)))))))
       (when (and cat task)
 	(insert (format "[%c] %-12s  %s\n" i (s-pad-right 12 "." (format cat)) task))
-	; i just want there to be some periods inserted instead of spaces in teh %-12s formatting call
 	(cons i marker)))))
 
 
