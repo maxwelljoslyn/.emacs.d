@@ -512,6 +512,7 @@ Derived from Norang setup."
 (define-key mj-mc-map (kbd "e") 'mc/edit-lines)
 (define-key mj-mc-map (kbd "r") 'mc/mark-all-in-region-regexp)
 (define-key mj-mc-map (kbd "n") 'mc/mark-next-like-this)
+(define-key mj-mc-map (kbd "d") 'mc/mark-all-dwim)
 
 (use-package define-word
   :ensure t)
