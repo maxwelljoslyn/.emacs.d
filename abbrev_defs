@@ -143,10 +143,20 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("candidiate" "candidate" nil 2)
+    ("duratino" "duration" nil 1)
+    ("evne" "even" nil 1)
     ("fdate" "" mj/fdate 5)
     ("jdate" "" mj/insert-date 6)
     ("ni" "in" nil 2)
+    ("predicrtable" "predictable" nil 1)
     ("qusetion" "question" nil 2)
+    ("relatd" "related" nil 1)
+    ("relatd " "related" nil 0)
+    ("sematnic " "semantic" nil 0)
+    ("semnatic" "semantic" nil 1)
+    ("semnatic " "semantic" nil 0)
+    ("stoppiong" "stopping" nil 1)
    ))
 
 (define-abbrev-table 'go-mode-abbrev-table
