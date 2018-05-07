@@ -148,8 +148,6 @@ Derived from Norang setup."
 	(package-refresh-contents)
 	(package-install 'use-package))
 
-;; (add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode))
-
 (setq-default abbrev-mode t)
 
 (require 'em-smart)
