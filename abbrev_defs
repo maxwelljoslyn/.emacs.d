@@ -43,9 +43,7 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
@@ -53,13 +51,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -126,6 +120,10 @@
 (define-abbrev-table 'eshell-mode-abbrev-table '())
 
 (define-abbrev-table 'ess-julia-mode-abbrev-table '())
+
+(define-abbrev-table 'evil-command-window-mode-abbrev-table '())
+
+(define-abbrev-table 'evil-list-view-mode-abbrev-table '())
 
 (define-abbrev-table 'eww-bookmark-mode-abbrev-table '())
 
@@ -200,9 +198,7 @@ func main() {
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'julia-mode-abbrev-table '())
 
@@ -260,9 +256,7 @@ func main() {
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -276,11 +270,11 @@ func main() {
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
+(define-abbrev-table 'pascal-mode-abbrev-table '())
+
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
