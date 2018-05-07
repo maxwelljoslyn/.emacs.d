@@ -781,4 +781,4 @@ version 2016-12-18"
  ;; If there is more than one, they won't work right.
  '(dired-marked ((t (:foreground "tan3")))))
 (put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil))
