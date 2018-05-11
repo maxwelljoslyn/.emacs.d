@@ -295,24 +295,25 @@ Derived from Norang setup."
   (interactive "sVideotape ID code:")
   (save-excursion
     (set-buffer "todo.org")
-    (end-of-buffer)
+    
     (org-insert-heading)
-    (insert (concat "begin digitizing " arg))
+    (insert (concat "tape " arg ": begin digitizing"))
     (org-todo "NEXT")
-    (org-set-tags-to ":avala:")
-    (org-insert-heading)
-    (insert (concat "clean up digitization of " arg))
-    (org-todo "NEXT")
-    (org-set-tags-to ":avala:")
-    (org-insert-heading)
-    (insert (concat "begin exporting " arg))
-    (org-todo "NEXT")
-    (org-set-tags-to ":avala:")
-    (org-insert-heading)
-    (insert (concat "upload " arg " to server"))
-    (org-todo "NEXT")
-    (org-set-tags-to ":avala:")))
 
+    
+    (org-insert-heading)
+    (insert (concat "tape " arg ": clean up digitization"))
+    (org-todo "TODO")
+
+    
+    (org-insert-heading)
+    (insert (concat "tape " arg ": begin exporting"))
+    (org-todo "TODO")
+
+    
+    (org-insert-heading)
+    (insert (concat "tape " arg ": upload to server"))
+    (org-todo "TODO")))
 
 (defun mj/replace-Xs (arg)
   "Replace Xs with ARG."
