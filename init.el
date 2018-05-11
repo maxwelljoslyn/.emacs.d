@@ -228,6 +228,7 @@ Derived from Norang setup."
   (setq org-log-done 'time)
   (setq org-default-notes-file "~/Desktop/todo.org")
   (setq org-log-into-drawer t)
+  ;; (setq org-log-into-drawer t)
 
 
   (setq org-todo-keywords
