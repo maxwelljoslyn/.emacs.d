@@ -322,9 +322,10 @@ Derived from Norang setup."
   (vr/replace "X" arg (point) (mark))
   (next-line 2))
 
-(use-package color-theme-sanityinc-tomorrow
-  :ensure t)
-(load-theme 'sanityinc-tomorrow-blue t)
+(use-package color-theme-sanityinc-tomorrow)
+(load-theme 'sanityinc-tomorrow-night t)
+
+
 
 
 (use-package avy)
