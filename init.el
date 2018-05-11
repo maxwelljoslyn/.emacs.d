@@ -148,6 +148,8 @@ Derived from Norang setup."
 	(package-refresh-contents)
 	(package-install 'use-package))
 
+(setq use-package-always-ensure t)
+
 (setq-default abbrev-mode t)
 
 (require 'em-smart)
@@ -156,7 +158,6 @@ Derived from Norang setup."
 (setq eshell-smart-space-goes-to-end t)
 
 (use-package which-key
-	     :ensure t
 	     :config
 	     (which-key-mode))
 
@@ -180,8 +181,7 @@ Derived from Norang setup."
           (t
            (insert filename))))
 
-(use-package ess
-  :ensure t)
+(use-package ess)
 
 (defun mj/org-save-and-commit ()
   (interactive)
@@ -214,7 +214,6 @@ Derived from Norang setup."
 (global-set-key (kbd "M-q") 'toggle-truncate-lines)
 
 (use-package org
-  :ensure t
   :config
   (global-set-key (kbd "<f8>") 'org-agenda)
   (global-set-key (kbd "C-c b") 'find-org-file)
@@ -284,11 +283,9 @@ Derived from Norang setup."
 	org-use-fast-tag-selection t))
 
 
-(use-package swoop
-  :ensure t)
+(use-package swoop)
 
 (use-package helm-swoop
-  :ensure t
   :config
   (setq helm-swoop-pre-input-function '(lambda () nil)))
 
@@ -328,26 +325,21 @@ Derived from Norang setup."
 (load-theme 'sanityinc-tomorrow-blue t)
 
 
-(use-package avy
-  :ensure t)
+(use-package avy)
 (use-package ace-window
-  :ensure t
   :bind
   ("C-6" . ace-window)
   :config
   (setq aw-keys '(?d ?f ?s ?e ?g ?h)))
 
 (use-package dired-subtree
-  :ensure t
   :config
   (define-key dired-mode-map (kbd "i") 'dired-subtree-insert)
   (define-key dired-mode-map (kbd ";") 'dired-subtree-remove))
 
-(use-package dired-filter
-  :ensure t)
+(use-package dired-filter)
 
 (use-package iedit
-  :ensure t
   :commands
   (iedit-mode)
   :bind
@@ -360,30 +352,25 @@ Derived from Norang setup."
 (global-set-key (kbd "C-5") 'ctl-x-5-prefix)
 
 (use-package company
-  :ensure t
   :config
   (setq company-global-modes '(not text-mode))
   (setq company-idle-delay 0.4)
   (add-hook 'after-init-hook global-company-mode))
 
 (use-package web-mode
-  :ensure t
   :mode ("\\.html$" . web-mode))
 
 ;; brings in my environment and path variables from bash so I call executables such as pdflatex
 (use-package exec-path-from-shell
-  :ensure t
   :config (exec-path-from-shell-initialize))
 
 ;; allows jumping to Chinese characters with avy based on pinyin
 ;; (use-package ace-pinyin
-;;   :ensure t
 ;;   :config
 ;;   (ace-pinyin-mode)
 ;;   (setq ace-pinyin-simplified-chinese-only-p nil))
 
 (use-package slime
-  :ensure t
   :config
   (setq inferior-lisp-program "/usr/local/bin/sbcl")
   (setq slime-contribs '(slime-fancy))
@@ -391,7 +378,6 @@ Derived from Norang setup."
 
 
 (use-package corral
-  :ensure t
   :config
   (global-set-key (kbd "M-9") 'corral-parentheses-backward)
   (global-set-key (kbd "M-0") 'corral-parentheses-forward)
@@ -399,7 +385,6 @@ Derived from Norang setup."
   (global-set-key (kbd "M-]") 'corral-brackets-forward))
 
 (use-package undo-tree
-  :ensure t
   :config
   (global-undo-tree-mode)
   (global-set-key (kbd "C-/") nil)
@@ -409,13 +394,11 @@ Derived from Norang setup."
     (setq undo-tree-history-directory-alist (list (cons "." undo-tree-dir)))))
 
 (use-package markdown-mode
-  :ensure t
   :commands (markdown-mode)
   :mode (("\\.md\\'" . markdown-mode)
 	 ("\\.markdown\\'" . markdown-mode)))
 
 (use-package magit
-  :ensure t
   :bind
   (("C-x g" . magit-status)))
 
@@ -458,8 +441,7 @@ Derived from Norang setup."
 
 (setq delete-by-moving-to-trash t)
 
-(use-package haskell-mode
-  :ensure t)
+(use-package haskell-mode)
 
 
 ;; original bindings:
@@ -476,27 +458,21 @@ Derived from Norang setup."
 (setq doc-view-continuous t)
 
 
-(use-package yasnippet
-  :ensure t)
+(use-package yasnippet)
 
 
 (use-package expand-region
-  :ensure t
   :bind
   (("C-\\" . er/expand-region)))
 
 
-(use-package visual-regexp
-  :ensure t)
-
 (use-package visual-regexp-steroids
-  :ensure t
+  :ensure visual-regexp
   :bind
   (("C-c r" . vr/replace)
    ("C-c M-r" . vr/query-replace)))
 
 ;; (use-package flycheck
-;;   :ensure t)
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;;mode-specific-map is the global keymap for the prefix key C-c
@@ -505,21 +481,14 @@ Derived from Norang setup."
 
 (define-prefix-command 'mj-mc-map)
 (global-set-key (kbd "C-c m") 'mj-mc-map)
-(use-package multiple-cursors
-  :ensure t)
+(use-package multiple-cursors)
 (define-key mj-mc-map (kbd "e") 'mc/edit-lines)
 (define-key mj-mc-map (kbd "r") 'mc/mark-all-in-region-regexp)
 (define-key mj-mc-map (kbd "n") 'mc/mark-next-like-this)
 (define-key mj-mc-map (kbd "d") 'mc/mark-all-dwim)
 
-(use-package define-word
-  :ensure t)
+(use-package define-word)
 
-(use-package cider
-  :ensure t)
-
-(use-package clojure-mode
-  :ensure t)
 
 (use-package paredit
   :ensure t
