@@ -281,7 +281,9 @@ Derived from Norang setup."
 	org-export-with-footnotes t
 	org-export-with-toc t
 	org-export-headline-levels 2
-	org-use-fast-tag-selection t))
+	org-use-fast-tag-selection t)
+  (setq org-agenda-clock-consistency-checks (plist-put org-agenda-clock-consistency-checks
+						       :max-gap "00:00")))
 
 
 (use-package swoop)
