@@ -463,7 +463,9 @@ Derived from Norang setup."
   :ensure visual-regexp
   :bind
   (("C-c r" . vr/replace)
-   ("C-c M-r" . vr/query-replace)))
+   ("C-c M-r" . vr/query-replace)
+   ("C-M-r" . vr/isearch-backward)
+   ("C-M-s" . vr/isearch-forward)))
 
 ;; (use-package flycheck
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
