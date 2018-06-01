@@ -324,9 +324,9 @@ Derived from Norang setup."
   (vr/replace "X" arg (point) (mark))
   (next-line 2))
 
-(use-package color-theme-sanityinc-tomorrow)
-(load-theme 'sanityinc-tomorrow-night t)
-
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(setq seoul256-background 235)
+(load-theme 'seoul256 t)
 
 
 
