@@ -448,18 +448,6 @@ Derived from Norang setup."
 
 (use-package haskell-mode)
 
-
-;; original bindings:
-;; tab to tab stop
-;; downcase word
-;; kill-sentence
-(global-set-key (kbd "M-j") 'backward-word)
-(global-set-key (kbd "M-l") 'forward-word)
-(global-set-key (kbd "M-i") 'previous-line)
-(global-set-key (kbd "M-k") 'next-line)
-(define-key helm-map (kbd "M-i") 'helm-previous-line)
-(define-key helm-map (kbd "M-k") 'helm-next-line)
-
 (setq doc-view-continuous t)
 
 
