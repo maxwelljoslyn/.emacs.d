@@ -557,6 +557,13 @@ Derived from Norang setup."
 ;; 		  (join-line -1)))
 		
 
+(defadvice find-file (before make-directory-maybe (filename &optional wildcards) activate)
+  "Create parent directory if not exists while visiting file."
+  (unless (file-exists-p filename)
+    (let ((dir (file-name-directory filename)))
+      (unless (file-exists-p dir)
+        (make-directory dir)))))
+
 (defun rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
   ;; http://whattheemacsd.com/file-defuns.el-01.html
