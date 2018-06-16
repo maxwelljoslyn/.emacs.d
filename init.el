@@ -497,8 +497,6 @@ Derived from Norang setup."
 
 
 
-;; stuff to try
-;; http://orgmode.org/worg/org-contrib/org-drill.html
 
 (defun journal (arg)
   "Find today's journal file. With prefix ARG, open yesterday's file."
