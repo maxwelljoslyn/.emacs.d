@@ -281,7 +281,8 @@ Derived from Norang setup."
 	org-export-with-footnotes t
 	org-export-with-toc t
 	org-export-headline-levels 2
-	org-use-fast-tag-selection t)
+	org-use-fast-tag-selection t
+	org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-clock-consistency-checks (plist-put org-agenda-clock-consistency-checks
 						       :max-gap "00:00")))
 
