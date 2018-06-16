@@ -657,6 +657,7 @@ This is the format Ledger requires."
   (format-time-string "%Y/%m/%d"))
 
 (defun mj/insert-fdate ()
+  (interactive)
   (insert (mj/fdate)))
 
 (defun mj/insert-date ()
