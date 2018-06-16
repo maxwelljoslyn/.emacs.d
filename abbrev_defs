@@ -167,7 +167,7 @@
     ("enoguh" "enough" nil 1)
     ("evne" "even" nil 1)
     ("exisiting" "existing" nil 1)
-    ("fdate" "" mj/fdate 13)
+    ("fdate" "" mj/insert-fdate 15)
     ("fo" "of" nil 14)
     ("gacve" "gave" nil 1)
     ("gorup" "group" nil 1)
@@ -359,9 +359,7 @@ func main() {
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
