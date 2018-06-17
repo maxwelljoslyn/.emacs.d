@@ -43,9 +43,7 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
@@ -53,13 +51,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -68,6 +62,12 @@
 (define-abbrev-table 'change-log-mode-abbrev-table '())
 
 (define-abbrev-table 'cider-browse-ns-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-browse-spec-example-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-browse-spec-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-browse-spec-view-mode-abbrev-table '())
 
 (define-abbrev-table 'cider-connections-buffer-mode-abbrev-table '())
 
@@ -141,10 +141,34 @@
 
 (define-abbrev-table 'gdb-script-mode-abbrev-table '())
 
+(define-abbrev-table 'gfm-mode-abbrev-table '())
+
+(define-abbrev-table 'gfm-view-mode-abbrev-table '())
+
 (define-abbrev-table 'global-abbrev-table
   '(
     ("fdate" "" mj/fdate 5)
+    ("adn" "and" nil 2)
+    ("appt" "appointment" nil 2)
+    ("becuase" "because" nil 3)
+    ("becuse" "because" nil 1)
+    ("hte" "the" nil 30)
+    ("htem" "them" nil 1)
+    ("imoprt" "import" nil 1)
+    ("itslef" "itself" nil 1)
     ("jdate" "" mj/insert-date 6)
+    ("konw" "know" nil 2)
+    ("maknig" "making" nil 1)
+    ("nbd" "no big deal" nil 4)
+    ("preciuos" "precious" nil 1)
+    ("qqsrx" "qqsrx" nil 4)
+    ("stnading" "standing" nil 1)
+    ("tmrw" "tomorrow" nil 1)
+    ("wifi" "Wi-Fi" nil 1)
+    ("wns" "Weihenstephaner" nil 4)
+    ("wnted" "wanted" nil 1)
+    ("yaer" "year" nil 1)
+    ("yro" "yro" nil 3)
    ))
 
 (define-abbrev-table 'go-mode-abbrev-table
@@ -190,9 +214,7 @@ func main() {
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'julia-mode-abbrev-table '())
 
@@ -240,6 +262,10 @@ func main() {
 
 (define-abbrev-table 'magit-status-mode-abbrev-table '())
 
+(define-abbrev-table 'markdown-mode-abbrev-table '())
+
+(define-abbrev-table 'markdown-view-mode-abbrev-table '())
+
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
@@ -250,9 +276,7 @@ func main() {
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -266,11 +290,11 @@ func main() {
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
+(define-abbrev-table 'pascal-mode-abbrev-table '())
+
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
