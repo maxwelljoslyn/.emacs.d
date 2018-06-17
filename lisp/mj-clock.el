@@ -1,3 +1,37 @@
+(use-package s
+  :ensure t)
+
+(require 's)
+
+(defun mj/org-clock-insert-selection-line (i marker)
+  "Insert a line for the clock selection menu.
+And return a cons cell with the selection character integer and the marker
+pointing to it."
+  (when (marker-buffer marker)
+    (let (file cat task heading prefix)
+      (with-current-buffer (org-base-buffer (marker-buffer marker))
+	(save-excursion
+	  (save-restriction
+	    (widen)
+	    (ignore-errors
+	      (goto-char marker)
+	      (setq file (buffer-file-name (marker-buffer marker))
+		    cat (org-get-category)
+		    heading (org-get-heading 'notags)
+		    prefix (save-excursion
+			     (org-back-to-heading t)
+			     (looking-at org-outline-regexp)
+			     (match-string 0))
+		    task (substring
+			  (org-fontify-like-in-org-mode
+			   (concat prefix heading)
+			   org-odd-levels-only)
+			  (length prefix)))))))
+      (when (and cat task)
+	(insert (format "[%c] %-12s  %s\n" i (s-pad-right 12 "." (format cat)) task))
+	(cons i marker)))))
+
+
 (defun mj/org-clock-in (&optional select start-time)
   "Start the clock on the current item.
 If necessary, clock-out of the currently active clock.
@@ -207,15 +241,15 @@ make this the default behavior.)"
 	(erase-buffer)
 	(when (marker-buffer org-clock-default-task)
 	  (insert (org-add-props "Default Task\n" nil 'face 'bold))
-	  (setq s (org-clock-insert-selection-line ?d org-clock-default-task))
+	  (setq s (mj/org-clock-insert-selection-line ?d org-clock-default-task))
 	  (push s sel-list))
 	(when (marker-buffer org-clock-interrupted-task)
 	  (insert (org-add-props "The task interrupted by starting the last one\n" nil 'face 'bold))
-	  (setq s (org-clock-insert-selection-line ?i org-clock-interrupted-task))
+	  (setq s (mj/org-clock-insert-selection-line ?i org-clock-interrupted-task))
 	  (push s sel-list))
 	(when (org-clocking-p)
 	  (insert (org-add-props "Current Clocking Task\n" nil 'face 'bold))
-	  (setq s (org-clock-insert-selection-line ?c org-clock-marker))
+	  (setq s (mj/org-clock-insert-selection-line ?c org-clock-marker))
 	  (push s sel-list))
 	;; what I need to make a dedicated lunch clock-in entry:
 	;; mimic the stuff in the (when) clauses above.
@@ -224,16 +258,16 @@ make this the default behavior.)"
 	;; combine all of the above and that ought to do it!
 	(progn
 	  (insert (org-add-props "Favorite Tasks\n" nil 'face 'bold))
-	  (setq s (org-clock-insert-selection-line ?l mj-lunch-marker))
+	  (setq s (mj/org-clock-insert-selection-line ?l mj-lunch-marker))
 	  (push s sel-list)
-	  (setq s (org-clock-insert-selection-line ?b mj-break-marker))
+	  (setq s (mj/org-clock-insert-selection-line ?b mj-break-marker))
 	  (push s sel-list))
 	(insert (org-add-props "Recent Tasks\n" nil 'face 'bold))
 	(mapc
 	 (lambda (m)
 	   (when (marker-buffer m)
 	     (setq i (1+ i)
-		   s (org-clock-insert-selection-line
+		   s (mj/org-clock-insert-selection-line
 		      (if (< i 10)
 			  (+ i ?0)
 			(+ i (- ?A 10))) m))

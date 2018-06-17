@@ -56,12 +56,6 @@
     (org-with-point-at org-clock-default-task
       (org-clock-in))))
 
-(defun mj/clock-in-lunch ()
-  (interactive)
-  (save-excursion
-    (org-with-point-at (org-id-find "2FCFBF87-3B65-4C66-8CF4-2A94E5D02920" 'marker)
-      (org-clock-in))))
-
 (defun mj/clock-in-organization-task-as-default ()
   (interactive)
   (org-with-point-at (org-id-find mj/organization-task-id 'marker)
@@ -156,8 +150,11 @@ Derived from Norang setup."
 	(package-refresh-contents)
 	(package-install 'use-package))
 
+
 ;; (add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode))
 (add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
+
+(setq use-package-always-ensure t)
 
 (setq-default abbrev-mode t)
 
@@ -167,7 +164,6 @@ Derived from Norang setup."
 (setq eshell-smart-space-goes-to-end t)
 
 (use-package which-key
-	     :ensure t
 	     :config
 	     (which-key-mode))
 
@@ -191,8 +187,7 @@ Derived from Norang setup."
           (t
            (insert filename))))
 
-(use-package ess
-  :ensure t)
+(use-package ess)
 
 (defun mj/org-save-and-commit ()
   (interactive)
@@ -225,7 +220,6 @@ Derived from Norang setup."
 (global-set-key (kbd "M-q") 'toggle-truncate-lines)
 
 (use-package org
-  :ensure t
   :config
   (global-set-key (kbd "<f8>") 'org-agenda)
   (global-set-key (kbd "C-c b") 'find-org-file)
@@ -240,6 +234,7 @@ Derived from Norang setup."
   (setq org-log-done 'time)
   (setq org-default-notes-file "~/Desktop/todo.org")
   (setq org-log-into-drawer t)
+  ;; (setq org-log-into-drawer t)
 
 
   (setq org-todo-keywords
@@ -286,21 +281,22 @@ Derived from Norang setup."
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
   (setq org-export-initial-scope 'subtree)
   (setq org-catch-invisible-edits 'show-and-error)
-  (setq org-agenda-files (cons "~/Desktop/todo.org" ()))
+  (setq org-agenda-files '("~/Desktop/todo.org"))
   (setq org-export-with-smart-quotes nil
 	org-export-with-emphasize t
 	org-export-with-sub-superscripts '{}
 	org-export-with-footnotes t
 	org-export-with-toc t
 	org-export-headline-levels 2
-	org-use-fast-tag-selection t))
+	org-use-fast-tag-selection t
+	org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-clock-consistency-checks (plist-put org-agenda-clock-consistency-checks
+						       :max-gap "00:00")))
 
 
-(use-package swoop
-  :ensure t)
+(use-package swoop)
 
 (use-package helm-swoop
-  :ensure t
   :config
   (setq helm-swoop-pre-input-function '(lambda () nil)))
 
@@ -309,24 +305,25 @@ Derived from Norang setup."
   (interactive "sVideotape ID code:")
   (save-excursion
     (set-buffer "todo.org")
-    (end-of-buffer)
+    
     (org-insert-heading)
-    (insert (concat "begin digitizing " arg))
+    (insert (concat "tape " arg ": begin digitizing"))
     (org-todo "NEXT")
-    (org-set-tags-to ":avala:")
-    (org-insert-heading)
-    (insert (concat "clean up digitization of " arg))
-    (org-todo "NEXT")
-    (org-set-tags-to ":avala:")
-    (org-insert-heading)
-    (insert (concat "begin exporting " arg))
-    (org-todo "NEXT")
-    (org-set-tags-to ":avala:")
-    (org-insert-heading)
-    (insert (concat "upload " arg " to server"))
-    (org-todo "NEXT")
-    (org-set-tags-to ":avala:")))
 
+    
+    (org-insert-heading)
+    (insert (concat "tape " arg ": clean up digitization"))
+    (org-todo "TODO")
+
+    
+    (org-insert-heading)
+    (insert (concat "tape " arg ": begin exporting"))
+    (org-todo "TODO")
+
+    
+    (org-insert-heading)
+    (insert (concat "tape " arg ": upload to server"))
+    (org-todo "TODO")))
 
 (defun mj/replace-Xs (arg)
   "Replace Xs with ARG."
@@ -335,31 +332,27 @@ Derived from Norang setup."
   (vr/replace "X" arg (point) (mark))
   (next-line 2))
 
-(use-package color-theme-sanityinc-tomorrow
-  :ensure t)
-(load-theme 'sanityinc-tomorrow-blue t)
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(setq seoul256-background 235)
+(load-theme 'seoul256 t)
 
 
-(use-package avy
-  :ensure t)
+
+(use-package avy)
 (use-package ace-window
-  :ensure t
   :bind
   ("C-6" . ace-window)
   :config
-  (setq aw-keys '(?d ?f ?j ?k ?g ?h)))
+  (setq aw-keys '(?d ?f ?s ?e ?g ?h)))
 
 (use-package dired-subtree
-  :ensure t
   :config
   (define-key dired-mode-map (kbd "i") 'dired-subtree-insert)
   (define-key dired-mode-map (kbd ";") 'dired-subtree-remove))
 
-(use-package dired-filter
-  :ensure t)
+(use-package dired-filter)
 
 (use-package iedit
-  :ensure t
   :commands
   (iedit-mode)
   :bind
@@ -372,30 +365,25 @@ Derived from Norang setup."
 (global-set-key (kbd "C-5") 'ctl-x-5-prefix)
 
 (use-package company
-  :ensure t
   :config
   (setq company-global-modes '(not text-mode))
   (setq company-idle-delay 0.4)
   (add-hook 'after-init-hook global-company-mode))
 
 (use-package web-mode
-  :ensure t
   :mode ("\\.html$" . web-mode))
 
 ;; brings in my environment and path variables from bash so I call executables such as pdflatex
 (use-package exec-path-from-shell
-  :ensure t
   :config (exec-path-from-shell-initialize))
 
 ;; allows jumping to Chinese characters with avy based on pinyin
 ;; (use-package ace-pinyin
-;;   :ensure t
 ;;   :config
 ;;   (ace-pinyin-mode)
 ;;   (setq ace-pinyin-simplified-chinese-only-p nil))
 
 (use-package slime
-  :ensure t
   :config
   (setq inferior-lisp-program "/usr/local/bin/sbcl")
   (setq slime-contribs '(slime-fancy))
@@ -403,7 +391,6 @@ Derived from Norang setup."
 
 
 (use-package corral
-  :ensure t
   :config
   (global-set-key (kbd "M-9") 'corral-parentheses-backward)
   (global-set-key (kbd "M-0") 'corral-parentheses-forward)
@@ -411,7 +398,6 @@ Derived from Norang setup."
   (global-set-key (kbd "M-]") 'corral-brackets-forward))
 
 (use-package undo-tree
-  :ensure t
   :config
   (global-undo-tree-mode)
   (global-set-key (kbd "C-/") nil)
@@ -421,13 +407,11 @@ Derived from Norang setup."
     (setq undo-tree-history-directory-alist (list (cons "." undo-tree-dir)))))
 
 (use-package markdown-mode
-  :ensure t
   :commands (markdown-mode)
   :mode (("\\.md\\'" . markdown-mode)
 	 ("\\.markdown\\'" . markdown-mode)))
 
 (use-package magit
-  :ensure t
   :bind
   (("C-x g" . magit-status)))
 
@@ -470,45 +454,28 @@ Derived from Norang setup."
 
 (setq delete-by-moving-to-trash t)
 
-(use-package haskell-mode
-  :ensure t)
-
-
-;; original bindings:
-;; tab to tab stop
-;; downcase word
-;; kill-sentence
-(global-set-key (kbd "M-j") 'backward-word)
-(global-set-key (kbd "M-l") 'forward-word)
-(global-set-key (kbd "M-i") 'previous-line)
-(global-set-key (kbd "M-k") 'next-line)
-(define-key helm-map (kbd "M-i") 'helm-previous-line)
-(define-key helm-map (kbd "M-k") 'helm-next-line)
+(use-package haskell-mode)
 
 (setq doc-view-continuous t)
 
 
-(use-package yasnippet
-  :ensure t)
+(use-package yasnippet)
 
 
 (use-package expand-region
-  :ensure t
   :bind
   (("C-\\" . er/expand-region)))
 
 
-(use-package visual-regexp
-  :ensure t)
-
 (use-package visual-regexp-steroids
-  :ensure t
+  :ensure visual-regexp
   :bind
   (("C-c r" . vr/replace)
-   ("C-c M-r" . vr/query-replace)))
+   ("C-c M-r" . vr/query-replace)
+   ("C-M-r" . vr/isearch-backward)
+   ("C-M-s" . vr/isearch-forward)))
 
 ;; (use-package flycheck
-;;   :ensure t)
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;;mode-specific-map is the global keymap for the prefix key C-c
@@ -517,20 +484,14 @@ Derived from Norang setup."
 
 (define-prefix-command 'mj-mc-map)
 (global-set-key (kbd "C-c m") 'mj-mc-map)
-(use-package multiple-cursors
-  :ensure t)
+(use-package multiple-cursors)
 (define-key mj-mc-map (kbd "e") 'mc/edit-lines)
 (define-key mj-mc-map (kbd "r") 'mc/mark-all-in-region-regexp)
 (define-key mj-mc-map (kbd "n") 'mc/mark-next-like-this)
+(define-key mj-mc-map (kbd "d") 'mc/mark-all-dwim)
 
-(use-package define-word
-  :ensure t)
+(use-package define-word)
 
-(use-package cider
-  :ensure t)
-
-(use-package clojure-mode
-  :ensure t)
 
 (use-package paredit
   :ensure t
@@ -543,8 +504,6 @@ Derived from Norang setup."
 
 
 
-;; stuff to try
-;; http://orgmode.org/worg/org-contrib/org-drill.html
 
 (defun journal (arg)
   "Find today's journal file. With prefix ARG, open yesterday's file."
@@ -607,6 +566,13 @@ Derived from Norang setup."
 ;; 		  (interactive)
 ;; 		  (join-line -1)))
 		
+
+(defadvice find-file (before make-directory-maybe (filename &optional wildcards) activate)
+  "Create parent directory if not exists while visiting file."
+  (unless (file-exists-p filename)
+    (let ((dir (file-name-directory filename)))
+      (unless (file-exists-p dir)
+        (make-directory dir)))))
 
 (defun rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
@@ -709,6 +675,7 @@ This is the format Ledger requires."
   (format-time-string "%Y/%m/%d"))
 
 (defun mj/insert-fdate ()
+  (interactive)
   (insert (mj/fdate)))
 
 (defun mj/insert-date ()
@@ -779,18 +746,26 @@ version 2016-12-18"
        (format-time-string "%Y-%m-%d"))))))
 
 (setq python-shell-interpreter "python3")
+(show-paren-mode 1)
+(setq org-babel-python-command "python3")
+(setq org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
+(setq magit-dispatch-arguments nil)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/Desktop/todo.org"))))
+ '(custom-safe-themes
+   (quote
+    ("935cdfc778539529d8124a5500923a660b7e05eb9dba5a762107c7db7a4d56ae" default)))
+ '(package-selected-packages
+   (quote
+    (seoul256-theme yasnippet which-key web-mode wc-goal-mode visual-regexp-steroids use-package undo-tree swoop swiper-helm smartparens slime sass-mode paredit nand2tetris multiple-cursors markdown-mode magit keyfreq iedit helm-swoop haskell-mode goto-chg flycheck expand-region exec-path-from-shell ess el-get dumb-jump dired-subtree dired-filter define-word csv-mode corral company cider auctex ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(dired-marked ((t (:foreground "tan3")))))
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
+ '(dired-marked ((t (:foreground "tan3"))))
+ '(outline-1 ((t (:inherit default :foreground "#81a2ff")))))

@@ -127,6 +127,10 @@
 
 (define-abbrev-table 'ess-julia-mode-abbrev-table '())
 
+(define-abbrev-table 'evil-command-window-mode-abbrev-table '())
+
+(define-abbrev-table 'evil-list-view-mode-abbrev-table '())
+
 (define-abbrev-table 'eww-bookmark-mode-abbrev-table '())
 
 (define-abbrev-table 'eww-buffers-mode-abbrev-table '())
@@ -143,11 +147,8 @@
 
 (define-abbrev-table 'gfm-mode-abbrev-table '())
 
-(define-abbrev-table 'gfm-view-mode-abbrev-table '())
-
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("fdate" "" mj/fdate 5)
     ("adn" "and" nil 2)
     ("appt" "appointment" nil 2)
     ("becuase" "because" nil 3)
@@ -169,6 +170,86 @@
     ("wnted" "wanted" nil 1)
     ("yaer" "year" nil 1)
     ("yro" "yro" nil 3)
+    ("acn" "can" nil 1)
+    ("ahrdware" "hardware" nil 1)
+    ("ahve" "have" nil 2)
+    ("anythign" "anything" nil 1)
+    ("apporved" "approved" nil 1)
+    ("aslo" "also" nil 1)
+    ("beleive" "believe" nil 1)
+    ("blirary" "library" nil 1)
+    ("brniging" "bringing" nil 1)
+    ("byos" "boys" nil 2)
+    ("candidiate" "candidate" nil 2)
+    ("charcteristic" "characteristic" nil 1)
+    ("connectiosn" "connections" nil 1)
+    ("craete" "create" nil 1)
+    ("currenlty" "currently" nil 1)
+    ("decisiosn" "decisions" nil 1)
+    ("deltion" "deletion" nil 1)
+    ("donig" "doing" nil 1)
+    ("duratino" "duration" nil 1)
+    ("elsewehr" "elsewhere" nil 1)
+    ("engilsh" "English" nil 2)
+    ("enoguh" "enough" nil 1)
+    ("evne" "even" nil 1)
+    ("exisiting" "existing" nil 1)
+    ("fdate" "" mj/insert-fdate 15)
+    ("fo" "of" nil 14)
+    ("gacve" "gave" nil 1)
+    ("gorup" "group" nil 1)
+    ("guaradians" "guardians" nil 1)
+    ("hadn" "hand" nil 1)
+    ("htat" "that" nil 1)
+    ("hwo" "how" nil 2)
+    ("improt" "import" nil 4)
+    ("incmoing" "incoming" nil 1)
+    ("incnetive" "incentive" nil 1)
+    ("insertiosn" "insertions" nil 1)
+    ("itno" "into" nil 1)
+    ("jsut" "just" nil 1)
+    ("mostly" "mostly" nil 2)
+    ("ni" "in" nil 5)
+    ("nkow" "know" nil 9)
+    ("oipen" "open" nil 1)
+    ("optential" "potential" nil 1)
+    ("ordedr" "order" nil 1)
+    ("otehrwise" "otherwise" nil 1)
+    ("passworsd" "passwords" nil 1)
+    ("predicrtable" "predictable" nil 1)
+    ("pritn" "print" nil 1)
+    ("prmopt" "prompt" nil 3)
+    ("prnit" "print" nil 1)
+    ("python3n" "python3" nil 1)
+    ("questinos" "questions" nil 2)
+    ("qusetion" "question" nil 4)
+    ("racioal" "racial" nil 1)
+    ("relatd" "related" nil 1)
+    ("relatd " "related" nil 0)
+    ("releavnt" "relevant" nil 2)
+    ("renmaed" "renamed" nil 1)
+    ("reqmts" "requirements" nil 1)
+    ("rsycn" "rsync" nil 1)
+    ("saturady" "Saturday" nil 1)
+    ("scritp" "script" nil 1)
+    ("sematnic " "semantic" nil 0)
+    ("semnatic" "semantic" nil 1)
+    ("semnatic " "semantic" nil 0)
+    ("slpit" "split" nil 1)
+    ("stoppiong" "stopping" nil 1)
+    ("suggseted" "suggested" nil 1)
+    ("taht" "that" nil 2)
+    ("teh" "the" nil 10)
+    ("that" "that" nil 162)
+    ("tseting" "testing" nil 3)
+    ("tsetnig" "testing" nil 1)
+    ("ucnlear" "unclear" nil 1)
+    ("unfortuantely" "unfortunately" nil 1)
+    ("uniqeu" "unique" nil 1)
+    ("usnig" "using" nil 1)
+    ("varieites" "varieties" nil 1)
+    ("wauy" "way" nil 1)
+    ("whcih" "which" nil 3)
    ))
 
 (define-abbrev-table 'go-mode-abbrev-table
@@ -226,6 +307,8 @@ func main() {
 
 (define-abbrev-table 'ledger-report-mode-abbrev-table '())
 
+(define-abbrev-table 'life-mode-abbrev-table '())
+
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'literate-haskell-mode-abbrev-table '())
@@ -264,8 +347,11 @@ func main() {
 
 (define-abbrev-table 'markdown-mode-abbrev-table '())
 
+<<<<<<< HEAD
 (define-abbrev-table 'markdown-view-mode-abbrev-table '())
 
+=======
+>>>>>>> f8f980ef90e457c76d9428c3586ecd4f477ac153
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
@@ -304,9 +390,7 @@ func main() {
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
@@ -317,6 +401,8 @@ func main() {
 (define-abbrev-table 'rxt-help-mode-abbrev-table '())
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
+
+(define-abbrev-table 'semantic-symref-results-mode-abbrev-table '())
 
 (define-abbrev-table 'sgml-mode-abbrev-table '())
 
