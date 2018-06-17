@@ -84,14 +84,16 @@
   "Start \"continuous clocking\" and clock into Organization, setting it as the default task.
 Derived from Norang setup."
   (interactive)
-  (setq mj/keep-clock-running t)
-  (mj/clock-in-organization-task-as-default))
+  (mj/clock-in-organization-task-as-default)
+  (setq org-clock-continuously t)
+  (setq mj/keep-clock-running t))
 
 (defun mj/punch-out ()
   (interactive)
   (setq mj/keep-clock-running nil)
   (when (org-clock-is-active)
-    (org-clock-out)))
+    (org-clock-out))
+  (setq org-clock-continuously nil))
 
 (defun mj/find-project-task ()
   "Move point to the parent (project) task if any"
