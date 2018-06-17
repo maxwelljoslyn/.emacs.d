@@ -695,6 +695,7 @@ Derived from Norang setup."
    (quote
     (("bal, real" "%(binary) -f %(ledger-file) bal --real")
      ("bal" "%(binary) -f %(ledger-file) bal")
+     ("monthly expenses" "%(binary) -f %(ledger-file) reg -AMn --empty ^Expenses --real")
      ("reg" "%(binary) -f %(ledger-file) reg")
      ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
      ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
