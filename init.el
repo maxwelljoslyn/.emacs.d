@@ -272,19 +272,20 @@ Derived from Norang setup."
 	    (todo "NEXT")))))
 
   (setq org-capture-templates
-	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n" :clock-in t :clock-resume t)
-		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n" :clock-in t :clock-resume t)
-		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n" :clock-in t :clock-resume t)
-		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n" :clock-in t :clock-resume t)
-		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U")
-		("b" "notes" entry (file "~/Desktop/todo.org") "* %?" :clock-in t :clock-resume t)
-		("p" "purchase" entry (file "~/Desktop/todo.org") "* NEXT Buy %?")
+	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %? %^{Effort}p" :clock-in t :clock-resume t)
+		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?" :clock-in t :clock-resume t)
+		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?" :clock-in t :clock-resume t)
+		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?" :clock-in t :clock-resume t)
+		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:%U")
+		("b" "bare" entry (file "~/Desktop/todo.org") "* %?" :clock-in t :clock-resume t)
+		("p" "purchase" entry (file+headline "~/Desktop/todo.org" "purchases to make") "* NEXT %?")
+		("e" "beeminder" entry (file+headline "~/Desktop/todo.org" "things to Beemind") "* TODO beemind %?\n SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1w\"))")
 		("m" "Media prefix")
 		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?")
 		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?")
 		("ml" "listen" entry (file+headline "~/Desktop/todo.org" "media") "* LISTEN %?")
 		("mr" "read" entry (file+headline "~/Desktop/todo.org" "media") "* READ %?")
-		("ma" "already watched/read/etc." entry (file+olp "~/Desktop/todo.org" "media" "already done") "* DONE %?\n"))))
+		("ma" "already watched/read/etc." entry (file+olp "~/Desktop/todo.org" "media" "already done") "* DONE %?"))))
 
 
   ;; targets include any file which goes into the agenda, up to 3 levels deep
