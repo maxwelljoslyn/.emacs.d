@@ -245,7 +245,7 @@ Derived from Norang setup."
 
   (setq org-agenda-custom-commands
 	'(("d" "daily driver agenda command"
-	   ((agenda "" ((org-agenda-ndays 1)))
+	   ((agenda "" ((org-agenda-span 1)))
 	    (todo "WAIT")
 	    (todo "NEXT")))))
 
