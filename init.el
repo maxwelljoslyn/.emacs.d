@@ -546,7 +546,7 @@ Derived from Norang setup."
       (if (vc-backend filename)
           (vc-delete-file filename)
         (progn
-          (delete-file filename)
+          (delete-file filename t) ; t at end means "move to trash instead of deleting""
           (message "Deleted file %s" filename)
           (kill-buffer))))))
 
