@@ -646,6 +646,11 @@ Derived from Norang setup."
 ;; set default font size to 16
 (set-face-attribute 'default nil :font "Menlo:pixelsize=16:weight=normal:slant=normal:width=normal:spacing=100:scalable=true" )
 
+;; never use tabs
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4)
+
+
 
 ;; find favorites unless they're already visited
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
