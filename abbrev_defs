@@ -183,6 +183,7 @@
     ("jdate" "" mj/insert-date 11)
     ("jsut" "just" nil 1)
     ("mostly" "mostly" nil 2)
+    ("jdate" "" mj/insert-jdate 15)
     ("ni" "in" nil 5)
     ("nkow" "know" nil 9)
     ("oipen" "open" nil 1)
