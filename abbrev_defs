@@ -169,13 +169,14 @@
     ("evne" "even" nil 1)
     ("exisiting" "existing" nil 1)
     ("fdate" "" mj/insert-fdate 17)
-    ("fo" "of" nil 16)
+    ("fo" "of" nil 17)
     ("gacve" "gave" nil 1)
     ("gorup" "group" nil 1)
     ("guaradians" "guardians" nil 1)
     ("hadn" "hand" nil 1)
+    ("haev" "have" nil 1)
     ("htat" "that" nil 1)
-    ("hwo" "how" nil 2)
+    ("hwo" "how" nil 4)
     ("improt" "import" nil 4)
     ("incmoing" "incoming" nil 1)
     ("incnetive" "incentive" nil 1)
@@ -183,6 +184,7 @@
     ("itno" "into" nil 1)
     ("jdate" "" mj/insert-jdate 15)
     ("jsut" "just" nil 2)
+    ("mcuh" "much" nil 1)
     ("mostly" "mostly" nil 4)
     ("movnig" "moving" nil 1)
     ("ni" "in" nil 5)
@@ -216,7 +218,7 @@
     ("suggseted" "suggested" nil 1)
     ("taht" "that" nil 2)
     ("teh" "the" nil 10)
-    ("that" "that" nil 174)
+    ("that" "that" nil 191)
     ("trhough" "through" nil 1)
     ("tseting" "testing" nil 3)
     ("tsetnig" "testing" nil 1)
@@ -362,7 +364,9 @@ func main() {
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
