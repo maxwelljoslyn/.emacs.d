@@ -383,12 +383,13 @@ Derived from Norang setup."
   )
 
 
-(use-package corral
-  :config
-  (global-set-key (kbd "M-9") 'corral-parentheses-backward)
-  (global-set-key (kbd "M-0") 'corral-parentheses-forward)
-  (global-set-key (kbd "M-[") 'corral-brackets-backward)
-  (global-set-key (kbd "M-]") 'corral-brackets-forward))
+;; I plain have not used these at all
+;; (use-package corral
+;;   :config
+;;   (global-set-key (kbd "M-9") 'corral-parentheses-backward)
+;;   (global-set-key (kbd "M-0") 'corral-parentheses-forward)
+;;   (global-set-key (kbd "M-[") 'corral-brackets-backward)
+;;   (global-set-key (kbd "M-]") 'corral-brackets-forward))
 
 (use-package undo-tree
   :config
