@@ -495,19 +495,19 @@ Derived from Norang setup."
   (add-hook 'lisp-mode-hook 'paredit-mode))
 
 
+(defvar at-home
+  (file-directory-p "/Users/maxwelljoslyn/Desktop/projects/"))
 
-
-
-(defun journal (arg)
-  "Find today's journal file. With prefix ARG, open yesterday's file."
-  (interactive "P")
-  (let ((journal-name
-	 (if (equal arg nil)
-	     (format-time-string "%Y_%m_%d")
-	   (format-time-string "%Y_%m_%d" (time-subtract (current-time) (seconds-to-time (* 24 3600)))))))
-    (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".txt")))))
-
-(global-set-key (kbd "C-c j") 'journal)
+(when at-home
+    (defun journal (arg)
+      "Find today's journal file. With prefix ARG, open yesterday's file."
+      (interactive "P")
+      (let ((journal-name
+             (if (equal arg nil)
+                 (format-time-string "%Y_%m_%d")
+               (format-time-string "%Y_%m_%d" (time-subtract (current-time) (seconds-to-time (* 24 3600)))))))
+        (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".txt")))))
+  (global-set-key (kbd "C-c j") 'journal))
 
 ;; make backups go into their own folder
 ;; I think it works but idk
@@ -655,10 +655,10 @@ Derived from Norang setup."
 
 ;; find favorites unless they're already visited
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
-
-(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/finance.ledger"))
-            value)		;make sure list starts empty
-  (dolist (element favorite-files value)
+(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el")))
+  (when at-home
+      add-to-list 'favorite-files "/Users/maxwelljoslyn/Desktop/projects/finance.ledger")
+  (dolist (element favorite-files)
     (unless (get-file-buffer element)
       (find-file element))))
 
