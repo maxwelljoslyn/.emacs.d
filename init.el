@@ -709,4 +709,5 @@ This is the format Ledger requires."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(dired-marked ((t (:foreground "tan3"))))
- '(outline-1 ((t (:inherit default :foreground "#81a2ff")))))
+ '(outline-1 ((t (:inherit default :foreground "#81a2ff"))))
+ '(font-lock-warning-face ((t (:inherit default :foreground "red3")))))
