@@ -516,7 +516,6 @@ Derived from Norang setup."
                (format-time-string "%Y_%m_%d" (time-subtract (current-time) (seconds-to-time (* 24 3600)))))))
         (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".txt")))))
   (global-set-key (kbd "C-c j") 'journal))
->>>>>>> 12e6a4974f824d42272c59847511431e7e08f949
 
 ;; make backups go into their own folder
 ;; I think it works but idk
@@ -668,7 +667,7 @@ Derived from Norang setup."
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
 (let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el")))
   (when at-home
-      add-to-list 'favorite-files "/Users/maxwelljoslyn/Desktop/projects/finance.ledger")
+      (add-to-list 'favorite-files "/Users/maxwelljoslyn/Desktop/projects/finance.ledger"))
   (dolist (element favorite-files)
     (unless (get-file-buffer element)
       (find-file element))))
