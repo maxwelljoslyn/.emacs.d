@@ -334,7 +334,7 @@ Derived from Norang setup."
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (setq seoul256-background 235)
-(load-theme 'seoul256 t)
+(use-package seoul256-theme)
 
 
 
