@@ -251,7 +251,7 @@ Derived from Norang setup."
 
   (setq org-agenda-custom-commands
 	'(("d" "daily driver agenda command"
-	   ((agenda "" ((org-agenda-ndays 1)))
+	   ((agenda "" ((org-agenda-span 1)))
 	    (todo "WAIT")
 	    (todo "NEXT")))))
 
@@ -289,9 +289,9 @@ Derived from Norang setup."
 	org-export-with-toc t
 	org-export-headline-levels 2
 	org-use-fast-tag-selection t
-	org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-clock-consistency-checks (plist-put org-agenda-clock-consistency-checks
-						       :max-gap "00:00")))
+	org-agenda-skip-scheduled-if-done t
+    org-agenda-skip-deadline-if-done t)
+  (plist-put org-agenda-clock-consistency-checks :max-gap "00:00"))
 
 
 (use-package swoop)
@@ -390,12 +390,13 @@ Derived from Norang setup."
   )
 
 
-(use-package corral
-  :config
-  (global-set-key (kbd "M-9") 'corral-parentheses-backward)
-  (global-set-key (kbd "M-0") 'corral-parentheses-forward)
-  (global-set-key (kbd "M-[") 'corral-brackets-backward)
-  (global-set-key (kbd "M-]") 'corral-brackets-forward))
+;; I plain have not used these at all
+;; (use-package corral
+;;   :config
+;;   (global-set-key (kbd "M-9") 'corral-parentheses-backward)
+;;   (global-set-key (kbd "M-0") 'corral-parentheses-forward)
+;;   (global-set-key (kbd "M-[") 'corral-brackets-backward)
+;;   (global-set-key (kbd "M-]") 'corral-brackets-forward))
 
 (use-package undo-tree
   :config
@@ -502,21 +503,20 @@ Derived from Norang setup."
   (add-hook 'lisp-mode-hook 'paredit-mode))
 
 
+(defvar at-home
+  (file-directory-p "/Users/maxwelljoslyn/Desktop/projects/"))
 
-
-
-(defun journal (arg)
-  "Find today's journal file. With prefix ARG, open yesterday's file."
-  (interactive "P")
-  (let ((journal-name
-	 (if (equal arg nil)
-	     (format-time-string "%Y_%m_%d")
-	   (format-time-string "%Y_%m_%d" (time-subtract (current-time) (seconds-to-time (* 24 3600)))))))
-    (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".org")))
-    (when (equal (buffer-string) "")
-      (insert "* Today\n"))))
-
-(global-set-key (kbd "C-c j") 'journal)
+(when at-home
+    (defun journal (arg)
+      "Find today's journal file. With prefix ARG, open yesterday's file."
+      (interactive "P")
+      (let ((journal-name
+             (if (equal arg nil)
+                 (format-time-string "%Y_%m_%d")
+               (format-time-string "%Y_%m_%d" (time-subtract (current-time) (seconds-to-time (* 24 3600)))))))
+        (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".txt")))))
+  (global-set-key (kbd "C-c j") 'journal))
+>>>>>>> 12e6a4974f824d42272c59847511431e7e08f949
 
 ;; make backups go into their own folder
 ;; I think it works but idk
@@ -555,7 +555,7 @@ Derived from Norang setup."
       (if (vc-backend filename)
           (vc-delete-file filename)
         (progn
-          (delete-file filename)
+          (delete-file filename t) ; t at end means "move to trash instead of deleting""
           (message "Deleted file %s" filename)
           (kill-buffer))))))
 
@@ -658,15 +658,30 @@ Derived from Norang setup."
 ;; set default font size to 16
 (set-face-attribute 'default nil :font "Menlo:pixelsize=16:weight=normal:slant=normal:width=normal:spacing=100:scalable=true" )
 
+;; never use tabs
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4)
+
+
 
 ;; find favorites unless they're already visited
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
-
-(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el" "/Users/maxwelljoslyn/Desktop/projects/finance.ledger"  "~/Desktop/projects/site/index.org"))
-            value)		;make sure list starts empty
-  (dolist (element favorite-files value)
+(let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el")))
+  (when at-home
+      add-to-list 'favorite-files "/Users/maxwelljoslyn/Desktop/projects/finance.ledger")
+  (dolist (element favorite-files)
     (unless (get-file-buffer element)
       (find-file element))))
+
+
+(defun mj/jdate ()
+  "Returns date as yyyy_mm_dd."
+  (interactive)
+  (format-time-string "%Y_%m_%d"))
+
+(defun mj/insert-jdate ()
+  (interactive)
+  (insert (mj/jdate)))
 
 (defun mj/fdate ()
   "Returns current date in the format yyyy/mm/dd.
@@ -678,94 +693,15 @@ This is the format Ledger requires."
   (interactive)
   (insert (mj/fdate)))
 
-(defun mj/insert-date ()
-  "Insert the current date and/or time, in this format: yyyy_mm_dd.
-When called with `universal-argument', prompt for a format to use.
-If there's a text selection, delete it before inserting.
-
-Do not use this function in lisp code. Call `format-time-string' directly.
-
-Slightly modified from Xah Lee's original at `http://ergoemacs.org/emacs/elisp_insert-date-time.html'
-version 2016-12-18"
-  (interactive)
-  (when (use-region-p) (delete-region (region-beginning) (region-end)))
-  (let (($style
-         (if current-prefix-arg
-             (string-to-number
-              (substring
-               (completing-read
-                "Style:"
-                '(
-                  "1 → 2016-10-10 Monday"
-                  "2 → 2016-10-10T19:39:47-07:00"
-                  "3 → 2016-10-10 19:39:58-07:00"
-                  "4 → Monday, October 10, 2016"
-                  "5 → Mon, Oct 10, 2016"
-                  "6 → October 10, 2016"
-                  "7 → Oct 10, 2016"
-                  )) 0 1))
-           0
-           )))
-    (insert
-     (cond
-      ((= $style 0)
-       (format-time-string "%Y_%m_%d") ; "2016-10-10"
-       )
-      ((= $style 1)
-       (format-time-string "%Y-%m-%d %A") ; "2016-10-10 Monday"
-       )
-      ((= $style 2)
-       (concat
-        (format-time-string "%Y-%m-%dT%T")
-        (funcall (lambda ($x) (format "%s:%s" (substring $x 0 3) (substring $x 3 5))) (format-time-string "%z")))
-       ;; eg "2016-10-10T19:02:23-07:00"
-       )
-      ((= $style 3)
-       (concat
-        (format-time-string "%Y-%m-%d %T")
-        (funcall (lambda ($x) (format "%s:%s" (substring $x 0 3) (substring $x 3 5))) (format-time-string "%z")))
-       ;; eg "2016-10-10 19:10:09-07:00"
-       )
-      ((= $style 4)
-       (format-time-string "%A, %B %d, %Y")
-       ;; eg "Monday, October 10, 2016"
-       )
-      ((= $style 5)
-       (format-time-string "%a, %b %d, %Y")
-       ;; eg "Mon, Oct 10, 2016"
-       )
-      ((= $style 6)
-       (format-time-string "%B %d, %Y")
-       ;; eg "October 10, 2016"
-       )
-      ((= $style 7)
-       (format-time-string "%b %d, %Y")
-       ;; eg "Oct 10, 2016"
-       )
-      (t
-       (format-time-string "%Y-%m-%d"))))))
-
 (setq python-shell-interpreter "python3")
 (show-paren-mode 1)
 (setq org-babel-python-command "python3")
 (setq org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
 (setq magit-dispatch-arguments nil)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("935cdfc778539529d8124a5500923a660b7e05eb9dba5a762107c7db7a4d56ae" default)))
- '(package-selected-packages
-   (quote
-    (seoul256-theme yasnippet which-key web-mode wc-goal-mode visual-regexp-steroids use-package undo-tree swoop swiper-helm smartparens slime sass-mode paredit nand2tetris multiple-cursors markdown-mode magit keyfreq iedit helm-swoop haskell-mode goto-chg flycheck expand-region exec-path-from-shell ess el-get dumb-jump dired-subtree dired-filter define-word csv-mode corral company cider auctex ace-window))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(dired-marked ((t (:foreground "tan3"))))
- '(outline-1 ((t (:inherit default :foreground "#81a2ff")))))
+;; (add-to-list 'load-path "~/.emacs.d/evil")
+;; (require 'evil)
+
+(setq custom-file "~/.emacs.d/custom.el")
+(when (file-exists-p custom-file)
+  (load custom-file))
