@@ -514,7 +514,6 @@ Derived from Norang setup."
 	   (format-time-string "%Y_%m_%d" (time-subtract (current-time) (seconds-to-time (* 24 3600)))))))
     (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".org")))
     (when (equal (buffer-string) "")
-      (insert "#+TAGS: grateful(g)\n")
       (insert "* Today\n"))))
 
 (global-set-key (kbd "C-c j") 'journal)
