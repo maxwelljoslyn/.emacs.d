@@ -653,6 +653,7 @@ Derived from Norang setup."
      ("reg" "%(binary) -f %(ledger-file) reg")
      ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
      ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
+(setq ledger-highlight-xact-under-point nil)
 
 ;; set default font size to 16
 (set-face-attribute 'default nil :font "Menlo:pixelsize=16:weight=normal:slant=normal:width=normal:spacing=100:scalable=true" )
