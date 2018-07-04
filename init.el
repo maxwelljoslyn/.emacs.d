@@ -262,7 +262,7 @@ Derived from Norang setup."
 	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %? %^{Effort}p" :clock-in t :clock-resume t)
 		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?" :clock-in t :clock-resume t)
 		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?" :clock-in t :clock-resume t)
-		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?" :clock-in t :clock-resume t)
+		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1w\"))" :clock-in t :clock-resume t)
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:%U")
 		("p" "plain" entry (file "~/Desktop/todo.org") "* %?" :clock-in t :clock-resume t)
 		("e" "beeminder" entry (file+headline "~/Desktop/todo.org" "things to Beemind") "* HOLD beemind %?\n SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1w\"))")
