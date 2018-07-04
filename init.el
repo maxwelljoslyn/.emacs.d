@@ -35,8 +35,8 @@
 (setq org-clock-history-length 23)
 ;; Resume clocking task on clock-in if the clock is open
 (setq org-clock-in-resume t)
-; Continue clocking into another task upon clock-out of one task
-(setq org-clock-continuously t)
+;; when t, continue clocking into another task upon clock-out of one task
+(setq org-clock-continuously nil)
 ;; Separate drawers for clocking and logs
 (setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
 (setq org-clock-out-when-done t)
