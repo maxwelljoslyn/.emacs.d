@@ -262,15 +262,15 @@ Derived from Norang setup."
 		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?" :clock-in t :clock-resume t)
 		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:%U")
 		("p" "plain" entry (file "~/Desktop/todo.org") "* %?" :clock-in t :clock-resume t)
-		("b" "buy" entry (file+headline "~/Desktop/todo.org" "things to buy") "* NEXT %?")
 		("e" "beeminder" entry (file+headline "~/Desktop/todo.org" "things to Beemind") "* HOLD beemind %?\n SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1w\"))")
+		("b" "buy" entry (file+headline "~/Desktop/todo.org" "things to buy") "* NEXT %?")
 		("m" "Media prefix")
 		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?")
 		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?")
 		("ml" "listen" entry (file+headline "~/Desktop/todo.org" "media") "* LISTEN %?")
 		("mr" "read" entry (file+headline "~/Desktop/todo.org" "media") "* READ %?")
 		("ma" "already watched/read/etc." entry (file+olp "~/Desktop/todo.org" "media" "already done") "* DONE %?")
-        ("f" "focused writing (e.g. character/location study)" entry (file+olp "~/Desktop/todo.org" "focused writing") "* %?"))))
+                ("f" "focused writing (e.g. character/location study)" entry (file+olp "~/Desktop/todo.org" "focused writing") "* %?"))))
 
 
   ;; targets include any file which goes into the agenda, up to 3 levels deep

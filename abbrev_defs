@@ -374,6 +374,12 @@ func main() {
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
 
+(define-abbrev-table 'python-mode-abbrev-table '())
+
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
+
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'reb-mode-abbrev-table '())
