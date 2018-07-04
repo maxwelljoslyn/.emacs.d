@@ -1,6 +1,9 @@
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
 
+(defvar at-home
+  (file-directory-p "/Users/maxwelljoslyn/Desktop/projects/"))
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-archives
@@ -504,8 +507,7 @@ Derived from Norang setup."
   (add-hook 'lisp-mode-hook 'paredit-mode))
 
 
-(defvar at-home
-  (file-directory-p "/Users/maxwelljoslyn/Desktop/projects/"))
+
 
 (when at-home
     (defun journal (arg)
