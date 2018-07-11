@@ -1,6 +1,9 @@
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
 
+(defvar at-home
+  (file-directory-p "/Users/maxwelljoslyn/Desktop/projects/"))
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-archives
@@ -32,8 +35,8 @@
 (setq org-clock-history-length 23)
 ;; Resume clocking task on clock-in if the clock is open
 (setq org-clock-in-resume t)
-; Continue clocking into another task upon clock-out of one task
-(setq org-clock-continuously t)
+;; when t, continue clocking into another task upon clock-out of one task
+(setq org-clock-continuously nil)
 ;; Separate drawers for clocking and logs
 (setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
 (setq org-clock-out-when-done t)
@@ -67,14 +70,16 @@
   "Start \"continuous clocking\" and clock into Organization, setting it as the default task.
 Derived from Norang setup."
   (interactive)
-  (setq mj/keep-clock-running t)
-  (mj/clock-in-organization-task-as-default))
+  (mj/clock-in-organization-task-as-default)
+  (setq org-clock-continuously t)
+  (setq mj/keep-clock-running t))
 
 (defun mj/punch-out ()
   (interactive)
   (setq mj/keep-clock-running nil)
   (when (org-clock-is-active)
-    (org-clock-out)))
+    (org-clock-out))
+  (setq org-clock-continuously nil))
 
 (defun mj/find-project-task ()
   "Move point to the parent (project) task if any"
@@ -147,6 +152,10 @@ Derived from Norang setup."
 (unless (package-installed-p 'use-package)
 	(package-refresh-contents)
 	(package-install 'use-package))
+
+
+;; (add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode))
+(add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
 
 (setq use-package-always-ensure t)
 
@@ -250,19 +259,21 @@ Derived from Norang setup."
 	    (todo "NEXT")))))
 
   (setq org-capture-templates
-	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %?\n" :clock-in t :clock-resume t)
-		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?\n" :clock-in t :clock-resume t)
-		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?\n" :clock-in t :clock-resume t)
-		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n" :clock-in t :clock-resume t)
-		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:\n%U")
-		("b" "notes" entry (file "~/Desktop/todo.org") "* %?" :clock-in t :clock-resume t)
-		("p" "purchase" entry (file "~/Desktop/todo.org") "* NEXT Buy %?")
+	(quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %? %^{Effort}p" :clock-in t :clock-resume t)
+		("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?" :clock-in t :clock-resume t)
+		("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?" :clock-in t :clock-resume t)
+		("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1w\"))" :clock-in t :clock-resume t)
+		("v" "vocabulary item" entry (file+headline "~/Desktop/todo.org" "Chinese vocab") "* NEXT Add to Anki: %^{Word/phrase} :chinese:%U")
+		("p" "plain" entry (file "~/Desktop/todo.org") "* %?" :clock-in t :clock-resume t)
+		("e" "beeminder" entry (file+headline "~/Desktop/todo.org" "things to Beemind") "* HOLD beemind %?\n SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1w\"))")
+		("b" "buy" entry (file+headline "~/Desktop/todo.org" "things to buy") "* NEXT %?")
 		("m" "Media prefix")
 		("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?")
 		("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?")
 		("ml" "listen" entry (file+headline "~/Desktop/todo.org" "media") "* LISTEN %?")
 		("mr" "read" entry (file+headline "~/Desktop/todo.org" "media") "* READ %?")
-		("ma" "already watched/read/etc." entry (file+olp "~/Desktop/todo.org" "media" "already done") "* DONE %?\n"))))
+		("ma" "already watched/read/etc." entry (file+olp "~/Desktop/todo.org" "media" "already done") "* DONE %?")
+                ("f" "focused writing (e.g. character/location study)" entry (file+olp "~/Desktop/todo.org" "focused writing") "* %?"))))
 
 
   ;; targets include any file which goes into the agenda, up to 3 levels deep
@@ -336,7 +347,7 @@ Derived from Norang setup."
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (setq seoul256-background 235)
-(load-theme 'seoul256 t)
+(use-package seoul256-theme)
 
 
 
@@ -505,8 +516,7 @@ Derived from Norang setup."
   (add-hook 'lisp-mode-hook 'paredit-mode))
 
 
-(defvar at-home
-  (file-directory-p "/Users/maxwelljoslyn/Desktop/projects/"))
+
 
 (when at-home
     (defun journal (arg)
@@ -516,7 +526,7 @@ Derived from Norang setup."
              (if (equal arg nil)
                  (format-time-string "%Y_%m_%d")
                (format-time-string "%Y_%m_%d" (time-subtract (current-time) (seconds-to-time (* 24 3600)))))))
-        (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".txt")))))
+        (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".org")))))
   (global-set-key (kbd "C-c j") 'journal))
 
 ;; make backups go into their own folder
@@ -650,9 +660,11 @@ Derived from Norang setup."
    (quote
     (("bal, real" "%(binary) -f %(ledger-file) bal --real")
      ("bal" "%(binary) -f %(ledger-file) bal")
+     ("monthly expenses" "%(binary) -f %(ledger-file) reg -AMn --empty ^Expenses --real")
      ("reg" "%(binary) -f %(ledger-file) reg")
      ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
      ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
+(setq ledger-highlight-xact-under-point nil)
 
 ;; set default font size to 16
 (set-face-attribute 'default nil :font "Menlo:pixelsize=16:weight=normal:slant=normal:width=normal:spacing=100:scalable=true" )
@@ -667,7 +679,7 @@ Derived from Norang setup."
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
 (let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el")))
   (when at-home
-      add-to-list 'favorite-files "/Users/maxwelljoslyn/Desktop/projects/finance.ledger")
+      (add-to-list 'favorite-files "/Users/maxwelljoslyn/Desktop/projects/finance.ledger"))
   (dolist (element favorite-files)
     (unless (get-file-buffer element)
       (find-file element))))
