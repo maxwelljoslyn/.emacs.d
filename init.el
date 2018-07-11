@@ -283,8 +283,17 @@ Derived from Norang setup."
 	org-export-headline-levels 2
 	org-use-fast-tag-selection t
 	org-agenda-skip-scheduled-if-done t
-    org-agenda-skip-deadline-if-done t)
-  (plist-put org-agenda-clock-consistency-checks :max-gap "00:00"))
+    org-agenda-skip-deadline-if-done t))
+
+;; this has to be done AFTER org-agenda has loaded so that the consistency-checks variable exists
+;; putting it outside the org-mode use-package form seems to ensure this, and prevent errors on load
+(defvar org-agenda-clock-consistency-checks
+  '(:max-duration "10:00" :min-duration 0 :max-gap "0:00" :gap-ok-around
+               ("4:00")
+               :default-face
+               ((:background "DarkRed")
+                (:foreground "white"))
+               :overlap-face nil :gap-face nil :no-end-time-face nil :long-face nil :short-face nil))
 
 
 (use-package swoop)
