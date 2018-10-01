@@ -437,7 +437,7 @@ Derived from Norang setup."
   :config
   (setq company-global-modes '(not text-mode))
   (setq company-idle-delay 0.4)
-  (add-hook 'after-init-hook global-company-mode))
+  (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package web-mode
   :mode ("\\.html$" . web-mode))
