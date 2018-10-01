@@ -538,8 +538,6 @@ Derived from Norang setup."
 (setq doc-view-continuous t)
 
 
-(use-package yasnippet)
-
 
 (use-package expand-region
   :bind
