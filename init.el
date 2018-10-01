@@ -767,6 +767,17 @@ This is the format Ledger requires."
   (interactive)
   (insert (mj/fdate)))
 
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
+
 (setq python-shell-interpreter "python3")
 (show-paren-mode 1)
 (setq org-babel-python-command "python3")
