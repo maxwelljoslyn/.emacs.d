@@ -287,6 +287,7 @@ Derived from Norang setup."
   (setq org-export-initial-scope 'subtree)
   (setq org-catch-invisible-edits 'show-and-error)
   (setq org-agenda-files '("~/Desktop/todo.org"))
+  (setq org-special-ctrl-a/e t)
   (setq org-export-with-smart-quotes nil
 	org-export-with-emphasize t
 	org-export-with-sub-superscripts '{}
