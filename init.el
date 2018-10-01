@@ -415,6 +415,12 @@ Derived from Norang setup."
 
 (use-package dired-filter)
 
+(defun mj/dired-setup ()
+  "Run this as a hook for dired-mode."
+  (dired-hide-details-mode 1))
+
+(add-hook 'dired-mode-hook 'mj/dired-setup)
+
 (use-package iedit
   :commands
   (iedit-mode)
