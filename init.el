@@ -340,6 +340,50 @@ Derived from Norang setup."
     (insert (concat "tape " arg ": upload to server"))
     (org-todo "TODO")))
 
+(defun mj/rejected-filename-to-rejects ()
+  "Move the file number of a rejected audio file to the corresponding speaker-specific reject.txt file. The lines on which this function operates look like this: ./dat/speakers/A-10/1.wav,bad,static"
+  (interactive)
+  (search-forward "wav")
+  (backward-word)
+  (backward-char)
+  (let ((file-number (buffer-substring (point) (progn (search-backward "/")
+                                                      (forward-char)
+                                                      (point)))))
+    (beginning-of-line)
+    (let ((rejects-file
+           (concat
+            (buffer-substring (point)
+                              (search-forward "/" nil t 4))
+            "reject.txt")))
+      (find-file rejects-file)
+      (goto-char (point-max))
+      (insert file-number)
+      (save-buffer)
+      (kill-buffer))))
+
+(defun mj/remove-files-I-kept-Alex-rejected ()
+  "The lines on which this function operates look like this: ./dat/speakers/A-10/1.wav,good,sounds good to me this is a comment"
+  (interactive)
+  (search-forward "wav")
+  (backward-word)
+  (backward-char)
+  (let ((file-number (buffer-substring (point) (progn (search-backward "/")
+                                                      (forward-char)
+                                                      (point)))))
+    (beginning-of-line)
+    (let ((rejects-file
+           (concat
+            (buffer-substring (point)
+                              (search-forward "/" nil t 4))
+            "reject.txt")))
+      (find-file rejects-file)
+      (goto-char (point-min))
+      (when (word-search-forward file-number nil t)
+        (beginning-of-line)
+        (kill-whole-line)
+        (save-buffer))
+      (kill-buffer))))
+
 (defun mj/replace-Xs (arg)
   "Replace Xs with ARG."
   (interactive "sReplace Xs with:")
