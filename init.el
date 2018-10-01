@@ -784,6 +784,13 @@ This is the format Ledger requires."
 (setq org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
 (setq magit-dispatch-arguments nil)
 
+(defun mj/random-1-n (n)
+  "Return a value in the interval [1,n]."
+  (1+ (random n)))
+
+
+
+
 ;; (add-to-list 'load-path "~/.emacs.d/evil")
 ;; (require 'evil)
 
