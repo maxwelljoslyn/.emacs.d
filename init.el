@@ -443,6 +443,7 @@ Derived from Norang setup."
   :mode ("\\.html$" . web-mode))
 
 ;; brings in my environment and path variables from bash so I call executables such as pdflatex
+;; I've read that there is a native Emacs way to do this. exec-path-from-shell-copy-path?
 (use-package exec-path-from-shell
   :config (exec-path-from-shell-initialize))
 
@@ -458,6 +459,14 @@ Derived from Norang setup."
   (setq slime-contribs '(slime-fancy))
   )
 
+;; to find a fun's source, call find-function
+;; ditto for find-library, find-variable
+;; for a function, the fastest way to source is to call find-function-on-key
+;; this reduces the procedure "call C-h k; type key; go to linked source" to one call
+
+
+
+;; path to VLC in OSX: /Applications/VLC.app/Contents/MacOS/VLC
 
 ;; I plain have not used these at all
 ;; (use-package corral
