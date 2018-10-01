@@ -308,6 +308,10 @@ Derived from Norang setup."
                 (:foreground "white"))
                :overlap-face nil :gap-face nil :no-end-time-face nil :long-face nil :short-face nil))
 
+(use-package yasnippet
+  :config
+  (yas-global-mode 1)
+  (setq yas-snippet-dirs '("~/emacs.d/mysnippets")))
 
 (use-package swoop)
 
