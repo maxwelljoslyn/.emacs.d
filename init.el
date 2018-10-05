@@ -326,7 +326,6 @@ Derived from Norang setup."
 
 (load "~/.emacs.d/cslu.el")
 
-(use-package avy)
 (use-package ace-window
   :bind
   ("C-6" . ace-window)
