@@ -324,7 +324,7 @@ Derived from Norang setup."
 (use-package seoul256-theme)
 
 
-(load "~/.emacs.d/cslu.el")
+(load "~/.emacs.d/lisp/cslu.el")
 
 (use-package ace-window
   :bind
