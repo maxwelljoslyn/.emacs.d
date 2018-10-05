@@ -323,6 +323,9 @@ Derived from Norang setup."
 (setq seoul256-background 235)
 (use-package seoul256-theme)
 
+(use-package beacon
+  :config
+  (beacon-mode 1))
 
 (load "~/.emacs.d/lisp/cslu.el")
 
