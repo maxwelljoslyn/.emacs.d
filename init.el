@@ -331,7 +331,8 @@ Derived from Norang setup."
   ("C-6" . ace-window)
   :config
   (setq aw-keys '(?d ?f ?s ?e ?g ?h))
-  (setq aw-minibuffer-flag t))
+  (setq aw-minibuffer-flag t)
+  (set-face-attribute 'aw-leading-char-face nil :height 350))
 
 (use-package dired-subtree
   :config
