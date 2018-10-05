@@ -421,7 +421,6 @@ Derived from Norang setup."
 
 ;; Can't get helm to work thru use-package, so I'll just install it the ordinary way
 (unless (package-installed-p 'helm)
-  (package-refresh-contents)
   (package-install 'helm))
 (require 'helm)
 (require 'helm-config)
