@@ -388,6 +388,19 @@ Derived from Norang setup."
         (save-buffer))
       (kill-buffer))))
 
+(defun mj/toggle-Redcap-required ()
+    "Toggle whether a line (Redcap 'field') is required or not."
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (search-backward "," nil t 5)
+      (backward-char)
+      (if (looking-at "y")
+          (delete-char 1)
+        (progn
+          (forward-char)
+          (insert "y")))))
+
 (defun mj/replace-Xs (arg)
   "Replace Xs with ARG."
   (interactive "sReplace Xs with:")
