@@ -157,6 +157,9 @@ Derived from Norang setup."
 ;; (add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode))
 (add-to-list 'auto-mode-alist '("\\.ledger\\'" . ledger-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.r\\'" . ess-r-mode))
+(add-to-list 'auto-mode-alist '("\\.R\\'" . ess-r-mode))
+
 
 (setq use-package-always-ensure t)
 
