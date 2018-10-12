@@ -720,6 +720,9 @@ This is the format Ledger requires."
   (1+ (random n)))
 
 
+;; for rendering EPUBs to HTML and reading them in Emacs.
+(use-package nov
+  :config)
 
 
 ;; (add-to-list 'load-path "~/.emacs.d/evil")
