@@ -691,23 +691,14 @@ Derived from Norang setup."
     (unless (get-file-buffer element)
       (find-file element))))
 
-
-(defun mj/jdate ()
-  "Returns date as yyyy_mm_dd."
+(defun mj/insert-date ()
+  "It gets inserted in ISO yyyy-mm-dd format."
   (interactive)
-  (format-time-string "%Y_%m_%d"))
+  (insert (org-read-date)))
 
-(defun mj/insert-jdate ()
-  (interactive)
-  (insert (mj/jdate)))
+(defun mj/wrap-string (wrapper payload)
+  (concat wrapper payload wrapper))
 
-(defun mj/fdate ()
-  "Returns current date in the format yyyy/mm/dd.
-This is the format Ledger requires."
-  (interactive)
-  (format-time-string "%Y/%m/%d"))
-
-(defun mj/insert-fdate ()
   (interactive)
   (insert (mj/fdate)))
 
