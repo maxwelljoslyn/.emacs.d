@@ -699,8 +699,19 @@ Derived from Norang setup."
 (defun mj/wrap-string (wrapper payload)
   (concat wrapper payload wrapper))
 
+;; only works if beancount mode is active
+(defun mj/bean-txn ()
   (interactive)
-  (insert (mj/fdate)))
+  (mj/insert-date)
+  (insert " * ")
+  (insert (mj/wrap-string "\"" (read-string "Payee:")))
+  (insert "\n")
+  (insert-char ?\s 4)
+  (insert (ido-completing-read "Account:" beancount-accounts))
+  (insert "  ")
+  (insert (read-string "Amount:"))
+  (insert " ")
+  (insert (read-string "Currency:" nil nil "USD")))
 
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
