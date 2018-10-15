@@ -682,6 +682,14 @@ Derived from Norang setup."
 
 
 
+;; TODO:
+;; make everything that is conditional on being at home into one or more cleanly separated functions and called within one expression
+;; 1. finding what are currently called favorite-files
+;; 2. the big "when at-home" block elsewhere in this file, for loading website and journal functions among others
+
+;; in addition to finding my favorite files, it can start site-shell and finance-shell
+
+
 ;; find favorites unless they're already visited
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
 (let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el")))
