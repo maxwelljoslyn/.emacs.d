@@ -513,7 +513,17 @@ Derived from Norang setup."
 
 
 (when at-home
-    (defun journal (arg)
+  (defun website (arg)
+    "Find the website notes file."
+    ;; With prefix ARG, call helm-find-files in pages dir
+    (interactive "P")
+    (let ((website-name
+           (if (equal arg nil)
+               "pages/notes"
+             "")))
+      (find-file (expand-file-name (concat "~/Desktop/projects/site/" website-name ".org")))))
+  (global-set-key (kbd "C-c w") 'website)
+  (defun journal (arg)
       "Find today's journal file. With prefix ARG, open yesterday's file."
       (interactive "P")
       (let ((journal-name
@@ -521,7 +531,10 @@ Derived from Norang setup."
                  (format-time-string "%Y_%m_%d")
                (format-time-string "%Y_%m_%d" (time-subtract (current-time) (seconds-to-time (* 24 3600)))))))
         (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".org")))))
-  (global-set-key (kbd "C-c j") 'journal))
+  (global-set-key (kbd "C-c j") 'journal)
+  (add-to-list 'load-path "/Users/maxwelljoslyn/Desktop/beancount/editors/emacs")
+  (require 'beancount)
+  (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode)))
 
 ;; make backups go into their own folder
 ;; I think it works but idk
