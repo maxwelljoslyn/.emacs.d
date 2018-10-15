@@ -686,7 +686,7 @@ Derived from Norang setup."
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
 (let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el")))
   (when at-home
-      (add-to-list 'favorite-files "/Users/maxwelljoslyn/Desktop/projects/finance.ledger"))
+      (add-to-list 'favorite-files "/Users/maxwelljoslyn/Desktop/projects/ledger.beancount"))
   (dolist (element favorite-files)
     (unless (get-file-buffer element)
       (find-file element))))
