@@ -721,6 +721,17 @@ Derived from Norang setup."
   (insert " ")
   (insert (read-string "Currency:" nil nil "USD")))
 
+(defun mj/bean-posting (&optional account amount currency)
+  (interactive)
+  (insert-char ?\s 4)
+  (let* ((account (or account (ido-completing-read "Account:" beancount-accounts)))
+         (amount (or amount (read-string (concat account " Amount:"))))
+         (currency (or currency (read-string "Currency:" nil nil "USD"))))
+    (insert account)
+    (insert "  ")
+    (insert amount)
+    (insert " ")
+    (insert currency)))
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
   (interactive)
