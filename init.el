@@ -740,6 +740,21 @@ Derived from Norang setup."
     (insert amount)
     (insert " ")
     (insert currency)))
+
+
+(defun mj/bean-OHSU-paystub ()
+  "Unfinished. Still needs Assets:Investments:403b-OHSU-Match and its corresponding withdrawal from Income:OHSU:403b-Match (so that it doesn't cause an increase in the value of the balance posting to Income:OHSU:Salary), and of course a nice big balance posting to Income:OHSU:Salary, which should equal my gross salary."
+  (interactive)
+  (mj/insert-date)
+  (insert " * ")
+  (insert (mj/wrap-string "\"" "OHSU Paycheck"))
+  (insert "\n")
+  (dolist (account '("Assets:Ally:Checking" "Assets:Investments:403b" "Expenses:Tax:FIT" "Expenses:Tax:SIT" "Expenses:Tax:Medicare"  "Expenses:Tax:SS" "Expenses:Tax:WC" "Expenses:Tax:StateMisc"))
+    (mj/bean-posting account)
+    (insert "\n"))
+  (insert "    " "Income:OHSU:Salary"))
+
+
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
   (interactive)
