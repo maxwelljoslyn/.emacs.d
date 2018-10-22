@@ -716,6 +716,13 @@ Derived from Norang setup."
   (while t
     (insert "\n")
     (mj/bean-posting)))
+
+(defun mj/bean-balance ()
+  (interactive)
+  (mj/insert-date)
+  (insert " ")
+  (insert "balance")
+  (insert " ")
   (insert (ido-completing-read "Account:" beancount-accounts))
   (insert "  ")
   (insert (read-string "Amount:"))
