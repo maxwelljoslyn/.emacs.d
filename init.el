@@ -713,8 +713,9 @@ Derived from Norang setup."
   (mj/insert-date)
   (insert " * ")
   (insert (mj/wrap-string "\"" (read-string "Payee:")))
-  (insert "\n")
-  (insert-char ?\s 4)
+  (while t
+    (insert "\n")
+    (mj/bean-posting)))
   (insert (ido-completing-read "Account:" beancount-accounts))
   (insert "  ")
   (insert (read-string "Amount:"))
