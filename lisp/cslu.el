@@ -1,4 +1,17 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
+
+(defun mj/toggle-Redcap-is-identifier ()
+    "Toggle whether a Redcap field is an identifier or not."
+    (interactive)
+    (save-excursion
+      (end-of-line)
+      (search-backward "," nil t 7)
+      (backward-char)
+      (if (looking-at "y")
+          (delete-char 1)
+        (progn
+          (forward-char)
+          (insert "y")))))
 (defun mj/toggle-Redcap-required ()
     "Toggle whether a line (Redcap 'field') is required or not."
     (interactive)
