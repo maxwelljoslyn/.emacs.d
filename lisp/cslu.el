@@ -1,3 +1,4 @@
+;; -*- coding: utf-8; lexical-binding: t; -*-
 (defun mj/toggle-Redcap-required ()
     "Toggle whether a line (Redcap 'field') is required or not."
     (interactive)
