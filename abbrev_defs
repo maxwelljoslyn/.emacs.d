@@ -47,6 +47,7 @@
   '(
    ))
 
+
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-bmenu-mode-abbrev-table '())
@@ -60,6 +61,8 @@
 (define-abbrev-table 'c-mode-abbrev-table
   '(
    ))
+
+(define-abbrev-table 'calculator-mode-abbrev-table '())
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
@@ -99,15 +102,51 @@
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
 
+(define-abbrev-table 'conf-colon-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-javaprop-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-ppd-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-space-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-unix-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-windows-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-xdefaults-mode-abbrev-table '())
+
+(define-abbrev-table 'css-mode-abbrev-table '())
+
 (define-abbrev-table 'csv-mode-abbrev-table '())
+
+(define-abbrev-table 'custom-new-theme-mode-abbrev-table '())
+
+(define-abbrev-table 'custom-theme-choose-mode-abbrev-table '())
+
+(define-abbrev-table 'data-debug-mode-abbrev-table '())
 
 (define-abbrev-table 'debugger-mode-abbrev-table '())
 
 (define-abbrev-table 'diff-mode-abbrev-table '())
 
+(define-abbrev-table 'doctex-mode-abbrev-table '())
+
+(define-abbrev-table 'ebrowse-electric-list-mode-abbrev-table '())
+
+(define-abbrev-table 'ebrowse-electric-position-mode-abbrev-table '())
+
+(define-abbrev-table 'ebrowse-member-mode-abbrev-table '())
+
+(define-abbrev-table 'ebrowse-tree-mode-abbrev-table '())
+
 (define-abbrev-table 'edebug-eval-mode-abbrev-table '())
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
+
+(define-abbrev-table 'eieio-custom-mode-abbrev-table '())
+
+(define-abbrev-table 'electric-buffer-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'elisp-byte-code-mode-abbrev-table '())
 
@@ -127,71 +166,112 @@
 
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
+
+(define-abbrev-table 'gdb-breakpoints-mode-abbrev-table '())
+
+(define-abbrev-table 'gdb-disassembly-mode-abbrev-table '())
+
+(define-abbrev-table 'gdb-frames-mode-abbrev-table '())
+
+(define-abbrev-table 'gdb-locals-mode-abbrev-table '())
+
+(define-abbrev-table 'gdb-memory-mode-abbrev-table '())
+
+(define-abbrev-table 'gdb-registers-mode-abbrev-table '())
+
+(define-abbrev-table 'gdb-script-mode-abbrev-table '())
+
+(define-abbrev-table 'gdb-threads-mode-abbrev-table '())
+
 (define-abbrev-table 'gfm-mode-abbrev-table '())
 
 (define-abbrev-table 'gfm-view-mode-abbrev-table '())
 (define-abbrev-table 'global-abbrev-table
   '(
     ("acn" "can" nil 1)
-    ("adn" "and" nil 4)
+    ("adn" "and" nil 15)
     ("ahrdware" "hardware" nil 1)
-    ("ahve" "have" nil 3)
+    ("ahve" "have" nil 6)
     ("almsot" "almost" nil 1)
-    ("anythign" "anything" nil 1)
+    ("anythign" "anything" nil 2)
     ("aorund" "around" nil 1)
     ("apporved" "approved" nil 1)
     ("appt" "appointment" nil 2)
+    ("architecutre" "architecture" nil 1)
     ("aslo" "also" nil 1)
+    ("atlks" "talks" nil 1)
     ("becuase" "because" nil 3)
     ("becuse" "because" nil 2)
-    ("beleive" "believe" nil 1)
+    ("beleive" "believe" nil 2)
     ("blirary" "library" nil 1)
     ("brniging" "bringing" nil 1)
     ("byos" "boys" nil 2)
     ("candidiate" "candidate" nil 2)
+    ("certainyl" "certainly" nil 2)
     ("charcteristic" "characteristic" nil 1)
+    ("condidates" "candidates" nil 1)
     ("connectiosn" "connections" nil 1)
+    ("coudl" "could" nil 3)
     ("craete" "create" nil 1)
     ("currenlty" "currently" nil 1)
     ("decisiosn" "decisions" nil 1)
     ("deltion" "deletion" nil 1)
-    ("donig" "doing" nil 1)
+    ("determien" "determine" nil 1)
+    ("disfulency" "disfluency" nil 1)
+    ("displayting" "displaying" nil 1)
+    ("donig" "doing" nil 2)
     ("duratino" "duration" nil 1)
     ("elsewehr" "elsewhere" nil 1)
     ("engilsh" "English" nil 2)
-    ("enoguh" "enough" nil 1)
+    ("enoguh" "enough" nil 2)
+    ("everythign" "everything" nil 1)
     ("evne" "even" nil 1)
+    ("exericse" "exercise" nil 1)
     ("exisiting" "existing" nil 1)
+    ("exmainations" "examinations" nil 1)
+    ("extractnig" "extracting" nil 1)
     ("fdate" "" mj/insert-fdate 15)
-    ("fo" "of" nil 15)
+    ("fo" "of" nil 30)
     ("gacve" "gave" nil 1)
     ("gorup" "group" nil 1)
+    ("graet" "great" nil 1)
     ("guaradians" "guardians" nil 1)
     ("hadn" "hand" nil 1)
-    ("htat" "that" nil 1)
-    ("hte" "the" nil 36)
+    ("haev" "have" nil 1)
+    ("htat" "that" nil 2)
+    ("hte" "the" nil 42)
     ("htem" "them" nil 3)
-    ("hwo" "how" nil 2)
+    ("hwo" "how" nil 6)
     ("imoprt" "import" nil 1)
     ("improt" "import" nil 4)
     ("incmoing" "incoming" nil 1)
     ("incnetive" "incentive" nil 1)
     ("insertiosn" "insertions" nil 1)
-    ("itno" "into" nil 1)
+    ("itno" "into" nil 2)
     ("itslef" "itself" nil 1)
-    ("jdate" "" mj/insert-date 6)
+    ("jdate" "" mj/insert-jdate 11)
     ("joc" "Joy of Cooking" nil 2)
     ("jsut" "just" nil 1)
+    ("jugdment" "judgment" nil 1)
+    ("knid" "kind" nil 1)
     ("konw" "know" nil 2)
-    ("maknig" "making" nil 1)
-    ("mostly" "mostly" nil 3)
+    ("listenign" "listening" nil 1)
+    ("maknig" "making" nil 4)
+    ("mentioend" "mentioned" nil 1)
+    ("mgiration" "migration" nil 1)
+    ("mostly" "mostly" nil 7)
     ("nbd" "no big deal" nil 4)
-    ("ni" "in" nil 5)
-    ("nkow" "know" nil 9)
-    ("oipen" "open" nil 1)
+    ("ni" "in" nil 9)
+    ("nkow" "know" nil 13)
+    ("notcied" "noticed" nil 1)
+    ("nothign" "nothing" nil 2)
+    ("oen" "one" nil 1)
+    ("oipen" "open" nil 2)
+    ("onyl" "only" nil 1)
     ("optential" "potential" nil 1)
     ("ordedr" "order" nil 1)
     ("otehrwise" "otherwise" nil 1)
+    ("paragarph" "paragraph" nil 1)
     ("passworsd" "passwords" nil 1)
     ("preciuos" "precious" nil 1)
     ("predicrtable" "predictable" nil 1)
@@ -206,22 +286,32 @@
     ("relatd" "related" nil 1)
     ("relatd " "related" nil 0)
     ("releavnt" "relevant" nil 2)
+    ("rendernig" "rendering" nil 1)
     ("renmaed" "renamed" nil 1)
+    ("reprot" "report" nil 1)
     ("reqmts" "requirements" nil 1)
+    ("requiers" "requires" nil 1)
+    ("retursn" "returns" nil 1)
     ("rsycn" "rsync" nil 1)
     ("saturady" "Saturday" nil 1)
     ("scritp" "script" nil 1)
     ("sematnic " "semantic" nil 0)
     ("semnatic" "semantic" nil 1)
     ("semnatic " "semantic" nil 0)
+    ("shoudl" "should" nil 4)
     ("slpit" "split" nil 1)
+    ("smoe" "some" nil 1)
+    ("somenoe" "someone" nil 1)
+    ("somethign" "something" nil 2)
     ("stnading" "standing" nil 1)
     ("stoppiong" "stopping" nil 1)
     ("suggseted" "suggested" nil 1)
     ("taht" "that" nil 2)
-    ("teh" "the" nil 10)
-    ("that" "that" nil 223)
-    ("thsoe" "those" nil 1)
+    ("teh" "the" nil 22)
+    ("that" "that" nil 503)
+    ("thign" "thing" nil 1)
+    ("thsi" "this" nil 2)
+    ("thsoe" "those" nil 2)
     ("tmrw" "tomorrow" nil 1)
     ("tseting" "testing" nil 3)
     ("tsetnig" "testing" nil 1)
@@ -231,10 +321,11 @@
     ("usnig" "using" nil 1)
     ("varieites" "varieties" nil 1)
     ("wauy" "way" nil 1)
-    ("whcih" "which" nil 3)
-    ("wifi" "Wi-Fi" nil 1)
+    ("whcih" "which" nil 4)
+    ("wifi" "WiFi" nil 5)
     ("wns" "Weihenstephaner" nil 4)
     ("wnted" "wanted" nil 1)
+    ("wtih" "with" nil 1)
     ("yaer" "year" nil 1)
     ("yl" "logical year" nil 1)
     ("yro" "yro" nil 3)
@@ -257,6 +348,10 @@
 
 (define-abbrev-table 'help-mode-abbrev-table '())
 
+(define-abbrev-table 'html-mode-abbrev-table '())
+
+(define-abbrev-table 'ibuffer-mode-abbrev-table '())
+
 (define-abbrev-table 'idl-mode-abbrev-table '())
 
 (define-abbrev-table 'inferior-julia-mode-abbrev-table '())
@@ -268,6 +363,8 @@
    ))
 
 (define-abbrev-table 'julia-mode-abbrev-table '())
+
+(define-abbrev-table 'latex-mode-abbrev-table '())
 
 (define-abbrev-table 'ledger-check-mode-abbrev-table '())
 
@@ -313,6 +410,18 @@
 
 (define-abbrev-table 'magit-status-mode-abbrev-table '())
 
+(define-abbrev-table 'makefile-automake-mode-abbrev-table '())
+
+(define-abbrev-table 'makefile-bsdmake-mode-abbrev-table '())
+
+(define-abbrev-table 'makefile-gmake-mode-abbrev-table '())
+
+(define-abbrev-table 'makefile-imake-mode-abbrev-table '())
+
+(define-abbrev-table 'makefile-makepp-mode-abbrev-table '())
+
+(define-abbrev-table 'makefile-mode-abbrev-table '())
+
 (define-abbrev-table 'markdown-mode-abbrev-table '())
 
 (define-abbrev-table 'markdown-view-mode-abbrev-table '())
@@ -322,6 +431,8 @@
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'nand2tetris-mode-abbrev-table '())
+
+(define-abbrev-table 'nov-mode-abbrev-table '())
 
 (define-abbrev-table 'nrepl-messages-mode-abbrev-table '())
 
@@ -333,6 +444,8 @@
 
 (define-abbrev-table 'occur-mode-abbrev-table '())
 
+(define-abbrev-table 'org-export-stack-mode-abbrev-table '())
+
 (define-abbrev-table 'org-mode-abbrev-table '())
 
 (define-abbrev-table 'outline-mode-abbrev-table '())
@@ -343,25 +456,39 @@
   '(
    ))
 
+(define-abbrev-table 'pascal-mode-abbrev-table '())
+
+(define-abbrev-table 'plain-tex-mode-abbrev-table '())
+
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'reb-mode-abbrev-table '())
 
+(define-abbrev-table 'ruby-mode-abbrev-table '())
+
 (define-abbrev-table 'rxt-help-mode-abbrev-table '())
+
+(define-abbrev-table 'scss-mode-abbrev-table '())
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
+(define-abbrev-table 'sgml-mode-abbrev-table '())
+
+(define-abbrev-table 'sh-mode-abbrev-table '())
+
 (define-abbrev-table 'shell-mode-abbrev-table '())
+
+(define-abbrev-table 'sieve-manage-mode-abbrev-table '())
+
+(define-abbrev-table 'sieve-mode-abbrev-table '())
 
 (define-abbrev-table 'sldb-mode-abbrev-table '())
 
@@ -373,6 +500,8 @@
 
 (define-abbrev-table 'slime-xref-mode-abbrev-table '())
 
+(define-abbrev-table 'slitex-mode-abbrev-table '())
+
 (define-abbrev-table 'snippet-mode-abbrev-table '())
 
 (define-abbrev-table 'special-mode-abbrev-table '())
@@ -380,6 +509,14 @@
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
+
+(define-abbrev-table 'tar-mode-abbrev-table '())
+
+(define-abbrev-table 'term-mode-abbrev-table '())
+
+(define-abbrev-table 'tex-mode-abbrev-table '())
+
+(define-abbrev-table 'tex-shell-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 
@@ -391,7 +528,10 @@
 
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
 
+
 (define-abbrev-table 'vc-hg-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'web-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
