@@ -532,7 +532,7 @@ Derived from Norang setup."
                (format-time-string "%Y_%m_%d" (time-subtract (current-time) (seconds-to-time (* 24 3600)))))))
         (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".org")))))
   (global-set-key (kbd "C-c j") 'journal)
-  (add-to-list 'load-path "/Users/maxwelljoslyn/Desktop/finance/beancount/editors/emacs")
+  (add-to-list 'load-path  "/Users/maxwelljoslyn/Desktop/projects/finance/beancount/editors/emacs")
   (require 'beancount)
   (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode)))
 
