@@ -328,7 +328,8 @@ Derived from Norang setup."
 
 (use-package beacon
   :config
-  (beacon-mode 1))
+  (beacon-mode 1)
+  (setq beacon-blink-when-point-moves-vertically 20))
 
 (load "~/.emacs.d/lisp/cslu.el")
 
