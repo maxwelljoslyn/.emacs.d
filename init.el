@@ -353,6 +353,9 @@ Derived from Norang setup."
   (dired-hide-details-mode 1))
 
 (add-hook 'dired-mode-hook 'mj/dired-setup)
+(use-package aggressive-indent
+  :config
+  (add-hook 'prog-mode-hook #'aggressive-indent-mode))
 
 (use-package iedit
   :commands
