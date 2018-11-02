@@ -1,5 +1,21 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(defun mj/copy-csv-field (source-buf &optional linum field-num)
+  "Get the CSV field at the LINUM line and FIELD-NUM field in the buffer SOURCE-BUF, which must be visiting a CSV file."
+  (interactive)
+  (when (not linum)
+    (setq linum 1))
+  (when (not field-num)
+    (setq field-num 1))
+  (with-current-buffer source-buf
+    (goto-line linum)
+    (beginning-of-line)
+    (csv-forward-field field-num)
+    (setq end (1+ (point)))
+    (setq beg  (if-let (posn (search-backward "," (line-beginning-position) t))
+                   (1+  posn)
+                 (line-beginning-position)))
+    (buffer-substring-no-properties beg end)))
 (defun mj/toggle-Redcap-is-identifier ()
     "Toggle whether a Redcap field is an identifier or not."
     (interactive)
