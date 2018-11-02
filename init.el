@@ -115,7 +115,7 @@ Derived from Norang setup."
              (not org-clock-resolving-clocks-due-to-idleness))
     (mj/clock-in-parent-task)))
 
-(add-hook 'org-clock-out-hook 'mj/clock-out-maybe 'append)
+(add-hook 'org-clock-out-hook #'mj/clock-out-maybe 'append)
 ;; Remove empty LOGBOOK drawers on clock out
 (defun bh/remove-empty-drawer-on-clock-out ()
   (interactive)
@@ -123,7 +123,7 @@ Derived from Norang setup."
     (beginning-of-line 0)
     (org-remove-empty-drawer-at "LOGBOOK" (point))))
 
-(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+(add-hook 'org-clock-out-hook #'bh/remove-empty-drawer-on-clock-out 'append)
 
 
 ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
@@ -205,9 +205,10 @@ Derived from Norang setup."
 (setq mj/todo-org-local-buffer-mode-map (make-sparse-keymap))
 
 (define-minor-mode mj/todo-org-local-buffer-mode
-    "Minor mode to simulate buffer local keybindings."
-    :init-value nil)
-(define-key mj/todo-org-local-buffer-mode-map (kbd "C-x C-s") 'mj/org-save-and-commit)
+  "Minor mode to simulate buffer local keybindings."
+  :init-value nil)
+
+(define-key mj/todo-org-local-buffer-mode-map (kbd "C-x C-s") #'mj/org-save-and-commit)
 
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -224,20 +225,20 @@ Derived from Norang setup."
   "Exclude todo keywords with a done state from refile targets"
   (not (member (nth 2 (org-heading-components)) 'org-done-keywords)))
 
-(global-set-key (kbd "M-q") 'toggle-truncate-lines)
+(global-set-key (kbd "M-q") #'toggle-truncate-lines)
 
 (use-package org
   :config
-  (global-set-key (kbd "<f8>") 'org-agenda)
-  (global-set-key (kbd "C-c b") 'find-org-file)
-  (global-set-key (kbd "C-8") 'org-capture)
+  (global-set-key (kbd "<f8>") #'org-agenda)
+  (global-set-key (kbd "C-c b") #'find-org-file)
+  (global-set-key (kbd "C-8") #'org-capture)
 
-  (define-key org-mode-map (kbd "C-M-RET") 'org-insert-subheading)
+  (define-key org-mode-map (kbd "C-M-RET") #'org-insert-subheading)
   (define-key org-mode-map (kbd "C-'") nil)
-  (define-key org-mode-map (kbd "C-c t") 'org-todo)
-  (define-key org-mode-map (kbd "C-c C-.") 'org-time-stamp-inactive)
+  (define-key org-mode-map (kbd "C-c t") #'org-todo)
+  (define-key org-mode-map (kbd "C-c C-.") #'org-time-stamp-inactive)
 
-  (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+  (add-hook 'org-after-todo-statistics-hook #'org-summary-todo)
   (setq org-log-done 'time)
   (setq org-default-notes-file "~/Desktop/todo.org")
   (setq org-log-into-drawer t)
@@ -286,7 +287,7 @@ Derived from Norang setup."
   (setq org-outline-path-complete-in-steps nil)
   (setq org-refile-allow-creating-parent-nodes (quote confirm))
   (setq org-treat-S-cursor-todo-selection-as-state-change nil)
-  (setq org-refile-target-verify-function 'bh/verify-refile-target)
+  (setq org-refile-target-verify-function #'bh/verify-refile-target)
   (setq org-export-initial-scope 'subtree)
   (setq org-catch-invisible-edits 'show-and-error)
   (setq org-agenda-files '("~/Desktop/todo.org"))
@@ -320,7 +321,7 @@ Derived from Norang setup."
 
 (use-package helm-swoop
   :config
-  (setq helm-swoop-pre-input-function '(lambda () nil)))
+  (setq helm-swoop-pre-input-function #'(lambda () nil)))
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (setq seoul256-background 235)
@@ -343,8 +344,8 @@ Derived from Norang setup."
 
 (use-package dired-subtree
   :config
-  (define-key dired-mode-map (kbd "i") 'dired-subtree-insert)
-  (define-key dired-mode-map (kbd ";") 'dired-subtree-remove))
+  (define-key dired-mode-map (kbd "i") #'dired-subtree-insert)
+  (define-key dired-mode-map (kbd ";") #'dired-subtree-remove))
 
 (use-package dired-filter)
 
@@ -352,7 +353,8 @@ Derived from Norang setup."
   "Run this as a hook for dired-mode."
   (dired-hide-details-mode 1))
 
-(add-hook 'dired-mode-hook 'mj/dired-setup)
+(add-hook 'dired-mode-hook #'mj/dired-setup)
+
 (use-package aggressive-indent
   :config
   (add-hook 'prog-mode-hook #'aggressive-indent-mode))
@@ -363,17 +365,17 @@ Derived from Norang setup."
   :bind
   ("C-;" . iedit-mode))
 
-(global-set-key (kbd "C-1") 'delete-other-windows)
-(global-set-key (kbd "C-2") 'split-window-below)
-(global-set-key (kbd "C-3") 'split-window-horizontally)
-(global-set-key (kbd "C-4") 'ctl-x-4-prefix)
-(global-set-key (kbd "C-5") 'ctl-x-5-prefix)
+(global-set-key (kbd "C-1") #'delete-other-windows)
+(global-set-key (kbd "C-2") #'split-window-below)
+(global-set-key (kbd "C-3") #'split-window-horizontally)
+(global-set-key (kbd "C-4") #'ctl-x-4-prefix)
+(global-set-key (kbd "C-5") #'ctl-x-5-prefix)
 
 (use-package company
   :config
   (setq company-global-modes '(not text-mode))
   (setq company-idle-delay 0.4)
-  (add-hook 'after-init-hook 'global-company-mode))
+  (add-hook 'after-init-hook #'global-company-mode))
 
 (use-package web-mode
   :mode ("\\.html$" . web-mode))
@@ -436,27 +438,27 @@ Derived from Norang setup."
 (require 'helm)
 (require 'helm-config)
 (helm-mode 1)
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "M-o") 'helm-mini)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-c h m") 'helm-all-mark-rings)
-(global-set-key (kbd "C-c h w") 'helm-man-woman)
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to do persistent action
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+(global-set-key (kbd "C-x b") #'helm-mini)
+(global-set-key (kbd "M-o") #'helm-mini)
+(global-set-key (kbd "M-y") #'helm-show-kill-ring)
+(global-set-key (kbd "C-c h m") #'helm-all-mark-rings)
+(global-set-key (kbd "C-c h w") #'helm-man-woman)
+(define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action) ; rebind tab to do persistent action
+(define-key helm-map (kbd "C-i") #'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  #'helm-select-action) ; list actions using C-z
 ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
 ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
 ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-(global-set-key (kbd "C-c h") 'helm-command-prefix)
+(global-set-key (kbd "C-c h")# 'helm-command-prefix)
 (global-unset-key (kbd "C-x c"))
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-c h o") 'helm-occur)
-(global-set-key (kbd "C-o") 'helm-swoop)
-(global-set-key (kbd "C-c g") 'helm-do-grep-ag)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-c h o") #'helm-occur)
+(global-set-key (kbd "C-o") #'helm-swoop)
+(global-set-key (kbd "C-c g") #'helm-do-grep-ag)
 ;; eval an elisp sexp with live results -- improvement on default M-:
-(global-set-key (kbd "M-:") 'helm-eval-expression-with-eldoc)
-(global-set-key (kbd "C-h a") 'helm-apropos)
+(global-set-key (kbd "M-:") #'helm-eval-expression-with-eldoc)
+(global-set-key (kbd "C-h a") #'helm-apropos)
 (setq helm-grep-ag-command "rg --color=always --colors 'match:fg:black' --colors 'match:bg:yellow' --smart-case --no-heading --line-number %s %s %s")
 (setq helm-grep-ag-pipe-cmd-switches '("--colors 'match:fg:black'" "--colors 'match:bg:yellow'"))
 (setq helm-M-x-fuzzy-match t
@@ -497,10 +499,10 @@ Derived from Norang setup."
 (define-prefix-command 'mj-mc-map)
 (global-set-key (kbd "C-c m") 'mj-mc-map)
 (use-package multiple-cursors)
-(define-key mj-mc-map (kbd "e") 'mc/edit-lines)
-(define-key mj-mc-map (kbd "r") 'mc/mark-all-in-region-regexp)
-(define-key mj-mc-map (kbd "n") 'mc/mark-next-like-this)
-(define-key mj-mc-map (kbd "d") 'mc/mark-all-dwim)
+(define-key mj-mc-map (kbd "e") #'mc/edit-lines)
+(define-key mj-mc-map (kbd "r") #'mc/mark-all-in-region-regexp)
+(define-key mj-mc-map (kbd "n") #'mc/mark-next-like-this)
+(define-key mj-mc-map (kbd "d") #'mc/mark-all-dwim)
 
 (use-package define-word)
 
@@ -526,7 +528,7 @@ Derived from Norang setup."
                "pages/notes"
              "")))
       (find-file (expand-file-name (concat "~/Desktop/projects/site/" website-name ".org")))))
-  (global-set-key (kbd "C-c w") 'website)
+  (global-set-key (kbd "C-c w") #'website)
   (defun journal (arg)
       "Find today's journal file. With prefix ARG, open yesterday's file."
       (interactive "P")
@@ -564,8 +566,7 @@ Derived from Norang setup."
 (global-set-key (kbd "C-x C-z") nil)
 ;; start initial frame maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-(global-set-key (kbd "M-SPC") 'delete-horizontal-space)
-
+(global-set-key (kbd "M-SPC") #'delete-horizontal-space)
 
 (global-set-key (kbd "C-x C-c") nil)
 
@@ -613,7 +614,7 @@ Derived from Norang setup."
           (message "File '%s' successfully renamed to '%s'"
                    name (file-name-nondirectory new-name)))))))
 
-(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
+(global-set-key (kbd "C-x C-r") #'rename-current-buffer-file)
 
 (defun mj/latex-macron ()
     (interactive)
@@ -653,9 +654,9 @@ Derived from Norang setup."
 
 (defun mj/latex-keys ()
   (progn
-    (local-set-key (kbd "C-c =") 'mj/latex-macron)
-    (local-set-key (kbd "C-c v") 'mj/latex-caron)
-    (local-set-key (kbd "C-c 2") 'mj/latex-acute)
+    (local-set-key (kbd "C-c =") #'mj/latex-macron)
+    (local-set-key (kbd "C-c v") #'mj/latex-caron)
+    (local-set-key (kbd "C-c 2") #'mj/latex-acute)
     )
   )
 
@@ -664,7 +665,7 @@ Derived from Norang setup."
 
 (defun mj/haskell-keys ()
   (progn
-    (local-set-key (kbd "C-c l") 'haskell-process-load-file))
+    (local-set-key (kbd "C-c l") #'haskell-process-load-file))
   )
 
 (setq ledger-reports
