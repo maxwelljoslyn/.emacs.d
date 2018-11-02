@@ -150,8 +150,8 @@ Derived from Norang setup."
 
 ;; bootstrap use-package
 (unless (package-installed-p 'use-package)
-	(package-refresh-contents)
-	(package-install 'use-package))
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 
 ;; (add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode))
@@ -171,8 +171,8 @@ Derived from Norang setup."
 (setq eshell-smart-space-goes-to-end t)
 
 (use-package which-key
-	     :config
-	     (which-key-mode))
+  :config
+  (which-key-mode))
 
 (defun mj/insert-filename (filename &optional args)
   "Insert path to file FILENAME into buffer after point.
@@ -242,8 +242,6 @@ Derived from Norang setup."
   (setq org-log-done 'time)
   (setq org-default-notes-file "~/Desktop/todo.org")
   (setq org-log-into-drawer t)
-  ;; (setq org-log-into-drawer t)
-
 
   (setq org-todo-keywords
 	'((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c)")
@@ -264,7 +262,7 @@ Derived from Norang setup."
 	    (todo "NEXT")))))
 
   (setq org-capture-templates
-            (quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %? %^{Effort}p" :clock-in t :clock-resume t)
+        (quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %? %^{Effort}p" :clock-in t :clock-resume t)
                 ("n" "next" entry (file "~/Desktop/todo.org") "* NEXT %?" :clock-in t :clock-resume t)
                 ("w" "wait" entry (file "~/Desktop/todo.org") "* WAIT %?" :clock-in t :clock-resume t)
                 ("h" "hold" entry (file "~/Desktop/todo.org") "* HOLD %?\n SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1w\"))" :clock-in t :clock-resume t)
@@ -306,11 +304,11 @@ Derived from Norang setup."
 ;; putting it outside the org-mode use-package form seems to ensure this, and prevent errors on load
 (defvar org-agenda-clock-consistency-checks
   '(:max-duration "10:00" :min-duration 0 :max-gap "0:00" :gap-ok-around
-               ("4:00")
-               :default-face
-               ((:background "DarkRed")
-                (:foreground "white"))
-               :overlap-face nil :gap-face nil :no-end-time-face nil :long-face nil :short-face nil))
+                  ("4:00")
+                  :default-face
+                  ((:background "DarkRed")
+                   (:foreground "white"))
+                  :overlap-face nil :gap-face nil :no-end-time-face nil :long-face nil :short-face nil))
 
 (use-package yasnippet
   :config
@@ -530,13 +528,13 @@ Derived from Norang setup."
       (find-file (expand-file-name (concat "~/Desktop/projects/site/" website-name ".org")))))
   (global-set-key (kbd "C-c w") #'website)
   (defun journal (arg)
-      "Find today's journal file. With prefix ARG, open yesterday's file."
-      (interactive "P")
-      (let ((journal-name
-             (if (equal arg nil)
-                 (format-time-string "%Y_%m_%d")
-               (format-time-string "%Y_%m_%d" (time-subtract (current-time) (seconds-to-time (* 24 3600)))))))
-        (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".org")))))
+    "Find today's journal file. With prefix ARG, open yesterday's file."
+    (interactive "P")
+    (let ((journal-name
+           (if (equal arg nil)
+               (format-time-string "%Y_%m_%d")
+             (format-time-string "%Y_%m_%d" (time-subtract (current-time) (seconds-to-time (* 24 3600)))))))
+      (find-file (expand-file-name (concat "~/Desktop/projects/Journal/Journal_" journal-name ".org")))))
   (global-set-key (kbd "C-c j") 'journal)
   (add-to-list 'load-path (directory-file-name "/Users/maxwelljoslyn/Desktop/projects/finance/beancount/editors/emacs"))
   (require 'beancount)
@@ -553,12 +551,12 @@ Derived from Norang setup."
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (blink-cursor-mode -1)
-; allow response to prompts to be y/n instead of yes/no
+;; allow response to prompts to be y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq confirm-nonexistent-file-or-buffer nil)
-; make a sentence be full stop plus 1 space, instead of 2 spaces
+;;make a sentence be full stop plus 1 space, instead of 2 spaces
 (setq sentence-end-double-space nil)
-; enable narrow-to-region
+;;enable narrow-to-region
 (put 'narrow-to-region 'disabled nil)
 (global-set-key (kbd "M-/") 'hippie-expand)
 ;; turn off these STUPID shortcuts which minimizes the window! and it's right next to C-x!
@@ -578,16 +576,10 @@ Derived from Norang setup."
       (if (vc-backend filename)
           (vc-delete-file filename)
         (progn
-          (delete-file filename t) ; t at end means "move to trash instead of deleting""
+          (delete-file filename t)
+          ;; t at end of delete-file means "move to trash instead of deleting""
           (message "Deleted file %s" filename)
           (kill-buffer))))))
-
-
-;; (global-set-key (kbd "M-j")
-;; 		(lambda ()
-;; 		  (interactive)
-;; 		  (join-line -1)))
-		
 
 (defadvice find-file (before make-directory-maybe (filename &optional wildcards) activate)
   "Create parent directory if not exists while visiting file."
@@ -617,40 +609,40 @@ Derived from Norang setup."
 (global-set-key (kbd "C-x C-r") #'rename-current-buffer-file)
 
 (defun mj/latex-macron ()
-    (interactive)
-    (progn
-      (insert (kbd "\\={"))
-      (if (string= (string (char-after)) "i")
-	  (insert (kbd "\\"))
-	)
-      (forward-char)
-      (insert (kbd "}"))
+  (interactive)
+  (progn
+    (insert (kbd "\\={"))
+    (if (string= (string (char-after)) "i")
+        (insert (kbd "\\"))
       )
+    (forward-char)
+    (insert (kbd "}"))
     )
+  )
 
 (defun mj/latex-caron ()
-    (interactive)
-    (progn
-      (insert (kbd "\\v{"))
-       (if (string= (string (char-after)) "i")
-	  (insert (kbd "\\"))
-	)
-      (forward-char)
-      (insert (kbd "}"))
+  (interactive)
+  (progn
+    (insert (kbd "\\v{"))
+    (if (string= (string (char-after)) "i")
+        (insert (kbd "\\"))
       )
+    (forward-char)
+    (insert (kbd "}"))
     )
+  )
 
 (defun mj/latex-acute ()
-    (interactive)
-    (progn
-      (insert (kbd "\\\'{"))
-       (if (string= (string (char-after)) "i")
-	  (insert (kbd "\\"))
-	)
-      (forward-char)
-      (insert (kbd "}"))
+  (interactive)
+  (progn
+    (insert (kbd "\\\'{"))
+    (if (string= (string (char-after)) "i")
+        (insert (kbd "\\"))
       )
+    (forward-char)
+    (insert (kbd "}"))
     )
+  )
 
 (defun mj/latex-keys ()
   (progn
@@ -669,13 +661,13 @@ Derived from Norang setup."
   )
 
 (setq ledger-reports
-   (quote
-    (("bal, real" "%(binary) -f %(ledger-file) bal --real")
-     ("bal" "%(binary) -f %(ledger-file) bal")
-     ("monthly expenses" "%(binary) -f %(ledger-file) reg -AMn --empty ^Expenses --real")
-     ("reg" "%(binary) -f %(ledger-file) reg")
-     ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
-     ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
+      (quote
+       (("bal, real" "%(binary) -f %(ledger-file) bal --real")
+        ("bal" "%(binary) -f %(ledger-file) bal")
+        ("monthly expenses" "%(binary) -f %(ledger-file) reg -AMn --empty ^Expenses --real")
+        ("reg" "%(binary) -f %(ledger-file) reg")
+        ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+        ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
 (setq ledger-highlight-xact-under-point nil)
 
 ;; set default font size to 16
@@ -691,7 +683,6 @@ Derived from Norang setup."
 ;; make everything that is conditional on being at home into one or more cleanly separated functions and called within one expression
 ;; 1. finding what are currently called favorite-files
 ;; 2. the big "when at-home" block elsewhere in this file, for loading website and journal functions among others
-
 ;; in addition to finding my favorite files, it can start site-shell and finance-shell
 
 
@@ -699,7 +690,7 @@ Derived from Norang setup."
 ;; this stops Emacs from switching over to that file if I'm just evaling my whole init.el while tweaking it
 (let ((favorite-files '("~/Desktop/todo.org" "~/.emacs.d/init.el")))
   (when at-home
-      (add-to-list 'favorite-files "/Users/maxwelljoslyn/Desktop/projects/finance/ledger.beancount"))
+    (add-to-list 'favorite-files "/Users/maxwelljoslyn/Desktop/projects/finance/ledger.beancount"))
   (dolist (element favorite-files)
     (unless (get-file-buffer element)
       (find-file element))))
