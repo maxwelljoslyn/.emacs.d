@@ -339,7 +339,7 @@ Derived from Norang setup."
   :config
   (setq aw-keys '(?d ?f ?s ?e ?g ?h))
   (setq aw-minibuffer-flag t)
-  (set-face-attribute 'aw-leading-char-face nil :height 350))
+  (set-face-attribute 'aw-leading-char-face nil :height 280))
 
 (use-package dired-subtree
   :config
