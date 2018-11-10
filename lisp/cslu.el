@@ -17,12 +17,12 @@
                  (line-beginning-position)))
     (buffer-substring-no-properties beg end)))
 
-(defun mj/csv-column-to-row (n source-buf target-buf)
+(defun mj/csv-column-to-row (rows cols source-buf target-buf)
   "Given a buffer SOURCE-BUF with variables as columns and observations in rows, insert into TARGET-BUF a row with the variable as the first column and the observations as subsequent columns."
   (with-current-buffer target-buf
-    (dolist (i '(1 2 3 4 5))
-      (setq text (mj/copy-csv-field source-buf i n))
-      (goto-line (1+ n))
+    (dolist (i (number-sequence 1 rows))
+      (setq text (mj/copy-csv-field source-buf i cols))
+      (goto-line (1+ cols))
       (end-of-line)
       (insert text))
     (insert "\n")))
