@@ -578,7 +578,7 @@ Derived from Norang setup."
 ;; start initial frame maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 (global-set-key (kbd "M-SPC") #'delete-horizontal-space)
-
+(setq reb-re-syntax 'string)  ;; avoid extra escaping when using re-builder
 (global-set-key (kbd "C-x C-c") nil)
 
 (defun delete-file-and-buffer ()
