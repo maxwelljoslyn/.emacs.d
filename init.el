@@ -541,8 +541,7 @@ Derived from Norang setup."
   (require 'beancount)
   (add-to-list 'auto-mode-alist '("\\.beancount\\'" . beancount-mode)))
 
-;; make backups go into their own folder
-;; I think it works but idk
+;; make backups go into their own folder. it works
 (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
 (setq backup-directory-alist (list (cons ".*" backup-dir)))
 
