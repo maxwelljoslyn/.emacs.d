@@ -9,9 +9,9 @@
 (setq package-enable-at-startup nil)
 (setq package-archives
       '(("MELPA Stable" . "https://stable.melpa.org/packages/")
-	("melpa" . "https://melpa.org/packages/")
-	("gnu" . "https://elpa.gnu.org/packages/")
-	("org" . "https://orgmode.org/elpa/")))
+        ("melpa" . "https://melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")
+        ("org" . "https://orgmode.org/elpa/")))
 (package-initialize)
 
 ;; to run certifi, you will need to pip install -m certifi beforehand
@@ -245,22 +245,22 @@ Derived from Norang setup."
   (setq org-log-into-drawer t)
 
   (setq org-todo-keywords
-	'((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c)")
-	  (sequence "WAIT(w!)" "HOLD(h)" "|" "DONE(d)" "CANCELLED(c)")))
+        '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c)")
+          (sequence "WAIT(w!)" "HOLD(h)" "|" "DONE(d)" "CANCELLED(c)")))
 
   (setq org-todo-keyword-faces
-	(quote (("TODO" :foreground "red" :weight bold)
-		("NEXT" :foreground "deep sky blue" :weight bold)
-		("DONE" :foreground "forest green" :weight bold)
-		("WAIT" :foreground "Darkorange1" :weight bold)
-		("HOLD" :foreground "Pink2" :weight bold)
-		("CANCELLED" :foreground "Olivedrab4" :weight bold))))
+        (quote (("TODO" :foreground "red" :weight bold)
+                ("NEXT" :foreground "deep sky blue" :weight bold)
+                ("DONE" :foreground "forest green" :weight bold)
+                ("WAIT" :foreground "Darkorange1" :weight bold)
+                ("HOLD" :foreground "Pink2" :weight bold)
+                ("CANCELLED" :foreground "Olivedrab4" :weight bold))))
 
   (setq org-agenda-custom-commands
-	'(("d" "daily driver agenda command"
-	   ((agenda "" ((org-agenda-span 1)))
-	    (todo "WAIT")
-	    (todo "NEXT")))))
+        '(("d" "daily driver agenda command"
+           ((agenda "" ((org-agenda-span 1)))
+            (todo "WAIT")
+            (todo "NEXT")))))
 
   (setq org-capture-templates
         (quote (("t" "todo" entry (file "~/Desktop/todo.org") "* TODO %? %^{Effort}p" :clock-in t :clock-resume t)
@@ -292,14 +292,15 @@ Derived from Norang setup."
   (setq org-agenda-files '("~/Desktop/todo.org"))
   (setq org-special-ctrl-a/e t)
   (setq org-export-with-smart-quotes nil
-	org-export-with-emphasize t
-	org-export-with-sub-superscripts '{}
-	org-export-with-footnotes t
-	org-export-with-toc t
-	org-export-headline-levels 2
-	org-use-fast-tag-selection t
-	org-agenda-skip-scheduled-if-done t
-        org-agenda-skip-deadline-if-done t))
+        org-export-with-emphasize t
+        org-export-with-sub-superscripts '{}
+        org-export-with-footnotes t
+        org-export-with-toc t
+        org-export-headline-levels 2
+        org-use-fast-tag-selection t
+        org-agenda-skip-scheduled-if-done t
+        org-agenda-skip-deadline-if-done t
+        org-agenda-persistent-marks t))
 
 ;; this has to be done AFTER org-agenda has loaded so that the consistency-checks variable exists
 ;; putting it outside the org-mode use-package form seems to ensure this, and prevent errors on load
@@ -425,7 +426,7 @@ Derived from Norang setup."
 (use-package markdown-mode
   :commands (markdown-mode)
   :mode (("\\.md\\'" . markdown-mode)
-	 ("\\.markdown\\'" . markdown-mode)))
+         ("\\.markdown\\'" . markdown-mode)))
 
 (use-package magit
   :bind
