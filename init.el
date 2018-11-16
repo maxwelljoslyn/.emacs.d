@@ -216,9 +216,15 @@ Derived from Norang setup."
   (let (org-log-done org-log-states)   ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-(defun find-org-file ()
+(defun mj/visit-org-file ()
+  "If there's a window in the current frame already displaying the buffer visiting my todo file, switch to it. Otherwise, find the file in the current window."
   (interactive)
-  (find-file "~/Desktop/todo.org"))
+  (let* ((org-file "~/Desktop/todo.org")
+         (buf (find-buffer-visiting org-file))
+         (maybe-window (get-buffer-window buf)))
+    (if maybe-window
+        (select-window maybe-window)
+      (find-file org-file))))
 
 ;; Exclude DONE state tasks from refile targets
 ;; from doc.norang.ca
@@ -231,7 +237,7 @@ Derived from Norang setup."
 (use-package org
   :config
   (global-set-key (kbd "<f8>") #'org-agenda)
-  (global-set-key (kbd "C-c b") #'find-org-file)
+  (global-set-key (kbd "C-c b") #'mj/visit-org-file)
   (global-set-key (kbd "C-8") #'org-capture)
 
   (define-key org-mode-map (kbd "C-M-RET") #'org-insert-subheading)
