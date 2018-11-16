@@ -351,7 +351,8 @@ Derived from Norang setup."
 (use-package dired-subtree
   :config
   (define-key dired-mode-map (kbd "i") #'dired-subtree-insert)
-  (define-key dired-mode-map (kbd ";") #'dired-subtree-remove))
+  (define-key dired-mode-map (kbd ";") #'dired-subtree-remove)
+  (define-key dired-mode-map (kbd "<f5>") #'wdired-change-to-wdired-mode))
 
 (use-package dired-filter)
 
