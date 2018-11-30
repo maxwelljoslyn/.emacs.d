@@ -6,6 +6,14 @@
  '(custom-safe-themes
    (quote
     ("935cdfc778539529d8124a5500923a660b7e05eb9dba5a762107c7db7a4d56ae" default)))
+ '(org-file-apps
+   (quote
+    ((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . default)
+     ("\\.xlsx\\'" . system)
+     ("\\.xls\\'" . system))))
  '(package-selected-packages
    (quote
     (aggressive-indent beacon seoul256-theme yasnippet which-key web-mode wc-goal-mode visual-regexp-steroids use-package undo-tree swoop swiper-helm smartparens slime sass-mode paredit nand2tetris multiple-cursors markdown-mode magit keyfreq iedit helm-swoop haskell-mode goto-chg flycheck expand-region exec-path-from-shell ess el-get dumb-jump dired-subtree dired-filter define-word csv-mode corral company cider auctex ace-window))))
