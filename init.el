@@ -2,6 +2,8 @@
 (setq inhibit-startup-message t)
 (setq inhibit-splash-screen t)
 
+(load "~/.emacs.d/lisp/alias.el")
+
 (defvar at-home
   (file-directory-p "/Users/maxwelljoslyn/Desktop/projects/"))
 
