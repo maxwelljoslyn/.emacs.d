@@ -1,5 +1,13 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(defun mj/meeting-template ()
+  (let ((date-string (org-read-date nil nil ".")))
+    (setq  template "* NEXT AVALA meeting minutes %(org-insert-time-stamp (org-read-date nil t \".\"))\n  :PROPERTIES:\n  :export_file_name: AVALA_minutes_")
+    (setq export-date (replace-regexp-in-string "-" "_" date-string))
+    (setq template (s-concat template export-date "\n  :END:\n** Discussion\n** Actions"))
+    template))
+
+
 (defun mj/copy-csv-field (source-buf &optional linum field-num)
   "Get the CSV field at the LINUM line and FIELD-NUM field in the buffer SOURCE-BUF, which must be visiting a CSV file."
   (interactive)

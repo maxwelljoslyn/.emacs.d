@@ -279,6 +279,7 @@ Derived from Norang setup."
                 ("p" "plain" entry (file "~/Desktop/todo.org") "* %?" :clock-in t :clock-resume t)
                 ("e" "beeminder" entry (file+headline "~/Desktop/todo.org" "things to Beemind") "* HOLD beemind %?\n SCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+1w\"))")
                 ("b" "buy" entry (file+headline "~/Desktop/todo.org" "things to buy") "* NEXT %?")
+                ("i" "meeting minutes" entry (file "~/Desktop/todo.org") (function mj/meeting-template) :clock-in t :clock-resume t)
                 ("m" "Media prefix")
                 ("mw" "watch" entry (file+headline "~/Desktop/todo.org" "media") "* WATCH %?")
                 ("mp" "play" entry (file+headline "~/Desktop/todo.org" "media") "* PLAY %?")
