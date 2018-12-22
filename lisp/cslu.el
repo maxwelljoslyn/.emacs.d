@@ -1,5 +1,31 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(defun mj/video-id ()
+  "Get the ID of the cut video on the current line."
+  (save-excursion
+    (end-of-line)
+    (buffer-substring (point) (- (point) 2))))
+
+;; to adapt this setup to move from e.g. RS to EV:
+;; 1) change RS-cut within mj/open-cut-video's `concat` to EV-cut
+;; 2) change code in cut_vids.py to only regenerate EV files
+(defun mj/open-cut-video ()
+  "Open the cut video created from the timestamps on the current line."
+  (interactive)
+  (save-buffer)
+  (save-excursion
+    (let* ((video-path (concat "/Users/joslynm/Box Sync/vanSanten-R01-ASR/AVALA_prompt_videos/FS-cut-"
+                               (mj/video-id)
+                               ".mov")))
+      (mj/cut-vid)
+      (async-shell-command
+       (concat "open " (shell-quote-argument video-path))))))
+
+(defun mj/cut-vid ()
+  "Run the video-trimming shell script on the video referenced on the current line. "
+  (let ((vi (mj/video-id)))
+    (shell-command
+     (concat "python3 " (shell-quote-argument "/Users/joslynm/Box Sync/vanSanten-R01-ASR/AVALA_prompt_videos/cut_vids.py") " -f " vi " -t " vi))))
 (defun mj/meeting-template ()
   (let ((date-string (org-read-date nil nil ".")))
     (setq  template "* NEXT AVALA meeting minutes %(org-insert-time-stamp (org-read-date nil t \".\"))\n  :PROPERTIES:\n  :export_file_name: AVALA_minutes_")
