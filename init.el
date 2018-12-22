@@ -685,6 +685,12 @@ Derived from Norang setup."
     (local-set-key (kbd "C-c l") #'haskell-process-load-file))
   )
 
+(require 'smartparens)
+(defun mj/smartparens-keys ()
+  (local-set-key (kbd "C-)") #'sp-slurp-hybrid-sexp)
+  (local-set-key (kbd "C-(") #'sp-backward-slurp-sexp))
+(add-hook 'smartparens-enabled-hook #'mj/smartparens-keys)
+
 (setq ledger-reports
       (quote
        (("bal, real" "%(binary) -f %(ledger-file) bal --real")
