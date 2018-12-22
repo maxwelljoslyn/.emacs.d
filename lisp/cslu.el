@@ -26,6 +26,16 @@
   (let ((vi (mj/video-id)))
     (shell-command
      (concat "python3 " (shell-quote-argument "/Users/joslynm/Box Sync/vanSanten-R01-ASR/AVALA_prompt_videos/cut_vids.py") " -f " vi " -t " vi))))
+(defun mj/open-cslu-dir ()
+  "Runs Dired in one of the directories I often visit on my work machine."
+  (interactive)
+  (if-let (a-dir
+           (helm :sources (helm-build-sync-source "Directories"
+                            :candidates '("/Users/joslynm/Box Sync/vanSanten-R01-ASR/"
+                                          "/Users/joslynm/Desktop/AVALA/"))
+                 :buffer "*helm cslu directories*"))
+      (dired a-dir)
+    (error "No directory selected")))
 (defun mj/meeting-template ()
   (let ((date-string (org-read-date nil nil ".")))
     (setq  template "* NEXT AVALA meeting minutes %(org-insert-time-stamp (org-read-date nil t \".\"))\n  :PROPERTIES:\n  :export_file_name: AVALA_minutes_")
