@@ -788,6 +788,12 @@ Derived from Norang setup."
   "Return a value in the interval [1,n]."
   (1+ (random n)))
 
+(defun mj/zap-to-char (arg char)
+  "As regular zap-to-char, but with case-fold-search always nil. If I'm zapping, I almost always care about case."
+  (interactive (list (prefix-numeric-value current-prefix-arg)
+                     (read-char "Zap to char: " t)))
+  (let ((case-fold-search nil))
+    (zap-to-char arg char)))
 
 ;; for rendering EPUBs to HTML and reading them in Emacs.
 (use-package nov
