@@ -309,7 +309,8 @@ Derived from Norang setup."
         org-use-fast-tag-selection t
         org-agenda-skip-scheduled-if-done t
         org-agenda-skip-deadline-if-done t
-        org-agenda-persistent-marks t))
+        org-agenda-persistent-marks t
+        org-agenda-window-setup 'other-window))
 
 ;; this has to be done AFTER org-agenda has loaded so that the consistency-checks variable exists
 ;; putting it outside the org-mode use-package form seems to ensure this, and prevent errors on load
