@@ -1,5 +1,16 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+
+;; use a macro which does C-s ":type" C-s ?{ expand-region, then calls this function
+(defun mj/update-coord (arg1 arg2)
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region arg1 arg2)
+    (while (re-search-forward "[0-9]\\{2,3\\}" nil t)
+      (goto-char (match-beginning 0))
+      (replace-match
+       (number-to-string (* 2.08 (string-to-number (match-string 0))))))))
+
 (defun mj/video-id ()
   "Get the ID of the cut video on the current line."
   (save-excursion
