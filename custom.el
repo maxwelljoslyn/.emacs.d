@@ -10,6 +10,10 @@
  '(custom-safe-themes
    (quote
     ("935cdfc778539529d8124a5500923a660b7e05eb9dba5a762107c7db7a4d56ae" default)))
+ '(display-buffer-alist
+   (quote
+    (("*Async Shell Command*" display-buffer-no-window
+      (nil)))))
  '(org-file-apps
    (quote
     ((auto-mode . emacs)
