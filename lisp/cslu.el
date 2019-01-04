@@ -47,6 +47,17 @@
                  :buffer "*helm cslu directories*"))
       (dired a-dir)
     (error "No directory selected")))
+
+;; ;;this isn't working. why isn't programmatic exporting easier?!
+;; (defun mj/export-meeting-minutes ()
+;;   (interactive)
+;;   (dolist (folder-name '("/Users/joslynm/Desktop/AVALA/" "/Users/joslynm/Box Sync/vanSanten-R01-ASR/Meeting Minutes/"))
+;;     (let ((outfile (concat folder-name
+;;                            (org-entry-get nil "export_file_name")
+;;                            ".txt")))
+;;       (org-export-to-file 'ascii outfile t t))))
+
+
 (defun mj/meeting-template ()
   (let ((date-string (org-read-date nil nil ".")))
     (setq  template "* NEXT AVALA meeting minutes %(org-insert-time-stamp (org-read-date nil t \".\"))\n  :PROPERTIES:\n  :export_file_name: AVALA_minutes_")
