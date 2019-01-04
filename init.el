@@ -573,9 +573,10 @@ Derived from Norang setup."
 ;; miscellaneous bindings
 ;; unbind C-x f since I hardly ever use it and it is similar to C-x C-f
 (global-set-key (kbd "C-x f") nil)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(blink-cursor-mode -1)
+;; Magnar Sveen suggests (http://whattheemacsd.com/init.el-01.html) wrapping these calls in (if fboundp) forms to minimize the time they spend on screen. Might as well!
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'blink-cursor-mode) (blink-cursor-mode -1))
 ;; allow response to prompts to be y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq confirm-nonexistent-file-or-buffer nil)
