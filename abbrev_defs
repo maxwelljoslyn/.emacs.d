@@ -45,7 +45,9 @@
 
 (define-abbrev-table 'autoconf-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
@@ -53,9 +55,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -153,6 +159,8 @@
 
 (define-abbrev-table 'elisp-byte-code-mode-abbrev-table '())
 
+(define-abbrev-table 'elisp-refs-mode-abbrev-table '())
+
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'ert-results-mode-abbrev-table '())
@@ -199,12 +207,13 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("accure" "accrue" nil 1)
     ("acn" "can" nil 2)
-    ("adn" "and" nil 16)
+    ("adn" "and" nil 27)
     ("ahrdware" "hardware" nil 1)
-    ("ahve" "have" nil 7)
+    ("ahve" "have" nil 13)
     ("almsot" "almost" nil 1)
-    ("anythign" "anything" nil 2)
+    ("anythign" "anything" nil 3)
     ("aorund" "around" nil 1)
     ("apporved" "approved" nil 1)
     ("appt" "appointment" nil 2)
@@ -223,9 +232,10 @@
     ("charcteristic" "characteristic" nil 1)
     ("condidates" "candidates" nil 1)
     ("connectiosn" "connections" nil 1)
+    ("convetion" "convention" nil 1)
     ("coprus" "corpus" nil 1)
     ("correctinos" "corrections" nil 1)
-    ("coudl" "could" nil 3)
+    ("coudl" "could" nil 4)
     ("craete" "create" nil 1)
     ("currenlty" "currently" nil 1)
     ("decisiosn" "decisions" nil 1)
@@ -233,30 +243,32 @@
     ("determien" "determine" nil 1)
     ("disfulency" "disfluency" nil 1)
     ("displayting" "displaying" nil 1)
+    ("doens't" "doesn't" nil 1)
     ("donig" "doing" nil 2)
     ("duratino" "duration" nil 1)
     ("elsewehr" "elsewhere" nil 1)
     ("engilsh" "English" nil 2)
     ("enoguh" "enough" nil 2)
     ("erognomic" "ergonomic" nil 1)
-    ("everythign" "everything" nil 1)
+    ("everythign" "everything" nil 2)
     ("evne" "even" nil 1)
     ("exericse" "exercise" nil 1)
     ("exisiting" "existing" nil 1)
     ("exmainations" "examinations" nil 1)
     ("extractnig" "extracting" nil 1)
     ("fdate" "" mj/insert-fdate 15)
-    ("fo" "of" nil 33)
+    ("fo" "of" nil 42)
     ("gacve" "gave" nil 1)
     ("gorup" "group" nil 1)
     ("graet" "great" nil 1)
     ("guaradians" "guardians" nil 1)
     ("hadn" "hand" nil 1)
     ("haev" "have" nil 1)
+    ("howver" "however" nil 1)
     ("htat" "that" nil 2)
-    ("hte" "the" nil 46)
+    ("hte" "the" nil 52)
     ("htem" "them" nil 3)
-    ("hwo" "how" nil 6)
+    ("hwo" "how" nil 9)
     ("imoprt" "import" nil 1)
     ("improt" "import" nil 4)
     ("incmoing" "incoming" nil 1)
@@ -269,27 +281,32 @@
     ("joc" "Joy of Cooking" nil 2)
     ("jsut" "just" nil 2)
     ("jugdment" "judgment" nil 1)
-    ("knid" "kind" nil 1)
+    ("knid" "kind" nil 2)
+    ("knwo" "know" nil 1)
     ("konw" "know" nil 2)
     ("listenign" "listening" nil 1)
-    ("maknig" "making" nil 4)
+    ("machien" "machine" nil 1)
+    ("maknig" "making" nil 7)
     ("mentioend" "mentioned" nil 1)
     ("mgiration" "migration" nil 1)
-    ("mostly" "mostly" nil 7)
+    ("mostly" "mostly" nil 8)
+    ("msut" "must" nil 1)
     ("multilpe" "multiple" nil 1)
     ("nbd" "no big deal" nil 4)
-    ("ni" "in" nil 10)
-    ("nkow" "know" nil 14)
+    ("neitehr" "neither" nil 1)
+    ("ni" "in" nil 13)
+    ("nkow" "know" nil 19)
     ("notcied" "noticed" nil 1)
-    ("nothign" "nothing" nil 3)
-    ("oen" "one" nil 2)
+    ("nothign" "nothing" nil 5)
+    ("oen" "one" nil 3)
     ("oipen" "open" nil 2)
-    ("onyl" "only" nil 1)
+    ("onyl" "only" nil 3)
     ("optential" "potential" nil 1)
     ("ordedr" "order" nil 1)
     ("otehrwise" "otherwise" nil 1)
     ("paragarph" "paragraph" nil 1)
     ("passworsd" "passwords" nil 1)
+    ("positinos" "positions" nil 1)
     ("preciuos" "precious" nil 1)
     ("predicrtable" "predictable" nil 1)
     ("pritn" "print" nil 1)
@@ -297,9 +314,10 @@
     ("prnit" "print" nil 1)
     ("python3n" "python3" nil 1)
     ("qqsrx" "qqsrx" nil 4)
-    ("questinos" "questions" nil 2)
+    ("questinos" "questions" nil 3)
     ("qusetion" "question" nil 4)
     ("racioal" "racial" nil 1)
+    ("reasonign" "reasoning" nil 1)
     ("relatd" "related" nil 1)
     ("relatd " "related" nil 0)
     ("releavnt" "relevant" nil 2)
@@ -315,19 +333,22 @@
     ("sematnic " "semantic" nil 0)
     ("semnatic" "semantic" nil 1)
     ("semnatic " "semantic" nil 0)
-    ("shoudl" "should" nil 4)
+    ("serach" "search" nil 2)
+    ("shoudl" "should" nil 7)
     ("slpit" "split" nil 1)
-    ("smoe" "some" nil 2)
+    ("smoe" "some" nil 3)
     ("somenoe" "someone" nil 1)
-    ("somethign" "something" nil 2)
+    ("somethign" "something" nil 4)
     ("stnading" "standing" nil 1)
     ("stoppiong" "stopping" nil 1)
     ("suggseted" "suggested" nil 1)
-    ("taht" "that" nil 2)
-    ("teh" "the" nil 26)
-    ("that" "that" nil 587)
-    ("thign" "thing" nil 2)
-    ("thsi" "this" nil 2)
+    ("taht" "that" nil 3)
+    ("teh" "the" nil 32)
+    ("tehcnique" "technique" nil 1)
+    ("tehcniques" "techniques" nil 1)
+    ("that" "that" nil 818)
+    ("thign" "thing" nil 5)
+    ("thsi" "this" nil 7)
     ("thsoe" "those" nil 2)
     ("tmrw" "tomorrow" nil 1)
     ("tseting" "testing" nil 3)
@@ -340,14 +361,14 @@
     ("utnil" "until" nil 1)
     ("varieites" "varieties" nil 1)
     ("wauy" "way" nil 1)
-    ("whcih" "which" nil 4)
+    ("whcih" "which" nil 6)
     ("wifi" "WiFi" nil 5)
     ("wns" "Weihenstephaner" nil 4)
     ("wnted" "wanted" nil 1)
     ("wtih" "with" nil 1)
     ("yaer" "year" nil 1)
     ("yl" "logical year" nil 1)
-    ("yoru" "your" nil 1)
+    ("yoru" "your" nil 3)
     ("yro" "yro" nil 3)
    ))
 
@@ -378,6 +399,8 @@ func main() {
 
 (define-abbrev-table 'help-mode-abbrev-table '())
 
+(define-abbrev-table 'helpful-mode-abbrev-table '())
+
 (define-abbrev-table 'html-mode-abbrev-table '())
 
 (define-abbrev-table 'ibuffer-mode-abbrev-table '())
@@ -392,11 +415,15 @@ func main() {
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
+(define-abbrev-table 'internal-ange-ftp-mode-abbrev-table '())
+
 (define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'julia-mode-abbrev-table '())
 
@@ -462,6 +489,8 @@ func main() {
 
 (define-abbrev-table 'markdown-mode-abbrev-table '())
 
+(define-abbrev-table 'mercury-mode-abbrev-table '())
+
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
@@ -471,6 +500,12 @@ func main() {
 (define-abbrev-table 'nov-mode-abbrev-table '())
 
 (define-abbrev-table 'nrepl-messages-mode-abbrev-table '())
+
+(define-abbrev-table 'nroff-mode-abbrev-table '())
+
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -486,7 +521,13 @@ func main() {
 
 (define-abbrev-table 'pascal-mode-abbrev-table '())
 
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
+
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
+
+(define-abbrev-table 'proced-mode-abbrev-table '())
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
@@ -494,13 +535,25 @@ func main() {
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
 
+(define-abbrev-table 'prolog-inferior-mode-abbrev-table '())
+
+(define-abbrev-table 'prolog-mode-abbrev-table '())
+
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'reb-mode-abbrev-table '())
+
+(define-abbrev-table 'rst-mode-abbrev-table
+  '(
+   ))
+
+(define-abbrev-table 'rst-toc-mode-abbrev-table '())
 
 (define-abbrev-table 'ruby-mode-abbrev-table '())
 
@@ -552,11 +605,15 @@ func main() {
 
 (define-abbrev-table 'url-cookie-mode-abbrev-table '())
 
+(define-abbrev-table 'vc-bzr-log-view-mode-abbrev-table '())
+
 (define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'web-mode-abbrev-table '())
 
