@@ -325,7 +325,7 @@ Derived from Norang setup."
 (use-package yasnippet
   :config
   (yas-global-mode 1)
-  (setq yas-snippet-dirs '("~/emacs.d/mysnippets")))
+  (setq yas-snippet-dirs '("~/.emacs.d/mysnippets")))
 
 (use-package swoop)
 
