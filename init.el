@@ -16,8 +16,13 @@
         ("org" . "https://orgmode.org/elpa/")))
 (package-initialize)
 
-;; to run certifi, you will need to pip install -m certifi beforehand
-;; gnutls will also need to be installed beforehand; brew and most other package managers have it
+;; bootstrap use-package
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+;; to run certifi, you will need to `pip/pip3 install -m certifi` beforehand
+;; gnutls will also need to be installed beforehand: brew and most other package managers have it
 (let ((trustfile
        (replace-regexp-in-string
         "\\\\" "/"
@@ -152,11 +157,6 @@ Derived from Norang setup."
       (concat str "─> "))))
 
 (advice-add 'org-clocktable-indent-string :override #'mj/org-clocktable-indent-string)
-
-;; bootstrap use-package
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
 
 
 ;; (add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode))
