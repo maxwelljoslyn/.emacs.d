@@ -773,7 +773,9 @@ Derived from Norang setup."
            (insert (current-kill 0)))))
 
 
-(setq python-shell-interpreter "python3")
+;; if you don't have pipenv installed, run `pip install pipenv` or `pip3 install pipenv`
+(setq python-shell-interpreter "pipenv"
+      python-shell-interpreter-args "run python3")
 (show-paren-mode 1)
 (setq org-babel-python-command "python3")
 (setq org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
