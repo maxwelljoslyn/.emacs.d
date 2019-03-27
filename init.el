@@ -31,6 +31,8 @@
   (setq gnutls-verify-error t)
   (setq gnutls-trustfiles (list trustfile)))
 
+(setq enable-local-variables 'query) ; if I am not queried about whether I want to use local variables, then a malicious file could do bad stuff when I open it in Emacs 
+
 ;; Save the running clock and all clock history when exiting Emacs, load it on startup
 (org-clock-persistence-insinuate)
 (setq org-clock-persist 'history)
