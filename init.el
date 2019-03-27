@@ -124,16 +124,7 @@ Derived from Norang setup."
              (marker-buffer org-clock-default-task)
              (not org-clock-resolving-clocks-due-to-idleness))
     (mj/clock-in-parent-task)))
-
 (add-hook 'org-clock-out-hook #'mj/clock-out-maybe 'append)
-;; Remove empty LOGBOOK drawers on clock out
-(defun bh/remove-empty-drawer-on-clock-out ()
-  (interactive)
-  (save-excursion
-    (beginning-of-line 0)
-    (org-remove-empty-drawer-at "LOGBOOK" (point))))
-
-(add-hook 'org-clock-out-hook #'bh/remove-empty-drawer-on-clock-out 'append)
 
 
 ;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
