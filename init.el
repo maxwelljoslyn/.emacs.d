@@ -790,6 +790,16 @@ Derived from Norang setup."
   (let ((case-fold-search nil))
     (zap-to-char arg char)))
 
+(defun join-region (beg end)
+  "Apply join-line over region."
+  (interactive "r")
+  (if mark-active
+      (let ((beg (region-beginning))
+            (end (copy-marker (region-end))))
+        (goto-char beg)
+        (while (< (point) end)
+          (join-line 1)))))
+
 ;; for rendering EPUBs to HTML and reading them in Emacs.
 (use-package nov
   :config)
