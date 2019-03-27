@@ -534,13 +534,11 @@ Derived from Norang setup."
 (when at-home
   (defun website (arg)
     "Find the website notes file."
-    ;; With prefix ARG, call helm-find-files in pages dir
     (interactive "P")
-    (let ((website-name
-           (if (equal arg nil)
-               "pages/notes"
-             "")))
-      (find-file (expand-file-name (concat "~/Desktop/projects/site/" website-name ".org")))))
+    (if (equal arg nil)
+        (find-file (expand-file-name (concat "~/Desktop/projects/site/pages/notes.org")))
+      ;; with prefix arg, prompt for a file in the pages directory
+      (helm-find-files-1 (expand-file-name "~/Desktop/projects/site/pages/"))))
   (global-set-key (kbd "C-c w") #'website)
   (defun journal (arg)
     "Find today's journal file. With prefix ARG, open yesterday's file."
