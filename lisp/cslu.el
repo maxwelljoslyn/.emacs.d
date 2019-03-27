@@ -40,11 +40,11 @@
 (defun mj/open-cslu-dir ()
   "Runs Dired in one of the directories I often visit on my work machine."
   (interactive)
-  (if-let (a-dir
-           (helm :sources (helm-build-sync-source "Directories"
-                            :candidates '("/Users/joslynm/Box Sync/vanSanten-R01-ASR/"
-                                          "/Users/joslynm/Desktop/AVALA/"))
-                 :buffer "*helm cslu directories*"))
+  (-if-let (a-dir
+            (helm :sources (helm-build-sync-source "Directories"
+                             :candidates '("/Users/joslynm/Box Sync/vanSanten-R01-ASR/"
+                                           "/Users/joslynm/Desktop/AVALA/"))
+                  :buffer "*helm cslu directories*"))
       (dired a-dir)
     (error "No directory selected")))
 
