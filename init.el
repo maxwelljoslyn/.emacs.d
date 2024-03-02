@@ -77,8 +77,12 @@
 
 (use-package evil
   :init
-  (setq evil-want-C-i-jump nil)
+  (setq evil-want-C-i-jump nil
+	;; want-keybinding and want-integration are to make evil-collection work
+	evil-want-keybinding nil
+	evil-want-integration t)
   :config
+  (evil-mode 1)
   ;; TODO this doesn't work. Think it's spacemacs only.
   (setq-default evil-escape-key-sequence "kl")
   (evil-set-undo-system 'undo-redo)
@@ -86,9 +90,7 @@
   (evil-define-key 'normal 'global "M" 'evil-search-backward)
   (evil-define-key 'visual 'global "m" 'evil-search-forward)
   (evil-define-key 'visual 'global "M" 'evil-search-backward)
-  (evil-define-key 'visual 'magit-mode-map "s" 'magit-stage)
   (evil-define-key 'visual 'global-map "s" 'evil-surround-edit)
-
   (evil-define-key 'normal 'dired-mode-map "n" 'evil-search-next)
   ;; TODO which of these is better:
   ;; 1
@@ -97,7 +99,19 @@
   ;;(evil-define-key 'normal 'global (kbd "SPC") mj/prefix-map)
   ;; 3 ;; idk if this works
   ;;(evil-set-leader nil (kbd "SPC"))
-  (evil-mode 1))
+
+  ;; This didn't work...
+  ;; (evil-set-initial-state 'magit-mode 'normal)
+  ;; ...so using this.
+  (add-hook 'magit-mode-hook 'evil-normal-state)
+  ;; TODO Why is it that my mode hook gets fired when I call (magit) programmatically, but not when I fucking run it from my keybind? God dammit
+  (evil-define-key 'visual 'magit-mode-map "s" 'magit-stage)
+  (evil-define-key 'normal 'magit-mode-map "q" 'magit-mode-bury-buffer))
+
+(use-package evil-collection
+  :after (evil)
+  :config
+  (evil-collection-init '(magit dired)))
 
 (use-package evil-surround
   :after (evil)
@@ -131,11 +145,11 @@
   :after (counsel)
   :init
   (setq ivy-use-virtual-buffers t
-	setq enable-recursive-minibuffers t
+	enable-recursive-minibuffers t
 	;; TODO this isn't working...
 	;; So you can, for instance, create a file named "hat" in a
 	;; directory that already has a file named "hatter"
-	setq ivy-use-selectable-prompt t)
+	ivy-use-selectable-prompt t)
   :config
   (ivy-mode)
   (counsel-mode))
@@ -195,6 +209,7 @@
 
 ;; Start up in a known location.
 (find-file "~/.emacs.d/init.el")
+(magit)
 
 
 (custom-set-variables
