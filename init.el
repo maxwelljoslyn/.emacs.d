@@ -29,53 +29,83 @@
   (python-shell-interpreter-args "-i --simple-prompt")
   (python-indent-guess-indent-offset-verbose nil))
 
+(defun mj/turn-off-flymake () (flymake-mode -1))
+
 (use-package eglot
   :straight (:type built-in)
   :config
   (add-to-list 'eglot-server-programs '(python-mode . ("pylsp")))
+  ;; this should also remove flymake from eglot; doing both just in case
+  (setq eglot-stay-out-of '(flymake))
   :hook
-  (python-mode . eglot))
+  (prog-mode . eglot-ensure)
+  ;; flymake HUGELY bogs down eglot, pausing Emacs for seconds at a time
+  (eglot--managed-mode-hook . mj/turn-off-flymake))
 
 ;; Installation of third-party packages.
 
 (use-package flymake-ruff
   :hook
   ;; (python-mode . flymake-ruff-mode)
-  (eglot-managed-mode . flymake-ruff-load))
+  (eglot-managed-mode . flymake-ruff-load)
+  )
 
 (use-package apheleia
   :config
   (add-to-list 'apheleia-mode-alist '(python-mode . ruff))
   (apheleia-global-mode +1))
 
-(use-package magit
-  :bind ("C-x g" . magit))
-
 (use-package which-key
   :config
   (setq which-key-idle-delay 0.5)
   (which-key-mode))
 
+(use-package markdown-mode)
 
-(defvar mj/file-map
-  ;; defvar so it doesn't get re-evaluated; use C-M-x to eval
-  (let ((map (make-sparse-keymap)))
-    (define-key map "f" #'find-file)
-    (define-key map "r" #'rename-file)
-    map)
-  "Map for working with files.")
+(setq mj/buffer-map
+      (let ((map (make-sparse-keymap)))
+	(define-key map "b" #'switch-to-buffer)
+	(define-key map "n" #'next-buffer)
+	(define-key map "p" #'previous-buffer)
+	map))
 
-(defvar mj/prefix-map
-  ;; defvar so it doesn't get re-evaluated
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "SPC") #'execute-extended-command)
-    (define-key map "1" #'delete-other-windows)
-    (define-key map "o" #'save-buffer)
-    (define-key map "f" mj/file-map)
-    map)
-  "Super secret special keymap.")
+(defun delete-visited-file ()
+  (interactive)
+  (delete-file (buffer-file-name)))
+
+(setq mj/file-map
+      (let ((map (make-sparse-keymap)))
+	(define-key map "f" #'find-file)
+	(define-key map "r" #'rename-visited-file)
+	(define-key map "d" #'rename-visited-file)
+	map))
+
+(setq mj/prefix-map
+      (let ((map (make-sparse-keymap)))
+	(define-key map (kbd "SPC") #'execute-extended-command)
+	(define-key map "1" #'delete-other-windows)
+	(define-key map "o" #'save-buffer)
+	(define-key map "f" mj/file-map)
+	(define-key map "b" mj/buffer-map)
+	map))
+
+(defun mj/magit-keys ()
+  ;; NOTE Evil defaults SOMETIMES unbinding my SPC key in Magit still,
+  ;; that's why it's hardcoded here.
+  (unbind-key "SPC" magit-mode-map)
+  ;; TODO these don't freaking work
+  (define-key evil-normal-state-map (kbd "s") 'magit-stage)
+  (define-key evil-visual-state-map (kbd "s") 'magit-stage))
+
+(use-package magit
+  :bind ("C-x g" . magit)
+  :config
+  ;; TODO This is conflicting, I think, with (evil-define-key 'visual 'global-map "s")
+  (add-hook 'magit-mode-hook 'evil-normal-state 'mj/magit-keys))
+
 
 (use-package evil
+  :after (magit)
   :init
   (setq evil-want-C-i-jump nil
 	;; want-keybinding and want-integration are to make evil-collection work
@@ -83,30 +113,7 @@
 	evil-want-integration t)
   :config
   (evil-mode 1)
-  ;; TODO this doesn't work. Think it's spacemacs only.
-  (setq-default evil-escape-key-sequence "kl")
-  (evil-set-undo-system 'undo-redo)
-  (evil-define-key 'normal 'global "m" 'evil-search-forward)
-  (evil-define-key 'normal 'global "M" 'evil-search-backward)
-  (evil-define-key 'visual 'global "m" 'evil-search-forward)
-  (evil-define-key 'visual 'global "M" 'evil-search-backward)
-  (evil-define-key 'visual 'global-map "s" 'evil-surround-edit)
-  (evil-define-key 'normal 'dired-mode-map "n" 'evil-search-next)
-  ;; TODO which of these is better:
-  ;; 1
-  (define-key evil-normal-state-map (kbd "SPC") mj/prefix-map)
-  ;; 2
-  ;;(evil-define-key 'normal 'global (kbd "SPC") mj/prefix-map)
-  ;; 3 ;; idk if this works
-  ;;(evil-set-leader nil (kbd "SPC"))
-
-  ;; This didn't work...
-  ;; (evil-set-initial-state 'magit-mode 'normal)
-  ;; ...so using this.
-  (add-hook 'magit-mode-hook 'evil-normal-state)
-  ;; TODO Why is it that my mode hook gets fired when I call (magit) programmatically, but not when I fucking run it from my keybind? God dammit
-  (evil-define-key 'visual 'magit-mode-map "s" 'magit-stage)
-  (evil-define-key 'normal 'magit-mode-map "q" 'magit-mode-bury-buffer))
+  )
 
 (use-package evil-collection
   :after (evil)
@@ -154,8 +161,22 @@
   (ivy-mode)
   (counsel-mode))
 
+(use-package evil-escape
+  :straight (evil-escape :type git :host github :repo "smile13241324/evil-escape")
+  :init
+  (evil-escape-mode)
+  (setq-default evil-escape-key-sequence "jl")
+  (setq evil-escape-case-insensitive-key-sequence t))
 
-
+(use-package company
+  :ensure t
+  :commands (global-company-mode)
+  :init
+  (global-company-mode)
+  :custom
+  (company-tooltip-align-annotations 't)
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.1))
 
 
 ;; GUI tweaks.
@@ -171,26 +192,25 @@
  lazy-highlight-cleanup nil
  lazy-highlight-max-at-a-time nil
  lazy-highlight-initial-delay 0
- lazy-highlight-buffer t)
-(setq
+ lazy-highlight-buffer t
  window-resize-pixelwise t
- frame-resize-pixelwise t)
+ frame-resize-pixelwise t
+ dired-deletion-confirmer #'y-or-n-p
+ ;; don't ask before visiting nonexistent files/buffers
+ confirm-nonexistent-file-or-buffer nil
+ delete-by-moving-to-trash t
+ ;; End a sentence with full stop plus 1 space, not 2 spaces.
+ sentence-end-double-space nil)
 (save-place-mode t)
 (savehist-mode t)
 (recentf-mode t)
 (defalias 'yes-or-no-p #'y-or-n-p)
-(setq dired-deletion-confirmer #'y-or-n-p)
-(setq confirm-nonexistent-file-or-buffer nil)
-;; End a sentence with full stop plus 1 space, not 2 spaces.
-(setq sentence-end-double-space nil)
 ;; Enable narrow-to-region.
 (put 'narrow-to-region 'disabled nil)
 (global-display-line-numbers-mode 1)
 ;; Disable the font picker.
 (global-set-key (kbd "s-t") nil)
-
 (global-set-key (kbd "C-x C-b") #'ibuffer-list-buffers)
-
 
 
 ;; Create backups in a particular place.
@@ -204,8 +224,34 @@
 
 
 
+(set-frame-font "Source Code Pro 16" nil t)
+
 ;; Maximize initial frame.
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+
+(evil-set-undo-system 'undo-redo)
+(evil-define-key 'normal 'global "m" 'evil-search-forward)
+(evil-define-key 'normal 'global "M" 'evil-search-backward)
+(evil-define-key 'visual 'global "m" 'evil-search-forward)
+(evil-define-key 'visual 'global "M" 'evil-search-backward)
+(evil-define-key 'visual 'global-map "s" 'evil-surround-edit)
+(evil-define-key 'normal 'dired-mode-map "n" 'evil-search-next)
+;; Bind the space key everywhere, without binding it in minibuffer or insert mode.
+;; NOTE This SPC binding must be set here inside the Evil config, or
+;; else Evil defaults will take precedence over it somehow.
+;; NOTE Rejected:
+;; (define-key evil-normal-state-map (kbd "SPC") mj/prefix-map)
+;; (evil-define-key 'normal 'global (kbd "SPC") mj/prefix-map)
+;; (evil-set-leader 'normal  (kbd "SPC"))
+;; (bind-key* (kbd "SPC") 'mj/prefix-map (not (or (minibufferp) (evil-insert-state-p))))
+;; NOTE Rejected:
+;; ;; (evil-set-initial-state 'magit-mode 'normal)
+;; NOTE Do NOT use (evil-define-key 'visual 'magit-mode-map "s" 'magit-stage)
+;; or else the S key will get covered in all visual modes, even outside magit, for some goddamn reason.
+(evil-define-key 'normal 'global (kbd "SPC") mj/prefix-map)
+
+
 
 ;; Start up in a known location.
 (find-file "~/.emacs.d/init.el")
@@ -217,10 +263,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(tsdh-dark)))
+ '(custom-enabled-themes '(tsdh-dark))
+ '(lazy-highlight-buffer t)
+ '(lazy-highlight-cleanup nil)
+ '(lazy-highlight-initial-delay 0))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(highlight ((t (:background "chocolate3")))))
