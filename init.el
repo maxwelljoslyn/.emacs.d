@@ -31,6 +31,11 @@
 
 (defun mj/turn-off-flymake () (flymake-mode -1))
 
+
+(use-package buffer-move
+  :straight (buffer-move :type git :host github :repo "lukhas/buffer-move"))
+
+
 (use-package eglot
   :straight (:type built-in)
   :config
@@ -42,18 +47,46 @@
   ;; flymake HUGELY bogs down eglot, pausing Emacs for seconds at a time
   (eglot--managed-mode-hook . mj/turn-off-flymake))
 
-;; Installation of third-party packages.
-
-(use-package flymake-ruff
+(use-package bug-reference-mode
+  :straight (:type built-in)
+  :config
   :hook
-  ;; (python-mode . flymake-ruff-mode)
-  (eglot-managed-mode . flymake-ruff-load)
-  )
+  (prog-mode . bug-reference-prog-mode))
+
+
+
+;; Installation of third-party packages.
+(use-package explain-pause-mode
+  :straight (explain-pause-mode :type git :host github :repo "lastquestion/explain-pause-mode")
+
+  :config
+  (explain-pause-mode))
 
 (use-package apheleia
   :config
-  (add-to-list 'apheleia-mode-alist '(python-mode . ruff))
+  ;; "ruff check" replaces isort
+  ;; "ruff format" replaces black
+  (setf (alist-get 'ruff-format apheleia-formatters)
+	'("ruff" "format" "--silent"
+	  (apheleia-formatters-fill-column "--line-length")
+	  "--stdin-filename" filepath "-"))
+  (setf (alist-get 'ruff-check apheleia-formatters)
+	'("ruff" "check" "--select" "I" "--fix" "--silent"
+	  (apheleia-formatters-fill-column "--line-length")
+	  "--stdin-filename" filepath "-"))
+  (setf (alist-get 'python-mode apheleia-mode-alist)
+	'(ruff-check ruff-format))
   (apheleia-global-mode +1))
+
+
+
+(use-package casual-dired
+  :straight (casual-dired-mode :type git :host github :repo "kickingvegas/casual-dired")
+  :bind
+  (:map dired-mode-map ("C-o" . 'casual-dired-tmenu))
+  (:map dired-mode-map ("s" . 'casual-dired-sort-by-tmenu))
+  (:map dired-mode-map ("E" . 'wdired-change-to-wdired-mode)))
+
 
 (use-package which-key
   :config
@@ -71,13 +104,25 @@
 
 (defun delete-visited-file ()
   (interactive)
-  (delete-file (buffer-file-name)))
+  (let ((filename (buffer-file-name))
+	bufname (buffer-name))
+    (when (y-or-n-p "Delete this buffer's file?")
+      (delete-file filename)
+      (kill-buffer bufname))))
 
 (setq mj/file-map
       (let ((map (make-sparse-keymap)))
 	(define-key map "f" #'find-file)
 	(define-key map "r" #'rename-visited-file)
-	(define-key map "d" #'rename-visited-file)
+	(define-key map "d" #'delete-visited-file)
+	map))
+
+(setq mj/window-map
+      (let ((map (make-sparse-keymap)))
+	(define-key map "j" #'buf-move-down)
+	(define-key map "k" #'buf-move-up)
+	(define-key map "l" #'buf-move-right)
+	(define-key map "h" #'buf-move-left)
 	map))
 
 (setq mj/prefix-map
@@ -87,6 +132,7 @@
 	(define-key map "o" #'save-buffer)
 	(define-key map "f" mj/file-map)
 	(define-key map "b" mj/buffer-map)
+	(define-key map "w" mj/window-map)
 	map))
 
 (defun mj/magit-keys ()
@@ -156,7 +202,8 @@
 	;; TODO this isn't working...
 	;; So you can, for instance, create a file named "hat" in a
 	;; directory that already has a file named "hatter"
-	ivy-use-selectable-prompt t)
+	ivy-use-selectable-prompt t
+	ivy-initial-inputs-alist nil)
   :config
   (ivy-mode)
   (counsel-mode))
@@ -223,7 +270,6 @@
 (setq backup-by-copying t)
 
 
-
 (set-frame-font "Source Code Pro 16" nil t)
 
 ;; Maximize initial frame.
@@ -264,6 +310,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(tsdh-dark))
+ '(eglot-events-buffer-size 2000)
  '(lazy-highlight-buffer t)
  '(lazy-highlight-cleanup nil)
  '(lazy-highlight-initial-delay 0))
