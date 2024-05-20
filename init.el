@@ -76,9 +76,18 @@
 	  "--stdin-filename" filepath "-"))
   (setf (alist-get 'python-mode apheleia-mode-alist)
 	'(ruff-check ruff-format))
+  ;; html
+  (setf (alist-get 'mj-prettier apheleia-formatters)
+	'("prettier"  "--stdin-filepath" filepath "--parser=html"))
+  (setf (alist-get 'html-mode apheleia-mode-alist)
+	'(mj-prettier))
+  ;; js
+  (setf (alist-get 'mj-js apheleia-formatters)
+	'("prettier" "--stdin-filepath" filepath "--parser=babel-flow" "--use-tabs=false"))
+  (setf (alist-get 'js-mode apheleia-mode-alist)
+	'(mj-js))
+
   (apheleia-global-mode +1))
-
-
 
 (use-package casual-dired
   :straight (casual-dired-mode :type git :host github :repo "kickingvegas/casual-dired")
@@ -110,6 +119,10 @@
       (delete-file filename)
       (kill-buffer bufname))))
 
+(defun mj/save-all-buffers ()
+  (interactive)
+  (save-some-buffers t))
+
 (setq mj/file-map
       (let ((map (make-sparse-keymap)))
 	(define-key map "f" #'find-file)
@@ -129,7 +142,7 @@
       (let ((map (make-sparse-keymap)))
 	(define-key map (kbd "SPC") #'execute-extended-command)
 	(define-key map "1" #'delete-other-windows)
-	(define-key map "o" #'save-buffer)
+	(define-key map "o" #'mj/save-all-buffers)
 	(define-key map "f" mj/file-map)
 	(define-key map "b" mj/buffer-map)
 	(define-key map "w" mj/window-map)
@@ -309,6 +322,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(apheleia-formatters-respect-fill-column nil)
+ '(apheleia-formatters-respect-indent-level t)
+ '(apheleia-global-mode t)
  '(custom-enabled-themes '(tsdh-dark))
  '(eglot-events-buffer-size 2000)
  '(lazy-highlight-buffer t)
