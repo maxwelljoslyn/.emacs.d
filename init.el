@@ -20,7 +20,7 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 
-(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 ;; Configure packages built into Emacs.
 (require 'mj-builtins)
@@ -29,6 +29,18 @@
 (require 'mj-functions-and-keybindings)
 
 ;; Install and configure third-party packages.
+
+
+
+(use-package eglot-booster
+  :after (eglot)
+  :straight
+  (eglot-booster :type git :host github :repo "jdtsmith/eglot-booster")
+  :config
+  (eglot-booster-mode))
+
+
+
 (use-package buffer-move
   :straight
   (buffer-move :type git :host github :repo "lukhas/buffer-move"))
@@ -261,7 +273,8 @@
  '(apheleia-global-mode t)
  '(custom-enabled-themes '(tsdh-dark))
  '(dired-use-ls-dired 'unspecified)
- '(eglot-events-buffer-size 2000)
+ '(eglot-booster-mode t)
+ '(eglot-events-buffer-size 0)
  '(lazy-highlight-buffer t)
  '(lazy-highlight-cleanup nil)
  '(lazy-highlight-initial-delay 0))
