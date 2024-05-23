@@ -1,4 +1,4 @@
-;; Bootstrap straight.el (replacement for builtin package.el package manager).
+;; Bootstrap straight.el (replacement for built-in package.el package manager).
 (setq straight-use-package-by-default t)
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -20,44 +20,23 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 
-;; Configuring builtin packages.
+(add-to-list 'load-path "~/.emacs.d")
 
-(use-package python
-  :straight (:type built-in)
-  :custom
-  (python-shell-interpreter "ipython")
-  (python-shell-interpreter-args "-i --simple-prompt")
-  (python-indent-guess-indent-offset-verbose nil))
+;; Configure packages built into Emacs.
+(require 'mj-builtins)
 
-(defun mj/turn-off-flymake () (flymake-mode -1))
+;; Configure my custom functions and keybindings.
+(require 'mj-functions-and-keybindings)
 
-
+;; Install and configure third-party packages.
 (use-package buffer-move
-  :straight (buffer-move :type git :host github :repo "lukhas/buffer-move"))
+  :straight
+  (buffer-move :type git :host github :repo "lukhas/buffer-move"))
 
 
-(use-package eglot
-  :straight (:type built-in)
-  :config
-  (add-to-list 'eglot-server-programs '(python-mode . ("pylsp")))
-  ;; this should also remove flymake from eglot; doing both just in case
-  (setq eglot-stay-out-of '(flymake))
-  :hook
-  (prog-mode . eglot-ensure)
-  ;; flymake HUGELY bogs down eglot, pausing Emacs for seconds at a time
-  (eglot--managed-mode-hook . mj/turn-off-flymake))
-
-(use-package bug-reference-mode
-  :straight (:type built-in)
-  :config
-  :hook
-  (prog-mode . bug-reference-prog-mode))
-
-
-
-;; Installation of third-party packages.
 (use-package explain-pause-mode
-  :straight (explain-pause-mode :type git :host github :repo "lastquestion/explain-pause-mode")
+  :straight
+  (explain-pause-mode :type git :host github :repo "lastquestion/explain-pause-mode")
 
   :config
   (explain-pause-mode))
@@ -77,8 +56,11 @@
   (setf (alist-get 'python-mode apheleia-mode-alist)
 	'(ruff-check ruff-format))
   ;; html
+  ;; needs jinja-template installed:
+  ;; npm install prettier prettier-plugin-jinja-template
+  ;; also needs a .prettierrc in the given project's root
   (setf (alist-get 'mj-prettier apheleia-formatters)
-	'("prettier"  "--stdin-filepath" filepath "--parser=html"))
+	'("prettier"  "--stdin-filepath" filepath "--plugin=prettier-plugin-jinja-template" "--parser=jinja-template"))
   (setf (alist-get 'html-mode apheleia-mode-alist)
 	'(mj-prettier))
   ;; js
@@ -90,7 +72,8 @@
   (apheleia-global-mode +1))
 
 (use-package casual-dired
-  :straight (casual-dired-mode :type git :host github :repo "kickingvegas/casual-dired")
+  :straight
+  (casual-dired-mode :type git :host github :repo "kickingvegas/casual-dired")
   :bind
   (:map dired-mode-map ("C-o" . 'casual-dired-tmenu))
   (:map dired-mode-map ("s" . 'casual-dired-sort-by-tmenu))
@@ -104,57 +87,6 @@
 
 (use-package markdown-mode)
 
-(setq mj/buffer-map
-      (let ((map (make-sparse-keymap)))
-	(define-key map "b" #'switch-to-buffer)
-	(define-key map "n" #'next-buffer)
-	(define-key map "p" #'previous-buffer)
-	map))
-
-(defun delete-visited-file ()
-  (interactive)
-  (let ((filename (buffer-file-name))
-	bufname (buffer-name))
-    (when (y-or-n-p "Delete this buffer's file?")
-      (delete-file filename)
-      (kill-buffer bufname))))
-
-(defun mj/save-all-buffers ()
-  (interactive)
-  (save-some-buffers t))
-
-(setq mj/file-map
-      (let ((map (make-sparse-keymap)))
-	(define-key map "f" #'find-file)
-	(define-key map "r" #'rename-visited-file)
-	(define-key map "d" #'delete-visited-file)
-	map))
-
-(setq mj/window-map
-      (let ((map (make-sparse-keymap)))
-	(define-key map "j" #'buf-move-down)
-	(define-key map "k" #'buf-move-up)
-	(define-key map "l" #'buf-move-right)
-	(define-key map "h" #'buf-move-left)
-	map))
-
-(setq mj/prefix-map
-      (let ((map (make-sparse-keymap)))
-	(define-key map (kbd "SPC") #'execute-extended-command)
-	(define-key map "1" #'delete-other-windows)
-	(define-key map "o" #'mj/save-all-buffers)
-	(define-key map "f" mj/file-map)
-	(define-key map "b" mj/buffer-map)
-	(define-key map "w" mj/window-map)
-	map))
-
-(defun mj/magit-keys ()
-  ;; NOTE Evil defaults SOMETIMES unbinding my SPC key in Magit still,
-  ;; that's why it's hardcoded here.
-  (unbind-key "SPC" magit-mode-map)
-  ;; TODO these don't freaking work
-  (define-key evil-normal-state-map (kbd "s") 'magit-stage)
-  (define-key evil-visual-state-map (kbd "s") 'magit-stage))
 
 (use-package magit
   :bind ("C-x g" . magit)
@@ -222,7 +154,8 @@
   (counsel-mode))
 
 (use-package evil-escape
-  :straight (evil-escape :type git :host github :repo "smile13241324/evil-escape")
+  :straight
+  (evil-escape :type git :host github :repo "smile13241324/evil-escape")
   :init
   (evil-escape-mode)
   (setq-default evil-escape-key-sequence "jl")
@@ -237,7 +170,6 @@
   (company-tooltip-align-annotations 't)
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.1))
-
 
 ;; GUI tweaks.
 (tool-bar-mode -1)
@@ -312,6 +244,8 @@
 
 
 
+
+
 ;; Start up in a known location.
 (find-file "~/.emacs.d/init.el")
 (magit)
@@ -326,6 +260,7 @@
  '(apheleia-formatters-respect-indent-level t)
  '(apheleia-global-mode t)
  '(custom-enabled-themes '(tsdh-dark))
+ '(dired-use-ls-dired 'unspecified)
  '(eglot-events-buffer-size 2000)
  '(lazy-highlight-buffer t)
  '(lazy-highlight-cleanup nil)
