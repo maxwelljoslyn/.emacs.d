@@ -30,8 +30,6 @@
 
 ;; Install and configure third-party packages.
 
-
-
 (use-package eglot-booster
   :after (eglot)
   :straight
@@ -75,11 +73,17 @@
 	'("prettier"  "--stdin-filepath" filepath "--plugin=prettier-plugin-jinja-template" "--parser=jinja-template"))
   (setf (alist-get 'html-mode apheleia-mode-alist)
 	'(mj-prettier))
-  ;; js
+  ;; JavaScript
   (setf (alist-get 'mj-js apheleia-formatters)
 	'("prettier" "--stdin-filepath" filepath "--parser=babel-flow" "--use-tabs=false"))
   (setf (alist-get 'js-mode apheleia-mode-alist)
 	'(mj-js))
+  ;; JSON
+  (setf (alist-get 'mj-json apheleia-formatters)
+	'("prettier" "--stdin-filepath" filepath "--parser=json" "--use-tabs=false"))
+  (setf (alist-get 'json-mode apheleia-mode-alist)
+	'(mj-json))
+
 
   (apheleia-global-mode +1))
 
@@ -106,27 +110,6 @@
   ;; TODO This is conflicting, I think, with (evil-define-key 'visual 'global-map "s")
   (add-hook 'magit-mode-hook 'evil-normal-state 'mj/magit-keys))
 
-
-(use-package evil
-  :after (magit)
-  :init
-  (setq evil-want-C-i-jump nil
-	;; want-keybinding and want-integration are to make evil-collection work
-	evil-want-keybinding nil
-	evil-want-integration t)
-  :config
-  (evil-mode 1)
-  )
-
-(use-package evil-collection
-  :after (evil)
-  :config
-  (evil-collection-init '(magit dired)))
-
-(use-package evil-surround
-  :after (evil)
-  :config
-  (global-evil-surround-mode 1))
 
 (use-package helpful
   :init
@@ -165,14 +148,6 @@
   (ivy-mode)
   (counsel-mode))
 
-(use-package evil-escape
-  :straight
-  (evil-escape :type git :host github :repo "smile13241324/evil-escape")
-  :init
-  (evil-escape-mode)
-  (setq-default evil-escape-key-sequence "jl")
-  (setq evil-escape-case-insensitive-key-sequence t))
-
 (use-package company
   :ensure t
   :commands (global-company-mode)
@@ -182,6 +157,13 @@
   (company-tooltip-align-annotations 't)
   (company-minimum-prefix-length 1)
   (company-idle-delay 0.1))
+
+(use-package projectile
+  :config
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  :init
+  (projectile-mode +1))
+
 
 ;; GUI tweaks.
 (tool-bar-mode -1)
@@ -232,35 +214,13 @@
 ;; Maximize initial frame.
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+;; load Evil and other things depending on it: third party packages and my customizations.
+(require 'mj-evil)
 
-(evil-set-undo-system 'undo-redo)
-(evil-define-key 'normal 'global "m" 'evil-search-forward)
-(evil-define-key 'normal 'global "M" 'evil-search-backward)
-(evil-define-key 'visual 'global "m" 'evil-search-forward)
-(evil-define-key 'visual 'global "M" 'evil-search-backward)
-(evil-define-key 'visual 'global-map "s" 'evil-surround-edit)
-(evil-define-key 'normal 'dired-mode-map "n" 'evil-search-next)
-;; Bind the space key everywhere, without binding it in minibuffer or insert mode.
-;; NOTE This SPC binding must be set here inside the Evil config, or
-;; else Evil defaults will take precedence over it somehow.
-;; NOTE Rejected:
-;; (define-key evil-normal-state-map (kbd "SPC") mj/prefix-map)
-;; (evil-define-key 'normal 'global (kbd "SPC") mj/prefix-map)
-;; (evil-set-leader 'normal  (kbd "SPC"))
-;; (bind-key* (kbd "SPC") 'mj/prefix-map (not (or (minibufferp) (evil-insert-state-p))))
-;; NOTE Rejected:
-;; ;; (evil-set-initial-state 'magit-mode 'normal)
-;; NOTE Do NOT use (evil-define-key 'visual 'magit-mode-map "s" 'magit-stage)
-;; or else the S key will get covered in all visual modes, even outside magit, for some goddamn reason.
-(evil-define-key 'normal 'global (kbd "SPC") mj/prefix-map)
-
-
-
-
+(setq warning-minimum-level :error)
 
 ;; Start up in a known location.
 (find-file "~/.emacs.d/init.el")
-(magit)
 
 
 (custom-set-variables
