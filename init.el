@@ -162,6 +162,11 @@
   (global-set-key (kbd "C-h F") #'helpful-function))
 
 
+(use-package visual-regexp)
+
+(use-package visual-regexp-steroids
+  :after (visual-regexp))
+
 (use-package counsel)
 
 (use-package ivy
@@ -244,8 +249,37 @@
 ;; Maximize initial frame.
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
+
+
+;; (evil-define-key 'visual 'global "m" 'mj/vr-search-backward-visual)
+;; (evil-define-key 'visual 'global "M" 'mj/vr-search-backward-visual)
+
+
 ;; load Evil and other things depending on it: third party packages and my customizations.
 (require 'mj-evil)
+(require 'evil)
+(evil-set-undo-system 'undo-redo)
+;; search bindings
+(evil-define-key '(normal visual) 'global "m" 'mj/vr-search-forward)
+(evil-define-key '(normal visual) 'global "M" 'mj/vr-search-backward)
+;; other bindings
+(evil-define-key 'visual 'global-map "s" 'evil-surround-edit)
+(evil-define-key 'normal 'dired-mode-map "n" 'evil-search-next)
+;; Bind the space key everywhere, without binding it in minibuffer or insert mode.
+;; NOTE This SPC binding must be set here inside the Evil config, or
+;; else Evil defaults will take precedence over it somehow.
+;; NOTE Rejected:
+;; (define-key evil-normal-state-map (kbd "SPC") mj/prefix-map)
+;; (evil-define-key 'normal 'global (kbd "SPC") mj/prefix-map)
+;; (evil-set-leader 'normal  (kbd "SPC"))
+;; (bind-key* (kbd "SPC") 'mj/prefix-map (not (or (minibufferp) (evil-insert-state-p))))
+;; NOTE Rejected:
+;; ;; (evil-set-initial-state 'magit-mode 'normal)
+;; NOTE Do NOT use (evil-define-key 'visual 'magit-mode-map "s" 'magit-stage)
+;; or else the S key will get covered in all visual modes, even outside magit, for some goddamn reason.
+(evil-define-key '(normal visual) 'global (kbd "SPC") mj/prefix-map)
+
+(setenv "PATH" (concat "/Users/maxwelljoslyn/.nvm/versions/node/v22.2.0/bin/node:" (getenv "PATH")))
 
 (setq warning-minimum-level :error)
 
@@ -267,7 +301,8 @@
  '(eglot-events-buffer-size 0)
  '(lazy-highlight-buffer t)
  '(lazy-highlight-cleanup nil)
- '(lazy-highlight-initial-delay 0))
+ '(lazy-highlight-initial-delay 0)
+ '(safe-local-variable-values '((flycheck-checker . python-ruff))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

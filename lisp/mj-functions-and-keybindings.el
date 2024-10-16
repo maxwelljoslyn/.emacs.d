@@ -1,3 +1,8 @@
+(defun cancel-current-operation ()
+  (condition-case nil
+      (keyboard-quit)
+    (quit nil)))
+
 (defun mj/turn-off-flymake () (flymake-mode -1))
 
 (defun mj/magit-keys ()
@@ -45,6 +50,11 @@
 	(define-key map "h" #'buf-move-left)
 	map))
 
+(setq mj/text-map
+      (let ((map (make-sparse-keymap)))
+	(define-key map "r" #'vr/replace)
+	map))
+
 (setq mj/prefix-map
       (let ((map (make-sparse-keymap)))
 	(define-key map (kbd "SPC") #'execute-extended-command)
@@ -53,6 +63,7 @@
 	(define-key map "f" mj/file-map)
 	(define-key map "b" mj/buffer-map)
 	(define-key map "w" mj/window-map)
+	(define-key map "t" mj/text-map)
 	map))
 
 (provide 'mj-functions-and-keybindings)
