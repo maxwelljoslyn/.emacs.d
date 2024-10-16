@@ -28,15 +28,46 @@
 ;; Configure my custom functions and keybindings.
 (require 'mj-functions-and-keybindings)
 
-;; Install and configure third-party packages.
+;; Install and configure third-party packages (except ones needed to enhance first-party packages, e.g. eglot-booster).
 
-(use-package eglot-booster
-  :after (eglot)
-  :straight
-  (eglot-booster :type git :host github :repo "jdtsmith/eglot-booster")
-  :config
-  (eglot-booster-mode))
 
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "s-l")
+  (setq lsp-prefer-flymake :none) ;; get it to use 3rd party flycheck instead of 1st party, crappier flymake 
+  ;; unlike (lsp), (lsp-deferred) waits to run LSP until the buffer is first visible
+  :hook
+  (prog-mode . lsp-deferred)
+  (lsp-mode . lsp-enable-which-key-integration)
+  :commands (lsp lsp-deferred)
+  )
+
+(use-package lsp-ui :commands lsp-ui)
+
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+
+;; (use-package flycheck
+;;   :config
+;;   (add-hook 'after-init-hook #'global-flycheck-mode))
+
+;; (require 'flycheck)
+
+;; (flycheck-define-checker mj-python-ruff
+;;   "A Python syntax and style checker using Ruff."
+;;   :command ("ruff" "--format" "emacs"
+;;             (config-file "--config" flycheck-ruff-config)
+;;             source)
+;;   :error-patterns
+;;   ((warning line-start (file-name) ":" line ":" column ": WARNING: " (message) line-end)
+;;    (error line-start (file-name) ":" line ":" column ": ERROR: " (message) line-end))
+;;   :modes python-mode)
+
+;; (add-to-list 'flycheck-checkers 'mj-python-ruff)
+
+;; (add-hook 'python-mode-hook
+;;           (lambda ()
+;;             (flycheck-select-checker 'mj-python-ruff)
+;;             (flycheck-mode)))
 
 
 (use-package buffer-move
@@ -70,21 +101,20 @@
   ;; npm install prettier prettier-plugin-jinja-template
   ;; also needs a .prettierrc in the given project's root
   (setf (alist-get 'mj-prettier apheleia-formatters)
-	'("prettier"  "--stdin-filepath" filepath "--plugin=prettier-plugin-jinja-template" "--parser=jinja-template"))
+	;; --write argument is needed to actually write out to the file
+	'("npx" "prettier"  "--stdin-filepath" filepath "--plugin=prettier-plugin-jinja-template" "--parser=jinja-template" "--write"))
   (setf (alist-get 'html-mode apheleia-mode-alist)
 	'(mj-prettier))
   ;; JavaScript
   (setf (alist-get 'mj-js apheleia-formatters)
-	'("prettier" "--stdin-filepath" filepath "--parser=babel-flow" "--use-tabs=false"))
+	'("npx" "prettier" "--stdin-filepath" filepath "--parser=babel-flow" "--use-tabs=false"))
   (setf (alist-get 'js-mode apheleia-mode-alist)
 	'(mj-js))
   ;; JSON
   (setf (alist-get 'mj-json apheleia-formatters)
-	'("prettier" "--stdin-filepath" filepath "--parser=json" "--use-tabs=false"))
+	'("npx" "prettier" "--stdin-filepath" filepath "--parser=json" "--use-tabs=false"))
   (setf (alist-get 'json-mode apheleia-mode-alist)
 	'(mj-json))
-
-
   (apheleia-global-mode +1))
 
 (use-package casual-dired
